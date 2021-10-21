@@ -1,0 +1,25 @@
+<img class="rev-img" src="../../../assets/rev-logo(1).png" alt="Revature Logo">
+<h2 class="text-center header">{{ title }}</h2>
+<div class="contain">
+  <div class="example-container">
+    <mat-form-field appearance="fill" class="bg-white input-style">
+      <mat-label class="user-label">Enter your email</mat-label>
+      <input matInput [(ngModel)]="user.email" placeholder="pat@example.com" [formControl]="email" required class="user-input">
+      <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field appearance="fill" class="bg-white input-style">
+      <mat-label class="user-label">Enter your password</mat-label>
+      <input matInput [(ngModel)]="user.password" [type]="hide ? 'password' : 'text'" class="user-input">
+      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hide">
+        <span class="material-icons">{{hide ? 'visibility_off' : 'visibility'}}</span>
+      </button>
+    </mat-form-field>
+    <section>
+      <div class="example-button-row">
+        <button mat-raised-button color="warn" class="login-button" (click)="loginUser()" >Login</button>
+      </div>
+    </section>
+  </div>
+</div>
