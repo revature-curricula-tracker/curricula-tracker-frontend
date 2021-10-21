@@ -13,10 +13,7 @@ export class CurriculaOverviewComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  handleDateClick(arg: { dateStr: string; }) {
-    //console.log('date click! ' + arg.dateStr)
-  }
-  counter(i: number) {
+  counter(i: number) {//create an array of n numbers
     return new Array(i);
   }
 }

@@ -1,11 +1,11 @@
-<h1>{{title}}</h1><button class=edit>Edit</button>
-<h4>Technolgies:</h4>
-<p><button>tech1</button></p>
-<div class=weeks>
-    <table class="table">
+<h1>{{title}}</h1><button class=edit>Edit</button><!-- H1 Title and an edit button-->
+<h4>Technolgies:</h4><!-- Headline for tech list-->
+<p><button>tech1</button></p><!--tech list-->
+<div class=weeks><!-- div for styling/coding-->
+    <table class="table"><!-- curriculum table-->
         <caption>Table of topics thoughout the weeks of the curriculum</caption>
         <thead>
-            <tr>
+            <tr><!--table header-->
                 <th scope="col">week tech</th>
                 <th scope="col">day 1</th>
                 <th scope="col">day 2</th>
@@ -14,10 +14,10 @@
                 <th scope="col">day 5</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody><!--template for each week-->
             <tr *ngFor='let in of counter(10) ;let i = index' class="week-table">
-                <td>week {{i+1}} tech:<ul><li>Java</li></ul></td>
-                <td><ul><li>Java Basics</li> <li>Java Advanced</li></ul></td>
+                <td>week {{i+1}} tech:<ul><li>Java</li></ul></td><!--week tech-->
+                <td><ul><li>Java Basics</li> <li>Java Advanced</li></ul></td><!--day topics-->
                 <td ><ul><li></li> </ul></td>
                 <td ><ul><li>Even More Java</li> </ul></td>
                 <td ><ul><li>Angular</li></ul></td>
