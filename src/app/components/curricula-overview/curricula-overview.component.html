@@ -1,1 +1,28 @@
-<p>curricula-overview works!</p>
+<h1>{{title}}</h1><button class=edit>Edit</button>
+<h4>Technolgies:</h4>
+<p><button>tech1</button></p>
+<div class=weeks>
+    <table class="table">
+        <caption>Table of topics thoughout the weeks of the curriculum</caption>
+        <thead>
+            <tr>
+                <th scope="col">week tech</th>
+                <th scope="col">day 1</th>
+                <th scope="col">day 2</th>
+                <th scope="col">day 3</th>
+                <th scope="col">day 4</th>
+                <th scope="col">day 5</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor='let in of counter(10) ;let i = index' class="week-table">
+                <td>week {{i+1}} tech:<ul><li>Java</li></ul></td>
+                <td><ul><li>Java Basics</li> <li>Java Advanced</li></ul></td>
+                <td ><ul><li></li> </ul></td>
+                <td ><ul><li>Even More Java</li> </ul></td>
+                <td ><ul><li>Angular</li></ul></td>
+                <td ><ul><li>Javascript</li> </ul></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

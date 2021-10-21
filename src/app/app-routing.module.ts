@@ -1,7 +1,12 @@
+import { LoginComponent } from './components/login/login.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CurriculaOverviewComponent } from './components/curricula-overview/curricula-overview.component';
 
-const routes: Routes = [];
+const routes: Routes = [
+  {path: 'login', component: LoginComponent},
+  {path: 'curriculum', component: CurriculaOverviewComponent}
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
