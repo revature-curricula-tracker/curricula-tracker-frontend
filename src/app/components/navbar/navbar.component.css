@@ -12,7 +12,10 @@
     width: 100%;
     justify-content: space-between;
 }
-
+.nav-item
+{
+    margin-left: 15px;
+}
 fa-icon.icons {
     font-size: 35px;
 }
