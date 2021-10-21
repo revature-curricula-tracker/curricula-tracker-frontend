@@ -13,13 +13,12 @@
       <input matInput [(ngModel)]="user.password" [type]="hide ? 'password' : 'text'" class="user-input">
       <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
         [attr.aria-pressed]="hide">
-        <!-- <mat-icon></mat-icon> -->
         <span class="material-icons">{{hide ? 'visibility_off' : 'visibility'}}</span>
       </button>
     </mat-form-field>
     <section>
       <div class="example-button-row">
-        <button mat-raised-button color="warn" (click)="loginUser()" >Login</button>
+        <button mat-raised-button color="warn" class="login-button" (click)="loginUser()" >Login</button>
       </div>
     </section>
   </div>

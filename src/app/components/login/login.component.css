@@ -23,7 +23,6 @@
 ::ng-deep.mat-form-field-ripple {
   /*change color of underline when focused*/
   background-color: #F26925 !important;
-  ;
 }
 
 .example-container {
@@ -32,7 +31,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 50px;
   border-radius: 10px;
 }
 
@@ -43,6 +41,10 @@
   position: fixed;
   top: 30%;
   left: 0%;
+}
+
+.login-button {
+  margin-top: 40px !important;
 }
 
 .button-contain {
@@ -72,7 +74,7 @@ input.example-right-align {
 }
 
 .material-icons {
-  font-family: 'Material Icons';
+  font-family: 'Material Icons', sans-serif;
   font-weight: normal;
   font-style: normal;
   font-size: 24px;
@@ -92,7 +94,7 @@ section {
 }
 
 .header {
-  margin-top: 14%;
+  margin-top: 10%;
 }
 
 .example-label {
@@ -105,7 +107,6 @@ section {
 .example-button-row {
   display: table-cell;
   width: 100%;
-  display: flex;
   justify-content: center;
   margin-top: 45%;
 }
