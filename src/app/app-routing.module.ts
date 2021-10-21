@@ -4,7 +4,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { CurriculaOverviewComponent } from './components/curricula-overview/curricula-overview.component';
 
 const routes: Routes = [
-  {path: 'login', component: LoginComponent}
+  {path: 'login', component: LoginComponent},
+  {path: 'curriculum', component: CurriculaOverviewComponent}
 ];
 
 @NgModule({
