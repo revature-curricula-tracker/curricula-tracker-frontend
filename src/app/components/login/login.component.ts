@@ -23,7 +23,7 @@ export class LoginComponent {
       this.errorToastr();
     } else if(this.user.email === 'admin@revature.net' && this.user.password === 'password') {
       this.successToastr();
-      this.router.navigate(['/']);
+      this.router.navigate(['/curriculum']);
     } else {
       this.errorToastr();
     }
