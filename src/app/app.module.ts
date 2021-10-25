@@ -10,12 +10,12 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 
 
 // Material Components
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
@@ -26,6 +26,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatListModule } from '@angular/material/list';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatChipsModule } from '@angular/material/chips';
+import { TechnologyDialogComponent } from './components/technology-dialog/technology-dialog.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { MatChipsModule } from '@angular/material/chips';
     CurriculaOverviewComponent,
     NavbarComponent,
     LoginComponent,
-    TechnologyOverviewComponent
+    TechnologyOverviewComponent,
+    TechnologyDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -49,6 +51,7 @@ import { MatChipsModule } from '@angular/material/chips';
     MatAutocompleteModule,
     MatIconModule,
     MatInputModule,
+    MatDialogModule,
     MatPaginatorModule,
     MatListModule,
     MatGridListModule,

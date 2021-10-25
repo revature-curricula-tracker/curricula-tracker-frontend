@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {MatPaginatorModule} from '@angular/material/paginator';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatDialog } from '@angular/material/dialog';
+import { TechnologyDialogComponent } from '../technology-dialog/technology-dialog.component';
+import { Technology } from 'src/app/model/technology';
 
 @Component({
   selector: 'app-technology-overview',
@@ -8,9 +11,25 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 })
 export class TechnologyOverviewComponent implements OnInit {
 
-  constructor() { }
+  animal: string = '';
+  name: string = '';
+  technologies: Technology[] = [];
+  
+  constructor(public dialog: MatDialog) {}
 
   ngOnInit(): void {
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(TechnologyDialogComponent, {
+      width: '250px',
+      data: {name: this.name, animal: this.animal}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.animal = result;
+    });
   }
 
 }
