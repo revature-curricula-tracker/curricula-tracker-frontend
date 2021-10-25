@@ -7,32 +7,32 @@
   <table cdk-table [dataSource]="dataSource">
     <caption>Table of topics thoughout the weeks of the curriculum</caption>
     <ng-container cdkColumnDef="week">
-      <th cdk-header-cell *cdkHeaderCellDef> Week Technolgies </th>
+      <th id="tech" cdk-header-cell *cdkHeaderCellDef> Week Technolgies </th>
       <td cdk-cell *cdkCellDef="let topic"> {{topic.week}} </td>
     </ng-container>
 
     <ng-container cdkColumnDef="day1">
-      <th cdk-header-cell *cdkHeaderCellDef> Day 1 </th>
+      <th id="day1" cdk-header-cell *cdkHeaderCellDef> Day 1 </th>
       <td cdk-cell *cdkCellDef="let topic"> {{topic.day1}} </td>
     </ng-container>
 
     <ng-container cdkColumnDef="day2">
-      <th cdk-header-cell *cdkHeaderCellDef> Day 2 </th>
+      <th id="day2" cdk-header-cell *cdkHeaderCellDef> Day 2 </th>
       <td cdk-cell *cdkCellDef="let topic"> {{topic.day2}} </td>
     </ng-container>
 
     <ng-container cdkColumnDef="day3">
-      <th cdk-header-cell *cdkHeaderCellDef style="text-align: center;"> Day 3 </th>
+      <th id="day3" cdk-header-cell *cdkHeaderCellDef style="text-align: center;"> Day 3 </th>
       <td cdk-cell *cdkCellDef="let topic"> {{topic.day3}} </td>
     </ng-container>
 
     <ng-container cdkColumnDef="day4">
-      <th cdk-header-cell *cdkHeaderCellDef> Day 4 </th>
+      <th id="day4" cdk-header-cell *cdkHeaderCellDef> Day 4 </th>
       <td cdk-cell *cdkCellDef="let topic"> {{topic.day4}}</td>
     </ng-container>
 
     <ng-container cdkColumnDef="day5">
-      <th cdk-header-cell *cdkHeaderCellDef> Day 5 </th>
+      <th id="day5" cdk-header-cell *cdkHeaderCellDef> Day 5 </th>
       <td cdk-cell *cdkCellDef="let topic"> {{topic.day5}} </td>
     </ng-container>
 

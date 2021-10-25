@@ -4,7 +4,7 @@ h1{
 tr>td:hover{
     border-color: black;
 }
-tr>td:not(hover){
+tr>td{
     padding: 10px;
     border:2px;
     border-style: solid;
