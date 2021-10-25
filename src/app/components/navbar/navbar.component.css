@@ -5,16 +5,20 @@
     height: 80px;
     padding: 0px 15%;
 }
-
+.nav-link{
+    font-size: 0.9rem;
+}
 .navbar-collapse {
     width: 100%;
     justify-content: space-between;
 }
-
-fa-icon.user-circle {
+.nav-item
+{
+    margin-left: 15px;
+}
+fa-icon.icons {
     font-size: 35px;
 }
-
 .navbar-nav{
     align-items: center;
 } 
