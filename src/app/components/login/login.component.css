@@ -32,6 +32,7 @@
   flex-direction: column;
   align-items: center;
   border-radius: 10px;
+  padding-top: 10px;
 }
 
 .contain {
@@ -45,6 +46,7 @@
 
 .login-button {
   margin-top: 40px !important;
+  margin-bottom: 20px !important;
 }
 
 .button-contain {
