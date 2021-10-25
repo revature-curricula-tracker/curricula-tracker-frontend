@@ -1,23 +1,25 @@
 h1{
     color:  #F26925;
-    align-items: center;
 }
-.edit{
-    margin-left: 10px;
-    
+tr>td:hover{
+    border-color: black;
 }
-.week-table{
-    table-layout: auto;
+tr>td{
+    padding: 10px;
+    border:2px;
+    border-style: solid;
+    border-color: #F26925;
 }
-.week-table>td{
+
+li{
+    list-style: none;
+}
+th{
+    text-align: center;
     border: 1px;
     border-style: solid;
     border-color: #F26925;
 }
-.week-table>td:hover{
-    border-style: solid;
-    border-color: black;
-}
-li{
-    list-style-type: none;
-}
+table {
+    table-layout: auto;
+  }
