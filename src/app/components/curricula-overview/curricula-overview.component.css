@@ -10,7 +10,9 @@ tr>td{
     border-style: solid;
     border-color: #F26925;
 }
-
+button{
+    margin-left: 10px;
+}
 li{
     list-style: none;
 }
