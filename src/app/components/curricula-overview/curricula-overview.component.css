@@ -1,6 +1,9 @@
 h1{
     color:  #F26925;
 }
+h4{
+    padding-left: 5%;
+}
 tr>td:hover{
     border-color: black;
 }
@@ -60,16 +63,24 @@ table {
   .weeks{
       width: 75%;
       height:75%;
-      margin-left: auto;
-      margin-right: auto;
+      padding:5%;
+      /* margin-left: auto;
+      margin-right: auto; */
       /* background-color: lightgray;
       border-radius: 1em;
       box-shadow: 5px 2px 2px rgba(0, 0, 0, 0.521); */
   }
 
   .title_container{
+      padding-left: 5%;
     display: block ruby;
   }
   /* #data_table{
       border-radius:  10px;
   } */
+
+
+  .example-button-row
+  {
+   padding-left :5%;
+  }
