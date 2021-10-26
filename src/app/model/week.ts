@@ -3,11 +3,6 @@ export class week {
   name: string="";
   week : string="";
   days:string[][]=[[],[],[],[],[],[]];
-  day1: string[]=[];
-  day2: string[]=[];
-  day3: string[]=[];
-  day4: string[]=[];
-  day5: string[]=[];
 
   constructor( 
     id: number,

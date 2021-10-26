@@ -32,6 +32,7 @@ export class CurriculaOverviewComponent implements OnInit {
     this.setWeeks();
   }
   setWeeks(){
+    
     this.weekArray[0].days[0].push("sopic");
     this.weekArray[0].days[1].push("topic1");
     this.weekArray[0].days[1].push("topic2");
