@@ -1,0 +1,80 @@
+table {
+    width: 100%;
+}
+
+.container-for-all {
+    background-color: lightgray !important;
+    margin: auto;
+    padding-top: 2%;
+    padding-bottom: 5%;
+    width: 80%;
+    justify-content: center;
+    margin-top: 5%;
+    border-radius: 10px;
+}
+
+.container-for-two {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.table-for-show {
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    padding-top: 5%;
+}
+
+.header {
+    margin-top: 2%;
+}
+
+/* ================================================ */
+
+.mat-table {
+    border-collapse: separate !important;
+    border-spacing: 0 15px !important;
+    background: lightgray;
+    width: 100%;
+    overflow: auto;
+    height: 250px;
+}
+
+.mat-row {
+    height: 25px;
+    color: gray;
+    min-height: 32px;
+}
+
+.mat-cell {
+    justify-content: center;
+    font-size: 12px;
+    color: gray;
+}
+
+.mat-row:hover {
+    background-color: rgb(35, 35, 35);
+    cursor: pointer;
+    box-shadow: 0 4px 8px 0 rgb(35, 35, 35);
+    transition: 0.8s;
+}
+
+.mat-cell, .mat-header-cell {
+    word-wrap: initial;
+    display: table-cell;
+    padding: 0px 10px;
+    line-break: unset;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    vertical-align: middle;
+    background-color: gray;
+    color: black;
+    font-weight: bold;
+}
+
+.mat-row, .mat-header-row {
+    display: table-row;
+}

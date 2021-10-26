@@ -1,0 +1,21 @@
+<h2 class="text-center header">{{ title }}</h2>
+<div class="container-for-all">
+    <div class="container-for-two">
+        <div>display <span class="result-span">{{result}}</span> records</div>
+        <div id="search-component" class="h-100">
+            <input #searchBox type="text" class="bg-light h-100 border-0 form-control text-start" placeholder="Search"
+                aria-label="Search" aria-describedby="basic-addon1" (input)="search(searchBox.value)">
+        </div>
+    </div>
+    <div class="table-for-show">
+        <mat-table [dataSource]="dataSource">
+            <ng-container matColumnDef="name">
+                <mat-cell *matCellDef="let element"> {{element.name}}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="weeks">
+                <mat-cell *matCellDef="let element"> {{element.weeks}} week(s)</mat-cell>
+            </ng-container>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+    </div>
+</div>
