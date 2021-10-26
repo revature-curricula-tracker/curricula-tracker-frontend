@@ -1,6 +1,6 @@
 <div class="title_container">
-<h1>{{title}}</h1>
-<button mat-raised-button class="edit-button">Edit</button><!-- H1 Title and an edit button-->
+  <h1>{{title}}</h1>
+  <button mat-raised-button class="edit-button">Edit</button><!-- H1 Title and an edit button-->
 </div>
 <h4>Technologies:</h4><!-- Headline for tech list-->
 <br>
@@ -8,7 +8,7 @@
   <button mat-raised-button id="java" class="tech-button">Java</button>
   <button mat-raised-button id="javascript" class="tech-button">JavaScript</button>
   <button mat-raised-button id="angular" class="tech-button">Angular</button>
- 
+
 </div> <br>
 <!--tech list-->
 <div class=weeks>
@@ -17,32 +17,57 @@
     <caption>Table of topics thoughout the weeks of the curriculum</caption>
     <ng-container cdkColumnDef="week">
       <th id="tech" cdk-header-cell *cdkHeaderCellDef> Week Technologies </th>
-      <td cdk-cell *cdkCellDef="let week"> {{week.week}} </td>
+      <td cdk-cell *cdkCellDef="let week"> Week {{week.id}}: {{week.days[0]}} </td>
     </ng-container>
 
     <ng-container cdkColumnDef="day1">
       <th id="day1" cdk-header-cell *cdkHeaderCellDef> Day 1 </th>
-      <td cdk-cell *cdkCellDef="let week"> {{week.day1}} </td>
+      <td cdk-cell *cdkCellDef="let week">
+        <li *ngFor="let item of week.days[1]; index as i;"> 
+          <!-- <ul>{{item[i]}}</ul> -->
+          {{week.days[1][i]}}
+        </li>
+      </td>
     </ng-container>
 
     <ng-container cdkColumnDef="day2">
       <th id="day2" cdk-header-cell *cdkHeaderCellDef> Day 2 </th>
-      <td cdk-cell *cdkCellDef="let week"> {{week.day2}} </td>
+      <td cdk-cell *cdkCellDef="let week">
+        <li *ngFor="let item of week.days[2]; index as i;"> 
+          <!-- <ul>{{item[i]}}</ul> -->
+          {{week.days[2][i]}}
+        </li>
+      </td>
     </ng-container>
 
     <ng-container cdkColumnDef="day3">
       <th id="day3" cdk-header-cell *cdkHeaderCellDef style="text-align: center;"> Day 3 </th>
-      <td cdk-cell *cdkCellDef="let week"> {{week.day3}} </td>
+      <td cdk-cell *cdkCellDef="let week">
+        <li *ngFor="let item of week.days[3]; index as i;"> 
+          <!-- <ul>{{item[i]}}</ul> -->
+          {{week.days[3][i]}}
+        </li>
+      </td>
     </ng-container>
 
     <ng-container cdkColumnDef="day4">
       <th id="day4" cdk-header-cell *cdkHeaderCellDef> Day 4 </th>
-      <td cdk-cell *cdkCellDef="let week"> {{week.day4}}</td>
+      <td cdk-cell *cdkCellDef="let week">
+        <li *ngFor="let item of week.days[4]; index as i;"> 
+          <!-- <ul>{{item[i]}}</ul> -->
+          {{week.days[4][i]}}
+        </li>
+      </td>
     </ng-container>
 
     <ng-container cdkColumnDef="day5">
       <th id="day5" cdk-header-cell *cdkHeaderCellDef> Day 5 </th>
-      <td cdk-cell *cdkCellDef="let week"> {{week.day5}} </td>
+      <td cdk-cell *cdkCellDef="let week">
+        <li *ngFor="let item of week.days[5]; index as i;"> 
+          <!-- <ul>{{item[i]}}</ul> -->
+          {{week.days[5][i]}}
+        </li>
+      </td>
     </ng-container>
 
     <tr cdk-header-row *cdkHeaderRowDef="displayedColumns"></tr>

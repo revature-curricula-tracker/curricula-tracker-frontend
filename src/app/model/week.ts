@@ -2,6 +2,7 @@ export class week {
   id: number;
   name: string="";
   week : string="";
+  days:string[][]=[[],[],[],[],[],[]];
   day1: string[]=[];
   day2: string[]=[];
   day3: string[]=[];
