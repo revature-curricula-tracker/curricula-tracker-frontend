@@ -2,7 +2,7 @@ export class Week {
   id: number;
   name: string="";
   week : string="";
-  days:string[][]=[[],[],[],[],[],[]];
+  days:string[][]=[[],[],[],[],[]];
 
   constructor( 
     id: number,
