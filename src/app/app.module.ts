@@ -17,7 +17,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
 import { HomepageComponent } from './components/homepage/homepage.component';
-import { MatTableModule } from '@angular/material/table'
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+
 
 @NgModule({
   declarations: [
@@ -42,6 +44,7 @@ import { MatTableModule } from '@angular/material/table'
     MatIconModule,
     MatInputModule,
     MatTableModule,
+    MatPaginatorModule,
     ToastrModule.forRoot({
       timeOut: 5000,
       progressBar: true,
