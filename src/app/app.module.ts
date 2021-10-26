@@ -7,6 +7,7 @@ import { TechnologyOverviewComponent } from './components/technology-overview/te
 import { CurriculaOverviewComponent } from './components/curricula-overview/curricula-overview.component';
 import { LoginComponent } from './components/login/login.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { TechnologyDialogComponent } from './components/technology-dialog/technology-dialog.component';
 
 
 // Material Components
@@ -26,7 +27,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatListModule } from '@angular/material/list';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatChipsModule } from '@angular/material/chips';
-import { TechnologyDialogComponent } from './components/technology-dialog/technology-dialog.component';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { TechnologyDialogComponent } from './components/technology-dialog/techno
     MatListModule,
     MatGridListModule,
     MatChipsModule,
+    MatTableModule,
     ToastrModule.forRoot({
       timeOut: 5000,
       progressBar: true,

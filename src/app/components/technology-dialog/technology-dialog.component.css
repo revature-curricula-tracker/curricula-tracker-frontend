@@ -2,3 +2,7 @@
     background-color: #F26925;
     color: white;
 }
+.actions-div{
+    display: flex;
+    justify-content: center;
+}
