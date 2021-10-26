@@ -1,23 +1,30 @@
 <div class="general-content">
+
     <div class="tech-content">
-        <mat-grid-list cols="2" gutterSize="15px" rowHeight="80px">
+
+        <!-- Title header -->
+        <div class="title-content">
+            <h3>
+                Technologies
+            </h3>
+        </div>
+
+        <!-- First row -->
+        <mat-grid-list cols="2" gutterSize="15px" rowHeight="50px">
             <mat-grid-tile [colspan]="1" [rowspan]="2">
-                <mat-chip-list aria-label="Fish selection" selectable="false">
-                    <mat-chip color="accent">
-                        Items per page: 100 (Test)
-                    </mat-chip>
-                </mat-chip-list>
-                
+                <button class="button-accent" mat-raised-button (click)="openDialog()">+ Create</button>  
             </mat-grid-tile>
+
             <mat-grid-tile [colspan]="1" [rowspan]="2">
                 <form class="example-form">          
                     <mat-form-field class="example-full-width" appearance="fill">
                         <mat-label>Search</mat-label>
-                        <input matInput placeholder="Ex. Java">
+                        <input matInput placeholder="">
                       </mat-form-field>
                   </form>
             </mat-grid-tile>
 
+            <!-- Second row (LIST) -->
             <mat-grid-tile [colspan]="2" [rowspan]="6">
                 <div class="list-content">
                     <mat-list>
@@ -31,15 +38,13 @@
                         <mat-list-item> Paprika </mat-list-item>
                     </mat-list>
                 </div>
-                <mat-grid-tile-footer>
-                    <div>
-                        <mat-paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"
-                            aria-label="Select page">
-                        </mat-paginator>
-                    </div>
-                </mat-grid-tile-footer>
             </mat-grid-tile>
         </mat-grid-list>
+
+        <!-- Pagination -->
+        <mat-paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"
+            aria-label="Select page">
+        </mat-paginator>
 
     </div>
 </div>

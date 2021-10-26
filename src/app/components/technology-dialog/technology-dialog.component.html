@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>Technology {{data.name}}</h1>
+<div mat-dialog-content>
+  <p></p>
+  <mat-form-field appearance="fill">
+    <mat-label>Name</mat-label>
+    <input matInput [(ngModel)]="data.animal">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button class="button-accent" mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Create</button>
+</div>
