@@ -1,21 +1,22 @@
 <h2 class="text-center header">{{ title }}</h2>
 <div class="container-for-all">
-    <div class="container-for-two">
-        <div>display <span class="result-span">{{result}}</span> records</div>
-        <div id="search-component" class="h-100">
-            <input #searchBox type="text" class="bg-light h-100 border-0 form-control text-start" placeholder="Search"
-                aria-label="Search" aria-describedby="basic-addon1" (input)="search(searchBox.value)">
-        </div>
-    </div>
+    <mat-form-field appearance="standard">
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+    </mat-form-field>
     <div class="table-for-show">
-        <mat-table [dataSource]="dataSource">
+        <mat-table [dataSource]="dataSource" matSort>
             <ng-container matColumnDef="name">
-                <mat-cell *matCellDef="let element"> {{element.name}}</mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="weeks">
-                <mat-cell *matCellDef="let element"> {{element.weeks}} week(s)</mat-cell>
+                <mat-cell *matCellDef="let element" class="cell-corner">
+                    <div>{{element.name}}</div>
+                    <div>{{element.weeks}} week(s)</div>
+                </mat-cell>
             </ng-container>
             <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+            </tr>
         </mat-table>
     </div>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
 </div>
