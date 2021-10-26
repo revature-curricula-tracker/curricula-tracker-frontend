@@ -33,7 +33,7 @@ export class CurriculaOverviewComponent implements OnInit {
   setAll(): void {
     this.topics.forEach(element => {
       console.log(element);
-      element.topic_day;
+      // element.topic_day;
       this.TOPIC_DATA=this.TOPIC_DATA.concat({ week: [`week 3`], day1: [`JavaScript Basics`], day2: [`JavaScript`], day3: [`Even More JavaScript`], day4: [`Less JavaScript`], day5: [`JavaScript Beans`] })
        console.log(this.TOPIC_DATA);})
     
