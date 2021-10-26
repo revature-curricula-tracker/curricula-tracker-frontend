@@ -21,57 +21,61 @@
       <td cdk-cell *cdkCellDef="let week"> Week {{week.id}}: {{week.days[0]}} </td>
     </ng-container>
 
-    <ng-container cdkColumnDef="day1">
-      <th id="day1" cdk-header-cell *cdkHeaderCellDef> Day 1 </th>
-      <td cdk-cell *cdkCellDef="let week">
-        <li *ngFor="let item of week.days[1]; index as i;"> 
-          <!-- <ul>{{item[i]}}</ul> -->
-          {{week.days[1][i]}}
-        </li>
-      </td>
-    </ng-container>
+    <div cdkDropListGroup>
+      <ng-container cdkColumnDef="day1">
+        <th id="day1" cdk-header-cell *cdkHeaderCellDef> Day 1 </th>
+        <td cdk-cell *cdkCellDef="let week">
+          <div cdkDropList [cdkDropListData]="week.days[1]" class="day_list" (cdkDropListDropped)="drop($event)">
+            <div *ngFor="let item of week.days[1];index as i;" cdkDrag>
+              {{week.days[1][i]}}
+            </div>
+          </div>
 
-    <ng-container cdkColumnDef="day2">
-      <th id="day2" cdk-header-cell *cdkHeaderCellDef> Day 2 </th>
-      <td cdk-cell *cdkCellDef="let week">
-        <li *ngFor="let item of week.days[2]; index as i;"> 
-          <!-- <ul>{{item[i]}}</ul> -->
-          {{week.days[2][i]}}
-        </li>
-      </td>
-    </ng-container>
+        </td>
+      </ng-container>
 
-    <ng-container cdkColumnDef="day3">
-      <th id="day3" cdk-header-cell *cdkHeaderCellDef style="text-align: center;"> Day 3 </th>
-      <td cdk-cell *cdkCellDef="let week">
-        <li *ngFor="let item of week.days[3]; index as i;"> 
-          <!-- <ul>{{item[i]}}</ul> -->
-          {{week.days[3][i]}}
-        </li>
-      </td>
-    </ng-container>
+      <ng-container cdkColumnDef="day2">
+        <th id="day2" cdk-header-cell *cdkHeaderCellDef> Day 2 </th>
+        <td cdk-cell *cdkCellDef="let week">
+          <li *ngFor="let item of week.days[2]; index as i;">
+            <!-- <ul>{{item[i]}}</ul> -->
+            {{week.days[2][i]}}
+          </li>
+        </td>
+      </ng-container>
 
-    <ng-container cdkColumnDef="day4">
-      <th id="day4" cdk-header-cell *cdkHeaderCellDef> Day 4 </th>
-      <td cdk-cell *cdkCellDef="let week">
-        <li *ngFor="let item of week.days[4]; index as i;"> 
-          <!-- <ul>{{item[i]}}</ul> -->
-          {{week.days[4][i]}}
-        </li>
-      </td>
-    </ng-container>
+      <ng-container cdkColumnDef="day3">
+        <th id="day3" cdk-header-cell *cdkHeaderCellDef style="text-align: center;"> Day 3 </th>
+        <td cdk-cell *cdkCellDef="let week">
+          <li *ngFor="let item of week.days[3]; index as i;">
+            <!-- <ul>{{item[i]}}</ul> -->
+            {{week.days[3][i]}}
+          </li>
+        </td>
+      </ng-container>
 
-    <ng-container cdkColumnDef="day5">
-      <th id="day5" cdk-header-cell *cdkHeaderCellDef> Day 5 </th>
-      <td cdk-cell *cdkCellDef="let week">
-        <li *ngFor="let item of week.days[5]; index as i;"> 
-          <!-- <ul>{{item[i]}}</ul> -->
-          {{week.days[5][i]}}
-        </li>
-      </td>
-    </ng-container>
+      <ng-container cdkColumnDef="day4">
+        <th id="day4" cdk-header-cell *cdkHeaderCellDef> Day 4 </th>
+        <td cdk-cell *cdkCellDef="let week">
+          <li *ngFor="let item of week.days[4]; index as i;">
+            <!-- <ul>{{item[i]}}</ul> -->
+            {{week.days[4][i]}}
+          </li>
+        </td>
+      </ng-container>
 
-    <tr cdk-header-row *cdkHeaderRowDef="displayedColumns"></tr>
-    <tr class="rowclass" cdk-row *cdkRowDef="let myRowData; columns: displayedColumns"></tr>
+      <ng-container cdkColumnDef="day5">
+        <th id="day5" cdk-header-cell *cdkHeaderCellDef> Day 5 </th>
+        <td cdk-cell *cdkCellDef="let week">
+          <li *ngFor="let item of week.days[5]; index as i;">
+            <!-- <ul>{{item[i]}}</ul> -->
+            {{week.days[5][i]}}
+          </li>
+        </td>
+
+      </ng-container>
+      <tr cdk-header-row *cdkHeaderRowDef="displayedColumns"></tr>
+      <tr class="rowclass" cdk-row *cdkRowDef="let myRowData; columns: displayedColumns"></tr>
+    </div>
   </table>
 </div>

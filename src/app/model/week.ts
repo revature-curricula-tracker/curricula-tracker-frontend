@@ -1,4 +1,4 @@
-export class week {
+export class Week {
   id: number;
   name: string="";
   week : string="";
