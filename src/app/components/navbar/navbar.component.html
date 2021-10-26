@@ -1,11 +1,19 @@
-<nav class="navbar navbar-expand-lg navbar-light">
+<!-- Everywhere except login -->
+<ng-container *ngIf="
+    this.currentRoute !== '/login' &&
+    this.currentRoute !== '/'
+  ">
+
+
+  <nav class="navbar navbar-expand-lg navbar-light">
     <a class="navbar-brand" href="#">
-        <img src="../../../assets/rev-black.png" width="100" alt="logo">
+      <img src="../../../assets/rev-black.png" width="100" alt="logo">
     </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-  
+
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav">
         <li class="nav-item active">
@@ -15,7 +23,8 @@
           <a class="nav-link" href="#">Technologies</a>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
             Curriculum
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -28,7 +37,8 @@
           <fa-icon class="icons" [icon]="faUserCircle"></fa-icon>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
             Welcome Admin
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -38,3 +48,4 @@
       </ul>
     </div>
   </nav>
+</ng-container>
