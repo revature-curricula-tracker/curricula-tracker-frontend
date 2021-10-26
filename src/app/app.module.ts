@@ -15,11 +15,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { CdkTableModule } from '@angular/cdk/table';
 import { MatButtonModule } from '@angular/material/button';
 import { HomepageComponent } from './components/homepage/homepage.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
-
 
 @NgModule({
   declarations: [
@@ -43,6 +43,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatAutocompleteModule,
     MatIconModule,
     MatInputModule,
+    CdkTableModule,
     MatTableModule,
     MatPaginatorModule,
     ToastrModule.forRoot({
