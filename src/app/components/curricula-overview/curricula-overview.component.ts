@@ -18,7 +18,7 @@ export class CurriculaOverviewComponent implements OnInit {
   upperT: any[][] = [["w", 1], ["asdvad", 4], ["gbredsdw", 5]]
   TOPIC_DATA: any[] = [
    { week: [`week 1`], day1: [`Java Basics`], day2: [`Java POJOs`], day3: [`Even More Java`], day4: [`Less Java`], day5: [`Beans`] },
-   { week: [`week 2`], day1: [`JavaScript Basics`], day2: [`JavaScript`], day3: [`Even More JavaScript`], day4: [`Less JavaScript`], day5: [`JavaScript Beans`] },
+   { week: [`week 2`], day1: [`JavaScript \n Basics`], day2: [`JavaScript`], day3: [`Even More JavaScript`], day4: [`Less JavaScript`], day5: [`JavaScript Beans`] },
   ];//array of topics and days they are on
   constructor() {}
   displayedColumns: string[] = ['week', 'day1', 'day2', 'day3', 'day4', 'day5'];
