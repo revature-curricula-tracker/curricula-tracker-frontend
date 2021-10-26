@@ -37,40 +37,45 @@
       <ng-container cdkColumnDef="day2">
         <th id="day2" cdk-header-cell *cdkHeaderCellDef> Day 2 </th>
         <td cdk-cell *cdkCellDef="let week">
-          <li *ngFor="let item of week.days[2]; index as i;">
-            <!-- <ul>{{item[i]}}</ul> -->
-            {{week.days[2][i]}}
-          </li>
+          <div cdkDropList [cdkDropListData]="week.days[2]" class="day_list" (cdkDropListDropped)="drop($event)">
+            <div *ngFor="let item of week.days[2];index as i;" cdkDrag>
+              {{week.days[2][i]}}
+            </div>
+          </div>
         </td>
       </ng-container>
 
       <ng-container cdkColumnDef="day3">
         <th id="day3" cdk-header-cell *cdkHeaderCellDef style="text-align: center;"> Day 3 </th>
         <td cdk-cell *cdkCellDef="let week">
-          <li *ngFor="let item of week.days[3]; index as i;">
-            <!-- <ul>{{item[i]}}</ul> -->
-            {{week.days[3][i]}}
-          </li>
+          <div cdkDropList [cdkDropListData]="week.days[3]" class="day_list" (cdkDropListDropped)="drop($event)">
+            <div *ngFor="let item of week.days[3];index as i;" cdkDrag>
+              {{week.days[3][i]}}
+            </div>
+          </div>
         </td>
       </ng-container>
 
       <ng-container cdkColumnDef="day4">
         <th id="day4" cdk-header-cell *cdkHeaderCellDef> Day 4 </th>
+
         <td cdk-cell *cdkCellDef="let week">
-          <li *ngFor="let item of week.days[4]; index as i;">
-            <!-- <ul>{{item[i]}}</ul> -->
-            {{week.days[4][i]}}
-          </li>
+          <div cdkDropList [cdkDropListData]="week.days[4]" class="day_list" (cdkDropListDropped)="drop($event)">
+            <div *ngFor="let item of week.days[4];index as i;" cdkDrag>
+              {{week.days[4][i]}}
+            </div>
+          </div>
         </td>
       </ng-container>
 
       <ng-container cdkColumnDef="day5">
         <th id="day5" cdk-header-cell *cdkHeaderCellDef> Day 5 </th>
         <td cdk-cell *cdkCellDef="let week">
-          <li *ngFor="let item of week.days[5]; index as i;">
-            <!-- <ul>{{item[i]}}</ul> -->
-            {{week.days[5][i]}}
-          </li>
+          <div cdkDropList [cdkDropListData]="week.days[5]" class="day_list" (cdkDropListDropped)="drop($event)">
+            <div *ngFor="let item of week.days[5];index as i;" cdkDrag>
+              {{week.days[5][i]}}
+            </div>
+          </div>
         </td>
 
       </ng-container>
