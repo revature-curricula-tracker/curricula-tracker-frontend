@@ -3,10 +3,10 @@
   <p></p>
   <mat-form-field appearance="fill">
     <mat-label>Name</mat-label>
-    <input matInput [(ngModel)]="data.animal">
+    <input matInput [(ngModel)]="data.technology">
   </mat-form-field>
 </div>
-<div mat-dialog-actions>
+<div mat-dialog-actions class="actions-div">
   <button mat-button (click)="onNoClick()">Cancel</button>
-  <button class="button-accent" mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Create</button>
+  <button class="button-accent" mat-button [mat-dialog-close]="data.technology" cdkFocusInitial>Create</button>
 </div>
