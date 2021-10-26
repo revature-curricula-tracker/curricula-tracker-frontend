@@ -19,18 +19,18 @@ export class LoginComponent {
   constructor(private toastr: ToastrService, private router: Router) { }
 
   public loginUser(): void {
-    if(this.user.password === '' || this.user.email === ''){
+    if (this.user.password === '' || this.user.email === '') {
       this.errorToastr();
-    } else if(this.user.email === 'admin@revature.net' && this.user.password === 'password') {
+    } else if (this.user.email === 'admin@revature.net' && this.user.password === 'password') {
       this.successToastr();
-      this.router.navigate(['/curriculum']);
+      this.router.navigate(['/home']);
     } else {
       this.errorToastr();
     }
   }
 
   public successToastr() {
-    this.toastr.success("Succesfully Logged In","Login Successful!");
+    this.toastr.success("Succesfully Logged In", "Login Successful!");
   }
 
   public errorToastr() {

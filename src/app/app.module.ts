@@ -15,15 +15,20 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MatButtonModule } from '@angular/material/button'
 import { CdkTableModule } from '@angular/cdk/table';
 import {DragDropModule} from '@angular/cdk/drag-drop'; 
+import { MatButtonModule } from '@angular/material/button';
+import { HomepageComponent } from './components/homepage/homepage.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+
 @NgModule({
   declarations: [
     AppComponent,
     CurriculaOverviewComponent,
     NavbarComponent,
-    LoginComponent
+    LoginComponent,
+    HomepageComponent
   ],
   imports: [
     BrowserModule,
@@ -41,6 +46,8 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     MatInputModule,
     CdkTableModule,
     DragDropModule,
+    MatTableModule,
+    MatPaginatorModule,
     ToastrModule.forRoot({
       timeOut: 5000,
       progressBar: true,

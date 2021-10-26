@@ -12,11 +12,12 @@
 
 </div> <br>
 <!--tech list-->
-<div class=weeks>
+<div class="weeks d- flex">
   <!-- div for styling/coding-->
-  <table cdk-table id="data_table" [dataSource]="dataSource">
+  <table cdk-table id="data_table" [dataSource]="dataSource" align="left">
     <caption>Table of topics thoughout the weeks of the curriculum</caption>
     <ng-container cdkColumnDef="week">
+<<<<<<< HEAD
       <th id="tech" cdk-header-cell *cdkHeaderCellDef> Week Technologies </th>
       <td cdk-cell *cdkCellDef="let week"> Week {{week.id}}: {{week.name}} </td>
     </ng-container>
@@ -77,6 +78,36 @@
             </div>
           </div>
         </td>
+=======
+      <th id="tech" cdk-header-cell *cdkHeaderCellDef> Weeks </th>
+      <td cdk-cell *cdkCellDef="let week"> {{week.week}} </td>
+    </ng-container>
+
+    <ng-container cdkColumnDef="day1">
+      <th id="day1" cdk-header-cell *cdkHeaderCellDef> Monday </th>
+      <td cdk-cell *cdkCellDef="let week"> {{week.day1}} </td>
+    </ng-container>
+
+    <ng-container cdkColumnDef="day2">
+      <th id="day2" cdk-header-cell *cdkHeaderCellDef> Tuesday </th>
+      <td cdk-cell *cdkCellDef="let week"> {{week.day2}} </td>
+    </ng-container>
+
+    <ng-container cdkColumnDef="day3">
+      <th id="day3" cdk-header-cell *cdkHeaderCellDef style="text-align: center;"> Wednesday </th>
+      <td cdk-cell *cdkCellDef="let week"> {{week.day3}} </td>
+    </ng-container>
+
+    <ng-container cdkColumnDef="day4">
+      <th id="day4" cdk-header-cell *cdkHeaderCellDef> Thursday </th>
+      <td cdk-cell *cdkCellDef="let week"> {{week.day4}}</td>
+    </ng-container>
+
+    <ng-container cdkColumnDef="day5">
+      <th id="day5" cdk-header-cell *cdkHeaderCellDef> Friday </th>
+      <td cdk-cell *cdkCellDef="let week"> {{week.day5}} </td>
+    </ng-container>
+>>>>>>> 4622e90a670e5ffe8679c31a189f2aaae9230fd8
 
       </ng-container>
       <tr cdk-header-row *cdkHeaderRowDef="displayedColumns"></tr>
