@@ -14,7 +14,7 @@
 <!--tech list-->
 <div class="weeks d- flex">
   <!-- div for styling/coding-->
-  <table cdk-table id="data_table" [dataSource]="dataSource" align="left">
+  <table cdk-table id="data_table" [dataSource]="dataSource">
     <caption>Table of topics thoughout the weeks of the curriculum</caption>
     <ng-container cdkColumnDef="week">
       <th id="tech" cdk-header-cell *cdkHeaderCellDef> Weeks </th>
@@ -26,11 +26,15 @@
         <th id="day1" cdk-header-cell *cdkHeaderCellDef> Monday </th>
         <td cdk-cell *cdkCellDef="let week">
           <div cdkDropList [cdkDropListData]="week.days[0]" class="day_list" (cdkDropListDropped)="drop($event)">
-            <div *ngFor="let item of week.days[0];index as i;" cdkDrag>
-              {{week.days[0][i]}}
+            <div *ngIf="week.days[0].length==0; else elseBlock">
+              &nbsp;
             </div>
+            <ng-template #elseBlock>
+              <div *ngFor="let item of week.days[0];index as i;" cdkDrag>
+                {{week.days[0][i]}}
+              </div>
+            </ng-template>
           </div>
-
         </td>
       </ng-container>
 
@@ -38,9 +42,14 @@
         <th id="day2" cdk-header-cell *cdkHeaderCellDef> Tuesday </th>
         <td cdk-cell *cdkCellDef="let week">
           <div cdkDropList [cdkDropListData]="week.days[1]" class="day_list" (cdkDropListDropped)="drop($event)">
-            <div *ngFor="let item of week.days[1];index as i;" cdkDrag>
-              {{week.days[1][i]}}
+            <div *ngIf="week.days[1].length==0; else elseBlock">
+              &nbsp;
             </div>
+            <ng-template #elseBlock>
+              <div *ngFor="let item of week.days[1];index as i;" cdkDrag>
+                {{week.days[1][i]}}
+              </div>
+            </ng-template>
           </div>
         </td>
       </ng-container>
@@ -49,21 +58,30 @@
         <th id="day3" cdk-header-cell *cdkHeaderCellDef> Wednesday </th>
         <td cdk-cell *cdkCellDef="let week">
           <div cdkDropList [cdkDropListData]="week.days[2]" class="day_list" (cdkDropListDropped)="drop($event)">
-            <div *ngFor="let item of week.days[2];index as i;" cdkDrag>
-              {{week.days[2][i]}}
+            <div *ngIf="week.days[2].length==0; else elseBlock">
+              &nbsp;
             </div>
+            <ng-template #elseBlock>
+              <div *ngFor="let item of week.days[2];index as i;" cdkDrag>
+                {{week.days[2][i]}}
+              </div>
+            </ng-template>
           </div>
         </td>
       </ng-container>
 
       <ng-container cdkColumnDef="day4">
         <th id="day4" cdk-header-cell *cdkHeaderCellDef> Thursday </th>
-
         <td cdk-cell *cdkCellDef="let week">
           <div cdkDropList [cdkDropListData]="week.days[3]" class="day_list" (cdkDropListDropped)="drop($event)">
-            <div *ngFor="let item of week.days[3];index as i;" cdkDrag>
-              {{week.days[3][i]}}
+            <div *ngIf="week.days[3].length==0; else elseBlock">
+              &nbsp;
             </div>
+            <ng-template #elseBlock>
+              <div *ngFor="let item of week.days[3];index as i;" cdkDrag>
+                {{week.days[3][i]}}
+              </div>
+            </ng-template>
           </div>
         </td>
       </ng-container>
@@ -72,9 +90,14 @@
         <th id="day5" cdk-header-cell *cdkHeaderCellDef> Friday </th>
         <td cdk-cell *cdkCellDef="let week">
           <div cdkDropList [cdkDropListData]="week.days[4]" class="day_list" (cdkDropListDropped)="drop($event)">
-            <div *ngFor="let item of week.days[4];index as i;" cdkDrag>
-              {{week.days[4][i]}}
+            <div *ngIf="week.days[4].length==0; else elseBlock">
+              &nbsp;
             </div>
+            <ng-template #elseBlock>
+              <div *ngFor="let item of week.days[4];index as i;" cdkDrag>
+                {{week.days[4][i]}}
+              </div>
+            </ng-template>
           </div>
         </td>
 
