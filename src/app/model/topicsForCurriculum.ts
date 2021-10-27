@@ -1,15 +1,17 @@
+import { Topic } from './topic';
+import { Curriculum } from './curriculum';
 export class TopicsForCurriculum {
-  curr_id: number;
-  topic_id: number;
+  curr: Curriculum;
+  topic: Topic;
   topic_day:number;
 
   constructor( 
-    curr_id: number,
-    topic_id: number,
+    curr: Curriculum,
+    topic: Topic,
     topic_day: number,
   ) {
-    this.curr_id=curr_id;
-    this.topic_id=topic_id;
+    this.curr=curr;
+    this.topic=topic;
     this.topic_day=topic_day;
   }
 }
