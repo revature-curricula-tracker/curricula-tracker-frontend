@@ -1,4 +1,3 @@
-import { faThumbsDown } from "@fortawesome/free-solid-svg-icons";
 import { Topic } from "./topic";
 export class Curriculum {
   id: number;

@@ -9,10 +9,7 @@ tr>td:hover{
 }
 tr>td{
     padding: 20px;
-    /* padding: 10px;
-    border:2px; 
-    border-style: solid;
-    border-color: #F26925; */
+    white-space: normal;
 }
 .edit-button{
     margin-left: 10px;
