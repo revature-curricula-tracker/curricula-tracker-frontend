@@ -31,7 +31,7 @@
             </div>
             <ng-template #elseBlock>
               <div *ngFor="let item of week.days[0];index as i;" cdkDrag>
-                {{week.days[0][i]}}
+                <div style="color:{{week.days[0][i].topic.tech.color}}">{{week.days[0][i].topic.name}}</div>
               </div>
             </ng-template>
           </div>
@@ -47,7 +47,7 @@
             </div>
             <ng-template #elseBlock>
               <div *ngFor="let item of week.days[1];index as i;" cdkDrag>
-                {{week.days[1][i]}}
+                {{week.days[1][i].topic.name}}
               </div>
             </ng-template>
           </div>
@@ -63,7 +63,7 @@
             </div>
             <ng-template #elseBlock>
               <div *ngFor="let item of week.days[2];index as i;" cdkDrag>
-                {{week.days[2][i]}}
+                {{week.days[2][i].topic.name}}
               </div>
             </ng-template>
           </div>
@@ -79,7 +79,7 @@
             </div>
             <ng-template #elseBlock>
               <div *ngFor="let item of week.days[3];index as i;" cdkDrag>
-                {{week.days[3][i]}}
+                {{week.days[3][i].topic.name}}
               </div>
             </ng-template>
           </div>
@@ -95,7 +95,7 @@
             </div>
             <ng-template #elseBlock>
               <div *ngFor="let item of week.days[4];index as i;" cdkDrag>
-                {{week.days[4][i]}}
+                {{week.days[4][i].topic.name}}
               </div>
             </ng-template>
           </div>

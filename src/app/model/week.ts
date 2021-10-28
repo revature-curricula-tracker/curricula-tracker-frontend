@@ -1,8 +1,9 @@
+import { TopicsForCurriculum } from './topicsForCurriculum';
 export class Week {
   id: number;
   name: string="";
   week : string="";
-  days:string[][]=[[],[],[],[],[]];
+  days:TopicsForCurriculum[][]=[[],[],[],[],[]];
 
   constructor( 
     id: number,

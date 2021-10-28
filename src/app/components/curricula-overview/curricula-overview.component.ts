@@ -22,7 +22,7 @@ export class CurriculaOverviewComponent implements OnInit {
   topicArray: TopicsForCurriculum[] = [];
   //TESTING MODELS, DELETE AFTER ACTUALLY GETTING SERVICE METHODS
   testKey: CurriculumTopicKey = new CurriculumTopicKey(1, 1);
-  testTech: Technology = new Technology(1, "tech1", "#0000");
+  testTech: Technology = new Technology(1, "tech1", "#420420");
   testTopic: Topic = new Topic(1, "Java Fun", "fun topic", this.testTech);
   testTopic2: Topic = new Topic(1, "JavaScript Advanced Topic for everything and anything", "topic that has a long name", this.testTech);
   testT: Topic[] = [this.testTopic, this.testTopic2]
@@ -42,11 +42,12 @@ export class CurriculaOverviewComponent implements OnInit {
     this.topicArray.push(new TopicsForCurriculum(this.testKey, this.testC, this.testTopic2, 4));
     this.topicArray.push(new TopicsForCurriculum(this.testKey, this.testC, this.testTopic, 5));
     this.topicArray.push(new TopicsForCurriculum(this.testKey, this.testC, this.testTopic2, 6));
+    this.topicArray[0].topic.tech.color
   }
   setWeeks() {
     for (let index = 0; index < this.topicArray.length; index++) {
       let t = this.topicArray[index];
-      this.weekArray[Math.floor((t.topic_day) / 5.1)].days[((t.topic_day - 1) % 5)].push(t.topic.name);
+      this.weekArray[Math.floor((t.topic_day) / 5.1)].days[((t.topic_day - 1) % 5)].push(t);
     }
   }
   startEdit() {
