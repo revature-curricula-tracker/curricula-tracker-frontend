@@ -1,4 +1,3 @@
-import { Topic } from "./topic";
 export class CurriculumTopicKey{
   curr_id: number;
   topic_id: number;

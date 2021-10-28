@@ -45,13 +45,12 @@ export class CurriculaOverviewComponent implements OnInit {
     this.topicArray[0].topic.tech.color
   }
   setWeeks() {
-    for (let index = 0; index < this.topicArray.length; index++) {
-      let t = this.topicArray[index];
+    for(let t of this.topicArray){
       this.weekArray[Math.floor((t.topic_day) / 5.1)].days[((t.topic_day - 1) % 5)].push(t);
     }
   }
   startEdit() {
-    if (this.editing == true) {
+    if (this.editing) {
       console.log(`stop editing`);
 
       this.editing = false;

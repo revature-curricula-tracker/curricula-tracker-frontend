@@ -41,10 +41,7 @@ table {
     border-collapse: separate;
     margin-left: auto;
     margin-right: auto;
-    margin: 0 auto;
     table-layout: auto;
-    /* padding-top: 5%;
-    padding-bottom: 2%; */
     background-color: lightgray;
   }
 

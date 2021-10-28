@@ -1,13 +1,12 @@
-import { Topic } from './topic';
 export class Technology {
   id: number;
   name: string;
-  color: String;
+  color: string;
 
   constructor( 
     id: number,
     name: string,
-    color: String
+    color: string
   ) {
     this.id=id;
     this.name=name;
