@@ -1,25 +1,25 @@
-<img class="rev-img" src="../../../assets/rev-black.png" alt="Revature Logo">
-<h2 class="text-center header">{{ title }}</h2>
-<div class="contain">
-  <div class="example-container">
-    <mat-form-field appearance="fill" class="bg-white input-style">
-      <mat-label class="user-label">Enter your email</mat-label>
-      <input matInput [(ngModel)]="user.email" placeholder="pat@example.com" [formControl]="email" required class="user-input">
-      <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
-    </mat-form-field>
-    <br>
-    <mat-form-field appearance="fill" class="bg-white input-style">
-      <mat-label class="user-label">Enter your password</mat-label>
-      <input matInput [(ngModel)]="user.password" [type]="hide ? 'password' : 'text'" class="user-input">
-      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-        [attr.aria-pressed]="hide">
-        <span class="material-icons">{{hide ? 'visibility_off' : 'visibility'}}</span>
-      </button>
-    </mat-form-field>
-    <section>
-      <div class="example-button-row">
-        <button mat-raised-button color="warn" class="login-button" (click)="loginUser()" >Login</button>
-      </div>
-    </section>
+<div class="body-content">
+  <img class="rev-img" src="../../../assets/rev-black.png" alt="Revature Logo">
+  <div class="general-content">
+    <div class="login-content">
+      <h2 class="text-center header">{{ title }}</h2>
+      <mat-form-field appearance="fill" class="bg-white input-style">
+        <mat-label class="user-label">Email</mat-label>
+        <input matInput [(ngModel)]="user.email" placeholder="" [formControl]="email" class="user-input">
+        <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+      <br>
+      <mat-form-field appearance="fill" class="bg-white input-style">
+        <mat-label class="user-label">Password</mat-label>
+        <input matInput [(ngModel)]="user.password" [type]="hide ? 'password' : 'text'" class="user-input">
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide">
+          <span class="material-icons">{{hide ? 'visibility_off' : 'visibility'}}</span>
+        </button>
+      </mat-form-field>
+        <div class="button-container">
+          <button mat-raised-button color="warn" class="login-button" (click)="loginUser()" >Login</button>
+        </div>
+    </div>
   </div>
 </div>
