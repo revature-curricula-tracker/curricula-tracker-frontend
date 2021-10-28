@@ -9,7 +9,11 @@ tr>td:hover{
 }
 tr>td{
     padding: 20px;
-    white-space: normal;
+    align-content: center;
+} 
+.topic-button {  
+    white-space: break-spaces;
+    line-height: 1.5;
 }
 .edit-button{
     margin-left: 10px;
@@ -20,7 +24,7 @@ tr>td{
 border-radius: 50px;
 }
 #java{
-background-color: red;
+    background-color: red;
 }
 #angular{
     background-color: orange ;

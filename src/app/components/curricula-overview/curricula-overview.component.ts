@@ -22,9 +22,10 @@ export class CurriculaOverviewComponent implements OnInit {
   topicArray: TopicsForCurriculum[] = [];
   //TESTING MODELS, DELETE AFTER ACTUALLY GETTING SERVICE METHODS
   testKey: CurriculumTopicKey = new CurriculumTopicKey(1, 1);
-  testTech: Technology = new Technology(1, "tech1", "#420420");
+  testTech: Technology = new Technology(1, "Java", "");
+  testTech2: Technology = new Technology(2, "Javascript", "");
   testTopic: Topic = new Topic(1, "Java Fun", "fun topic", this.testTech);
-  testTopic2: Topic = new Topic(1, "JavaScript Advanced Topic for everything and anything", "topic that has a long name", this.testTech);
+  testTopic2: Topic = new Topic(1, "JavaScript Advanced Topic for everything and anything", "topic that has a long name", this.testTech2);
   testT: Topic[] = [this.testTopic, this.testTopic2]
   testC: Curriculum = new Curriculum(1, "Testing Curriculum", 10, 10 * 5, this.testT);
   constructor() { }
@@ -42,7 +43,7 @@ export class CurriculaOverviewComponent implements OnInit {
     this.topicArray.push(new TopicsForCurriculum(this.testKey, this.testC, this.testTopic2, 4));
     this.topicArray.push(new TopicsForCurriculum(this.testKey, this.testC, this.testTopic, 5));
     this.topicArray.push(new TopicsForCurriculum(this.testKey, this.testC, this.testTopic2, 6));
-    this.topicArray[0].topic.tech.color
+    this.topicArray[0].topic.tech.name
   }
   setWeeks() {
     for(let t of this.topicArray){
@@ -51,8 +52,6 @@ export class CurriculaOverviewComponent implements OnInit {
   }
   startEdit() {
     if (this.editing) {
-      console.log(`stop editing`);
-
       this.editing = false;
     }
     else this.editing = true;
@@ -68,7 +67,6 @@ export class CurriculaOverviewComponent implements OnInit {
           event.currentIndex);
         let dropId = 0;
         dropId = parseInt(event.container.element.nativeElement.id.substr(14));
-        console.log(dropId);
         //update topic date using crud
       }
 
@@ -76,6 +74,19 @@ export class CurriculaOverviewComponent implements OnInit {
   }
   counter(i: number) {//create an array of n numbers
     return new Array(i);
+  }
+  stringToColor(str:string) {
+    var hash = 1;
+    for (var i = 0; i < str.length; i++) {
+      hash = str.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    var color = '#';
+    for (var i = 0; i < 3; i++) {
+      var value = (hash >> (i * 8)) & 0xFF;
+      color += ('00' + value.toString(16)).substr(-2);
+    }
+    
+    return color;
   }
 }
 
