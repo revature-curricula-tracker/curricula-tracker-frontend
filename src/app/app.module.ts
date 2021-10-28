@@ -16,6 +16,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { CdkTableModule } from '@angular/cdk/table';
+import {DragDropModule} from '@angular/cdk/drag-drop'; 
 import { MatButtonModule } from '@angular/material/button';
 import { HomepageComponent } from './components/homepage/homepage.component';
 import { MatTableModule } from '@angular/material/table';
@@ -44,6 +45,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatIconModule,
     MatInputModule,
     CdkTableModule,
+    DragDropModule,
     MatTableModule,
     MatPaginatorModule,
     ToastrModule.forRoot({

@@ -1,15 +1,21 @@
+import { Topic } from './topic';
+import { Curriculum } from './curriculum';
+import { CurriculumTopicKey } from './CurriculumTopicKey';
 export class TopicsForCurriculum {
-  curr_id: number;
-  topic_id: number;
+  cTK:CurriculumTopicKey;
+  curr: Curriculum;
+  topic: Topic;
   topic_day:number;
 
   constructor( 
-    curr_id: number,
-    topic_id: number,
+    cTk:CurriculumTopicKey,
+    curr: Curriculum,
+    topic: Topic,
     topic_day: number,
   ) {
-    this.curr_id=curr_id;
-    this.topic_id=topic_id;
+    this.cTK=cTk;
+    this.curr=curr;
+    this.topic=topic;
     this.topic_day=topic_day;
   }
 }
