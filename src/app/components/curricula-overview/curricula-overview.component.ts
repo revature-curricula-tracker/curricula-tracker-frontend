@@ -66,6 +66,7 @@ export class CurriculaOverviewComponent implements OnInit {
           event.currentIndex);
         let dropId = 0;
         dropId = parseInt(event.container.element.nativeElement.id.substr(14));
+        console.log(dropId);        
         //update topic date using crud
       }
 
@@ -80,8 +81,8 @@ export class CurriculaOverviewComponent implements OnInit {
       hash = str.charCodeAt(i) + ((hash << 5) - hash);
     }
     var color = '#';
-    for (var i = 0; i < 3; i++) {
-      var value = (hash >> (i * 8)) & 0xFF;
+    for (var i2 = 0; i2 < 3; i2++) {
+      var value = (hash >> (i2 * 8)) & 0xFF;
       color += ('00' + value.toString(16)).substr(-2);
     }
     
