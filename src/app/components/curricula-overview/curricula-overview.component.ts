@@ -39,11 +39,10 @@ export class CurriculaOverviewComponent implements OnInit {
   addTopics() {
     this.topicArray.push(new TopicsForCurriculum(this.testKey, this.testC, this.testTopic, 1));
     this.topicArray.push(new TopicsForCurriculum(this.testKey, this.testC, this.testTopic2, 2));
-    this.topicArray.push(new TopicsForCurriculum(this.testKey, this.testC, this.testTopic, 3));
+    this.topicArray.push(new TopicsForCurriculum(this.testKey, this.testC, this.testTopic, 2));
     this.topicArray.push(new TopicsForCurriculum(this.testKey, this.testC, this.testTopic2, 4));
     this.topicArray.push(new TopicsForCurriculum(this.testKey, this.testC, this.testTopic, 5));
     this.topicArray.push(new TopicsForCurriculum(this.testKey, this.testC, this.testTopic2, 6));
-    this.topicArray[0].topic.tech.name
   }
   setWeeks() {
     for(let t of this.topicArray){
