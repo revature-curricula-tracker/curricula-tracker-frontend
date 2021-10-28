@@ -1,0 +1,161 @@
+table {
+    width: 100%;
+}
+
+.container-for-all {
+    background-color: lightgray !important;
+    margin: auto;
+    padding-top: 2%;
+    width: 80%;
+    justify-content: center;
+    margin-top: 5%;
+    border-radius: 10px;
+}
+
+.container-for-two {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.table-for-show {
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+}
+
+.header {
+    margin-top: 2%;
+}
+
+/* ================================================ */
+
+.mat-table {
+    display: flex;
+    flex-direction: column;
+    background: lightgray;
+    width: 100%;
+    overflow: auto;
+    height: 280px;
+    padding-left: 20px;
+}
+
+.mat-cell {
+    justify-content: center;
+    font-size: 12px;
+    color: gray;
+}
+
+.mat-row:hover {
+    background-color: rgb(35, 35, 35);
+    cursor: pointer;
+    box-shadow: 0 4px 8px 0 rgb(35, 35, 35);
+    transition: 0.8s;
+    border-radius: 10px;
+}
+
+.mat-cell, .mat-header-cell {
+    word-wrap: initial;
+    display: table-cell;
+    padding: 0px 10px;
+    line-break: unset;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    vertical-align: middle;
+    background-color: gray;
+    color: black;
+    font-weight: bold;
+}
+
+.mat-row, .mat-header-row {
+    display: table-row;
+    min-height: 40px !important;
+    margin-top: 3%;
+    max-height: 20px !important;
+}
+
+/* ========================= */
+
+.cell-corner {
+    display: flex;
+    justify-content: space-between;
+    border-radius: 10px !important;
+}
+
+::-webkit-scrollbar {
+    width: 2em;
+    height: 2em
+}
+
+#search-component {
+    width: 30%;
+    float: right;
+}
+
+.mat-form-field {
+    display: flex;
+    position: relative;
+    width: 80%;
+    margin: auto !important;
+    justify-content: center;
+    padding-bottom: 10px
+}
+
+::ng-deep .mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: #f44336 !important;
+}
+
+::ng-deep.mat-form-field-underline {
+    /*change color of underline*/
+    background-color: #f44336 !important;
+}
+
+::ng-deep.mat-form-field-ripple {
+    /*change color of underline when focused*/
+    background-color: #f44336 !important;
+}
+
+.mat-input-element {
+    caret-color: #f44336 !important;
+}
+
+::ng-deep.mat-paginator-container {
+    display: flex;
+    align-items: center;
+    justify-content: center !important;
+    padding: 0 8px;
+    flex-wrap: wrap-reverse;
+    width: 100%;
+    color: #f44336;
+    background: lightgray !important;
+    border-radius: 10px;
+}
+
+::ng-deep.mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
+    background-color: gray;
+    color: black;
+}
+
+::ng-deep.mat-select-value {
+    color: black;
+}
+
+::ng-deep.mat-form-field-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+::ng-deep.mat-form-field-label {
+    color: black;
+}
+
+::ng-deep.mat-paginator {
+    background: none !important;
+}
+
+::ng-deep.mat-form-field.mat-focused.mat-primary .mat-select-arrow {
+    color: #f44336;
+}

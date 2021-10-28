@@ -22,12 +22,14 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { CdkTableModule } from '@angular/cdk/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatListModule } from '@angular/material/list';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatTableModule } from '@angular/material/table';
+import { HomepageComponent } from './components/homepage/homepage.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,8 @@ import { MatTableModule } from '@angular/material/table';
     NavbarComponent,
     LoginComponent,
     TechnologyOverviewComponent,
-    TechnologyDialogComponent
+    TechnologyDialogComponent,
+    HomepageComponent
   ],
   imports: [
     BrowserModule,
@@ -58,6 +61,7 @@ import { MatTableModule } from '@angular/material/table';
     MatGridListModule,
     MatChipsModule,
     MatTableModule,
+    CdkTableModule,
     ToastrModule.forRoot({
       timeOut: 5000,
       progressBar: true,

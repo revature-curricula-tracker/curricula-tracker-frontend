@@ -147,3 +147,7 @@ section {
   border: 1px solid grey;
   border-radius: 10px;
 }
+
+.mat-input-element {
+  caret-color: #f44336 !important;
+}
