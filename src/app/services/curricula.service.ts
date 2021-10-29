@@ -12,6 +12,9 @@ const url = `${backendUrl}`;
   providedIn: 'root'
 })
 export class CurriculaService {
+  updateCurricula() {
+    throw new Error('Method not implemented.');
+  }
 
   constructor(private http: HttpClient, private router: Router) { }
 
