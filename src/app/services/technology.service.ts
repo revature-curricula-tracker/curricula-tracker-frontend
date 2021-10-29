@@ -3,7 +3,7 @@ import { Technology } from '../model/technology';
 import { backendUrl } from 'src/environments/environment';
 import { catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 const url = `${backendUrl}/tech`;
 
@@ -39,8 +39,8 @@ export class TechnologyService {
     .pipe( catchError( e => this.handleError('update a technology',e) ) );
   }
 
-  public deleteTechnology(tech: Technology): Observable<Boolean> {
-    return this.http.delete<Boolean>(`${url}/${tech.techId}`)
+  public deleteTechnology(tech: Technology): Observable<boolean> {
+    return this.http.delete<boolean>(`${url}/${tech.techId}`)
     .pipe( catchError( e => this.handleError('delete a technology',e) ) );
   }
 
