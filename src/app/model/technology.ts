@@ -1,18 +1,23 @@
 import { Topic } from "./topic";
 
 export class Technology {
-
-  techId: number;
+  id: number;
   techName: string;
   color: string;
+  techId: number;
+  topics: Topic[];
 
-  constructor( 
-    techId: number = -1,
-    techName: string = 'none',
-    color: string = 'DDDDDD',
+  constructor(
+    id: number,
+    techName: string,
+    color: string,
+    techId: number,
+    topics: Topic[]
   ) {
-    this.techId = techId;
-    this.techName = techName;
-    this.color = color;
+    this.id=id;
+    this.techName=techName;
+    this.color=color;
+    this.techId=techId;
+    this.topics=topics
   }
 }
