@@ -6,7 +6,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { TechnologyDialogComponent } from '../technology-dialog/technology-dialog.component';
 import { Technology } from 'src/app/model/technology';
 import { faPencilAlt, faTrash, faPlusSquare, faSearch} from '@fortawesome/free-solid-svg-icons';
-import { Topic } from 'src/app/model/topic';
 
 const testTech: Technology[] = [{techId: 1, techName: 'Java1', color: "#fff"},
 {techId: 2, techName: 'AWS2', color: "#fff"},

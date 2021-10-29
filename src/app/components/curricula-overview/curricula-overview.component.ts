@@ -1,4 +1,4 @@
-import { Router, ActivatedRouteSnapshot, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { CurriculumTopicKey } from './../../model/CurriculumTopicKey';
 import { Week } from './../../model/week';
 import { TopicsForCurriculum } from './../../model/topicsForCurriculum';
@@ -65,7 +65,6 @@ export class CurriculaOverviewComponent implements OnInit {
     }
   }
   startEdit() {
-    const s = document.getElementById("edit-button");
     if (this.editing) {
       this.editing = false;
       this.btnStyle = 'edit-btn-default';
