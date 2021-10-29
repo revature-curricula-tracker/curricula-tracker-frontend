@@ -7,14 +7,14 @@ import { TechnologyDialogComponent } from '../technology-dialog/technology-dialo
 import { Technology } from 'src/app/model/technology';
 import { faPencilAlt, faTrash, faPlusSquare, faSearch} from '@fortawesome/free-solid-svg-icons';
 
-const testTech: Technology[] = [{id: 1, name: 'Java1', color: "#fff"},
-{id: 2, name: 'AWS2', color: "#fff"},
-{id: 3, name: 'Spring3', color: "#fff"},
-{id: 4, name: 'Kubernetes4', color: "#fff"},
-{id: 5, name: 'Docker5', color: "#fff"},
-{id: 6, name: 'JavaScript6', color: '#fff'},
-{id: 7, name: 'Test7', color: '#fff'},
-{id: 8, name: 'Test8', color: '#fff'}];
+const testTech: Technology[] = [{id: 1, techName: 'Java1', color: "#fff"},
+{id: 2, techName: 'AWS2', color: "#fff"},
+{id: 3, techName: 'Spring3', color: "#fff"},
+{id: 4, techName: 'Kubernetes4', color: "#fff"},
+{id: 5, techName: 'Docker5', color: "#fff"},
+{id: 6, techName: 'JavaScript6', color: '#fff'},
+{id: 7, techName: 'Test7', color: '#fff'},
+{id: 8, techName: 'Test8', color: '#fff'}];
 
 @Component({
   selector: 'app-technology-overview',
@@ -29,9 +29,9 @@ export class TechnologyOverviewComponent implements AfterViewInit {
   faPlus = faPlusSquare;
 
   animal: string = '';
-  name: string = '';
+  techName: string = '';
   technologies: Technology[] = [];
-  displayedColumns: string[] = ['name', 'color', 'actions'];
+  displayedColumns: string[] = ['techName', 'color', 'actions'];
 
 
 
@@ -51,13 +51,13 @@ export class TechnologyOverviewComponent implements AfterViewInit {
   openDialog(): void {
     const dialogRef = this.dialog.open(TechnologyDialogComponent, {
       width: '250px',
-      data: {name: this.name}
+      data: {techName: this.techName}
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       let newId = this.dataSource.data.length + 1;
-      this.dataSource.data.push({id: newId, name: result, color: '#fff'});
+      this.dataSource.data.push({id: newId, techName: result, color: '#fff'});
     });
   }
 
