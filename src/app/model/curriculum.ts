@@ -1,23 +1,19 @@
-import { faThumbsDown } from "@fortawesome/free-solid-svg-icons";
 import { Topic } from "./topic";
 export class Curriculum {
-  id: number;
-  name: string;
-  num_weeks:number;
-  num_days:number;
-  topics:Array<Topic>;
+  curriculumId: number;
+  curriculumName: string;
+  numWeeks:number;
+  numDays:number;
 
   constructor( 
-    id: number,
-    name: string,
-    num_weeks: number,
-    num_days: number,
-    topics:Array<Topic>
+    curriculumId: number,
+    curriculumName: string,
+    numWeeks: number,
+    numDays: number,
   ) {
-    this.id=id;
-    this.name=name;
-    this.num_weeks=num_weeks;
-    this.num_days=num_days;
-    this.topics=topics;
+    this.curriculumId=curriculumId;
+    this.curriculumName=curriculumName;
+    this.numWeeks=numWeeks;
+    this.numDays=numDays;
   }
 }
