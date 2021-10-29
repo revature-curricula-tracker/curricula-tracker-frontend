@@ -59,11 +59,8 @@ import { HomepageComponent } from './components/homepage/homepage.component';
     MatAutocompleteModule,
     MatIconModule,
     MatInputModule,
-<<<<<<< HEAD
     MatSlideToggleModule,
-=======
     MatDialogModule,
->>>>>>> 63ce08e67180d7e5b838a272029f15da2f50938e
     CdkTableModule,
     DragDropModule,
     MatTableModule,
