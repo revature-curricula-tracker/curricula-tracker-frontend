@@ -1,16 +1,16 @@
 <div class="title_container">
   <h1>{{title}}</h1>
-  <button mat-raised-button class="edit-button" (click)=startEdit()>Edit</button><!-- H1 Title and an edit button-->
+  <button mat-raised-button [ngClass]="[btnStyle]" id="edit-button" (click)=startEdit() >Edit</button><!-- H1 Title and an edit button-->
 </div>
 
 <h4>Technologies:</h4><!-- Headline for tech list-->
 <br>
 <div class="example-button-row">
-  <button mat-raised-button id="java" class="tech-button">Java</button>
-  <button mat-raised-button id="javascript" class="tech-button">JavaScript</button>
-  <button mat-raised-button id="angular" class="tech-button">Angular</button>
-
-</div> <br>
+  <div *ngFor="let item of tech;index as i;" class="button-row">
+    <button mat-raised-button id="java" class="tech-button" [style.background-color]=stringToColor(item.techName)>{{item.techName}}</button>
+  </div>
+</div>
+<br>
 <!--tech list-->
 <div class="weeks d- flex">
   <!-- div for styling/coding-->
