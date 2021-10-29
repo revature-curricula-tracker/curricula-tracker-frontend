@@ -1,15 +1,21 @@
+import { Topic } from "./topic";
+
 export class Technology {
-  id: number;
+
+  techId: number;
   techName: string;
   color: string;
+  topics: Topic[];
 
   constructor( 
-    id: number,
-    techName: string,
-    color: string
+    techId: number = -1,
+    techName: string = 'none',
+    color: string = 'DDDDDD',
+    topics: Topic[] = []
   ) {
-    this.id=id;
-    this.techName=techName;
-    this.color=color;
+    this.techId = techId;
+    this.techName = techName;
+    this.color = color;
+    this.topics = topics;
   }
 }
