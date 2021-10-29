@@ -2,79 +2,59 @@
   top: 7%;
   position: fixed;
   left: 5%;
-  width: 220px;
-  height: 75px;
+  width: 150px;
 }
-
-.example-container .mat-form-field+.mat-form-field {
-  margin-left: 8px;
-}
-
 ::ng-deep .mat-focused .mat-form-field-label {
   /*change color of label*/
   color: #F26925 !important;
 }
-
 ::ng-deep.mat-form-field-underline {
   /*change color of underline*/
   background-color: #F26925 !important;
 }
-
 ::ng-deep.mat-form-field-ripple {
   /*change color of underline when focused*/
   background-color: #F26925 !important;
 }
-
-.example-container {
-  background-color: lightgrey;
-  width: 50%;
+.body-content{
+  position: absolute;
+  background-color: whitesmoke;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+.login-content {
+  background-color: rgb(255, 255, 255);
+  width: 500px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-radius: 10px;
+  border-radius: 4px;
   padding-top: 10px;
+  box-shadow: 0px 0px 8px 1px rgba(0, 0, 0, 0.281);
 }
-
-.contain {
+.general-content {
   width: 100%;
   display: flex;
   justify-content: center;
   position: fixed;
-  top: 30%;
+  top: 15%;
   left: 0%;
 }
-
 .login-button {
-  margin-top: 40px !important;
+  margin-top: 50px !important;
   margin-bottom: 20px !important;
+  width: 120px;
+  height: 40px;
+  font-weight: bold;
 }
-
-.button-contain {
-  width: 100%;
-  justify-content: center;
-}
-
-.example-right-align {
-  text-align: right;
-}
-
-input.example-right-align::-webkit-outer-spin-button, input.example-right-align::-webkit-inner-spin-button {
-  display: none;
-}
-
-input.example-right-align {
-  -moz-appearance: textfield;
-}
-
-/* fallback */
-
 @font-face {
   font-family: 'Material Icons';
   font-style: normal;
   font-weight: 400;
   src: url(https://fonts.gstatic.com/s/materialicons/v111/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2) format('woff2');
 }
-
 .material-icons {
   font-family: 'Material Icons', sans-serif;
   font-weight: normal;
@@ -90,64 +70,30 @@ input.example-right-align {
   -webkit-font-feature-settings: 'liga';
   -webkit-font-smoothing: antialiased;
 }
-
-section {
-  display: table;
-}
-
 .header {
   margin-top: 10%;
 }
-
-.example-label {
-  display: table-cell;
-  font-size: 14px;
-  margin-left: 8px;
-  min-width: 120px;
-}
-
-.example-button-row {
-  display: table-cell;
-  width: 100%;
-  justify-content: center;
-  margin-top: 45%;
-}
-
-.example-button-row .mat-button-base {
-  margin: 8px 8px 8px 0;
-}
-
-.example-flex-container {
+.button-container {
   display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
-
-.example-button-container {
-  display: flex;
+  margin: 10px;
   justify-content: center;
-  width: 120px;
 }
-
 .user-input {
-  color: black
-}
-
-.user-label {
   color: black;
 }
-
+.user-label
+{
+  color: black;
+}
 .mat-form-field.mat-focused .mat-form-field-ripple {
   background-color: #f44336 !important;
 }
-
 .input-style {
-  width: 80%;
+  width: 60%;
   top: 10%;
-  border: 1px solid grey;
-  border-radius: 10px;
+  border: 0px solid grey;
+  border-radius: 4px;
 }
-
 .mat-input-element {
   caret-color: #f44336 !important;
 }
