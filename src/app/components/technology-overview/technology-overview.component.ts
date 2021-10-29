@@ -1,8 +1,8 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
-import { MatTable, MatTableDataSource } from '@angular/material/table';
+import { MatTableDataSource } from '@angular/material/table';
 import { TechnologyDialogComponent } from '../technology-dialog/technology-dialog.component';
 import { Technology } from 'src/app/model/technology';
 import { faPencilAlt, faTrash, faPlusSquare, faSearch} from '@fortawesome/free-solid-svg-icons';
@@ -21,7 +21,7 @@ const testTech: Technology[] = [{id: 1, name: 'Java1', color: "#fff"},
   templateUrl: './technology-overview.component.html',
   styleUrls: ['./technology-overview.component.css']
 })
-export class TechnologyOverviewComponent implements OnInit, AfterViewInit {
+export class TechnologyOverviewComponent implements AfterViewInit {
 
   faSearch = faSearch;
   faPencil = faPencilAlt;
@@ -39,13 +39,8 @@ export class TechnologyOverviewComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  //@ViewChild(MatTable) table: MatTable<Technology>;
   
   constructor(public dialog: MatDialog) {}
-
-  ngOnInit(): void {
-
-  }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
@@ -63,7 +58,6 @@ export class TechnologyOverviewComponent implements OnInit, AfterViewInit {
       console.log('The dialog was closed');
       let newId = this.dataSource.data.length + 1;
       this.dataSource.data.push({id: newId, name: result, color: '#fff'});
-      //this.table.renderRows();
     });
   }
 
