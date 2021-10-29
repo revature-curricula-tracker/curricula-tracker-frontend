@@ -5,8 +5,8 @@ import { backendUrl } from './../../environments/environment';
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { Router } from '@angular/router';
-const url = `${backendUrl}`;
 
+const url = `${backendUrl}`;
 
 @Injectable({
   providedIn: 'root'
@@ -21,5 +21,9 @@ export class CurriculaService {
   }
   public getCurriculumById(id:number): Observable<Curriculum>{
     return this.http.get<Curriculum>(`${url}/curriculum/findId/${id}`);
+  }
+  //get all Curriculum
+  public getAllCurriculum(): Observable<Curriculum[]> {
+    return this.http.get<Curriculum[]>(`${url}/curriculum`);
   }
 }
