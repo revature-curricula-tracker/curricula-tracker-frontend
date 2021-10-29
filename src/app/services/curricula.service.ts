@@ -15,7 +15,7 @@ export class CurriculaService {
   constructor(private http: HttpClient, private router: Router) { }
 
   //get all Curricula topics in the join table
-  public getAllTopicsForCurriculum(curriculumId: number): Observable<TopicsForCurriculum> {
-    return this.http.get<TopicsForCurriculum>(`${url}`);
+  public getAllTopicsForCurriculum(): Observable<TopicsForCurriculum[]> {
+    return this.http.get<TopicsForCurriculum[]>(`${url}/`);
   }
 }
