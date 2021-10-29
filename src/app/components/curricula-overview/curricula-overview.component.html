@@ -1,18 +1,20 @@
+<div class="weeks d- flex">
 <div class="title_container">
   <h1>{{title}}</h1>
-  <button mat-raised-button class="edit-button" (click)=startEdit()>Edit</button><!-- H1 Title and an edit button-->
+  <mat-slide-toggle (change)=startEdit()>Edit</mat-slide-toggle>
+ 
 </div>
 
 <h4>Technologies:</h4><!-- Headline for tech list-->
 <br>
 <div class="example-button-row">
-  <button mat-raised-button id="java" class="tech-button">Java</button>
-  <button mat-raised-button id="javascript" class="tech-button">JavaScript</button>
-  <button mat-raised-button id="angular" class="tech-button">Angular</button>
-
-</div> <br>
+  <div *ngFor="let item of tech;index as i;" class="button-row">
+    <button mat-raised-button id="java" class="tech-button" [style.background-color]=stringToColor(item.techName)>{{item.techName}}</button>
+  </div>
+</div>
+<br>
 <!--tech list-->
-<div class="weeks d- flex">
+
   <!-- div for styling/coding-->
   <table cdk-table id="data_table" [dataSource]="dataSource">
     <caption>Table of topics thoughout the weeks of the curriculum</caption>
@@ -30,7 +32,7 @@
               &nbsp;
             </div>
             <ng-template #elseBlock>
-              <div *ngFor="let item of week.days[0];index as i;" cdkDrag>
+              <div *ngFor="let item of week.days[0];index as i;" cdkDrag [cdkDragDisabled]="!this.editing">
                 <button mat-raised-button class="topic-button"
                   [style.background-color]=stringToColor(item.topic.technology.techName)>{{item.topic.name}}</button>
               </div>
@@ -47,7 +49,7 @@
               &nbsp;
             </div>
             <ng-template #elseBlock>
-              <div *ngFor="let item of week.days[1];index as i;" cdkDrag>
+              <div *ngFor="let item of week.days[1];index as i;" cdkDrag [cdkDragDisabled]="!this.editing">
                 <button mat-raised-button class="topic-button"
                   [style.background-color]=stringToColor(item.topic.technology.techName)>{{item.topic.name}}</button>
               </div>
@@ -64,7 +66,7 @@
               &nbsp;
             </div>
             <ng-template #elseBlock>
-              <div *ngFor="let item of week.days[2];index as i;" cdkDrag>
+              <div *ngFor="let item of week.days[2];index as i;" cdkDrag   [cdkDragDisabled]="!this.editing">
                 <button mat-raised-button class="topic-button"
                   [style.background-color]=stringToColor(item.topic.technology.techName)>{{item.topic.name}}</button>
               </div>
@@ -81,7 +83,7 @@
               &nbsp;
             </div>
             <ng-template #elseBlock>
-              <div *ngFor="let item of week.days[3];index as i;" cdkDrag>
+              <div *ngFor="let item of week.days[3];index as i;" cdkDrag [cdkDragDisabled]="!this.editing">
                 <button mat-raised-button class="topic-button"
                   [style.background-color]=stringToColor(item.topic.technology.techName)>{{item.topic.name}}</button>
               </div>
@@ -98,7 +100,7 @@
               &nbsp;
             </div>
             <ng-template #elseBlock>
-              <div *ngFor="let item of week.days[4];index as i;" cdkDrag>
+              <div *ngFor="let item of week.days[4];index as i;" cdkDrag [cdkDragDisabled]="!this.editing">
                 <button mat-raised-button class="topic-button"
                   [style.background-color]=stringToColor(item.topic.technology.techName)>{{item.topic.name}}</button>
               </div>
