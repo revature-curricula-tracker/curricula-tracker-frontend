@@ -1,4 +1,3 @@
-import { Topic } from "./topic";
 export class Curriculum {
   curriculumId: number;
   curriculumName: string;
