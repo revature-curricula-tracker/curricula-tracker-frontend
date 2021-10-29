@@ -9,10 +9,11 @@ tr>td:hover{
 }
 tr>td{
     padding: 20px;
-    /* padding: 10px;
-    border:2px; 
-    border-style: solid;
-    border-color: #F26925; */
+    align-content: center;
+} 
+.topic-button {  
+    white-space: break-spaces;
+    line-height: 1.5;
 }
 .edit-button{
     margin-left: 10px;
@@ -23,7 +24,7 @@ tr>td{
 border-radius: 50px;
 }
 #java{
-background-color: red;
+    background-color: red;
 }
 #angular{
     background-color: orange ;
@@ -42,11 +43,9 @@ th{
 }
 table {
     border-collapse: separate;
-    margin: auto;
-    margin-top: 0%;
+    margin-left: auto;
+    margin-right: auto;
     table-layout: auto;
-    /* padding-top: 5%;
-    padding-bottom: 2%; */
     background-color: lightgray;
   }
 

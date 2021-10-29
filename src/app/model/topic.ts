@@ -1,16 +1,19 @@
 import { Technology } from './technology';
 export class Topic {
+  description: string;
   id: number;
   name: string;
-  tech: Technology;
+  technology: Technology;
 
-  constructor( 
+  constructor(
+    description: string,
     id: number,
     name: string,
-    tech: Technology
+    technology: Technology
   ) {
     this.id=id;
     this.name=name;
-    this.tech=tech;
+    this.description=description;
+    this.technology=technology;
   }
 }

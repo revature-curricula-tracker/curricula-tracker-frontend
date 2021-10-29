@@ -1,12 +1,11 @@
 export class Technology {
+  id: number;
+  techName: string;
+  color: string;
 
-    id!: number;
-    name!: string;
-    color!: string;
-
-    constructor (id: number, name: string, color: string) {
-        this.id = id;
-        this.name = name;
-        this.color = color;
-    }
+  constructor( id: number, techName: string, color: string) {
+    this.id=id;
+    this.techName=techName;
+    this.color=color;
+  }
 }

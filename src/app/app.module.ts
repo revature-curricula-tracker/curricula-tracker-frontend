@@ -1,9 +1,12 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgbDropdownModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 // Custom Components
 import { TechnologyOverviewComponent } from './components/technology-overview/technology-overview.component';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
 import { CurriculaOverviewComponent } from './components/curricula-overview/curricula-overview.component';
 import { LoginComponent } from './components/login/login.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -11,8 +14,6 @@ import { TechnologyDialogComponent } from './components/technology-dialog/techno
 
 
 // Material Components
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
@@ -23,6 +24,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { CdkTableModule } from '@angular/cdk/table';
+import {DragDropModule} from '@angular/cdk/drag-drop'; 
 import { MatButtonModule } from '@angular/material/button';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatListModule } from '@angular/material/list';
@@ -42,6 +44,7 @@ import { HomepageComponent } from './components/homepage/homepage.component';
     HomepageComponent
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
     AppRoutingModule,
     NgbDropdownModule,
@@ -56,6 +59,9 @@ import { HomepageComponent } from './components/homepage/homepage.component';
     MatIconModule,
     MatInputModule,
     MatDialogModule,
+    CdkTableModule,
+    DragDropModule,
+    MatTableModule,
     MatPaginatorModule,
     MatListModule,
     MatGridListModule,
