@@ -5,16 +5,9 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { TechnologyDialogComponent } from '../technology-dialog/technology-dialog.component';
 import { Technology } from 'src/app/model/technology';
-import { faPencilAlt, faTrash, faPlusSquare, faSearch} from '@fortawesome/free-solid-svg-icons';
-
-const testTech: Technology[] = [{id: 1, techName: 'Java1', color: "#fff"},
-{id: 2, techName: 'AWS2', color: "#fff"},
-{id: 3, techName: 'Spring3', color: "#fff"},
-{id: 4, techName: 'Kubernetes4', color: "#fff"},
-{id: 5, techName: 'Docker5', color: "#fff"},
-{id: 6, techName: 'JavaScript6', color: '#fff'},
-{id: 7, techName: 'Test7', color: '#fff'},
-{id: 8, techName: 'Test8', color: '#fff'}];
+import { faPencilAlt, faTrash, faPlusSquare, faSearch, faPalette } from '@fortawesome/free-solid-svg-icons';
+import { TechnologyService } from 'src/app/services/technology.service';
+import { ThemePalette } from "@angular/material/core";
 
 @Component({
   selector: 'app-technology-overview',
@@ -23,41 +16,64 @@ const testTech: Technology[] = [{id: 1, techName: 'Java1', color: "#fff"},
 })
 export class TechnologyOverviewComponent implements AfterViewInit {
 
+  public disabled = false;
+  public color: ThemePalette = 'primary';
+  public touchUi = false;
+
   faSearch = faSearch;
   faPencil = faPencilAlt;
   faTrash = faTrash;
   faPlus = faPlusSquare;
+  faPalette = faPalette;
 
-  animal: string = '';
   techName: string = '';
   technologies: Technology[] = [];
   displayedColumns: string[] = ['techName', 'color', 'actions'];
 
-
-
-  dataSource = new MatTableDataSource<Technology>(testTech);
+  dataSource = new MatTableDataSource<Technology>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   
-  constructor(public dialog: MatDialog) {}
+
+  constructor(public dialog: MatDialog, private techService: TechnologyService) { }
+
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.techService.getAllTechnologies().subscribe(data => {
+      this.dataSource.data = data;
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    });
   }
 
   // Show add, edit or delete popUp
-  openDialog(): void {
+  openDialog(type: string, row?: Technology): void {
+    let dialogHeight = '350px';
+    
+    if (type == 'delete') {
+      dialogHeight = '250px';
+    }
+    
     const dialogRef = this.dialog.open(TechnologyDialogComponent, {
-      width: '250px',
-      data: {techName: this.techName}
+      width: '275px',
+      height: dialogHeight,
+      data: { 
+        techName: this.techName, 
+        type,
+        row
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      let newId = this.dataSource.data.length + 1;
-      this.dataSource.data.push({id: newId, techName: result, color: '#fff'});
+      console.log("Closed dialog");
+      if (result !== undefined) {
+        this.techService.createTechnology(result).subscribe((data: Technology) => {
+          console.log(`Sent to the database --> ${data}`);
+          this.dataSource.data.push(data);
+        })
+        console.log("Created technology" + JSON.stringify(result));
+      }
     });
   }
 

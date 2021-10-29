@@ -4,7 +4,7 @@ import { backendUrl } from './../../environments/environment';
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { Router } from '@angular/router';
-const url = `${backendUrl}/technologies`;
+const url = `${backendUrl}/tech`;
 
 
 @Injectable({
@@ -16,5 +16,17 @@ export class TechnologyService {
 
   public getAllTechnologies(): Observable<Technology[]> {
     return this.http.get<Technology[]>(`${url}/`);
+  }
+
+  public createTechnology(tech:Technology): Observable<Technology> {
+    return this.http.post<Technology>(`${url}/add`, tech);
+  }
+
+  public deleteTechnology(id: number): Observable<Technology> {
+    return this.http.delete<Technology>(`${url}/${id}`);
+  }
+
+  public editTechnology(tech:Technology): Observable<Technology> {
+    return this.http.post<Technology>(`${url}/${tech.techId}`, tech);
   }
 }

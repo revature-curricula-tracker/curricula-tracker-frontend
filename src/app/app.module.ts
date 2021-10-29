@@ -11,7 +11,7 @@ import { CurriculaOverviewComponent } from './components/curricula-overview/curr
 import { LoginComponent } from './components/login/login.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { TechnologyDialogComponent } from './components/technology-dialog/technology-dialog.component';
-
+import { HomepageComponent } from './components/homepage/homepage.component';
 
 // Material Components
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -24,14 +24,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { CdkTableModule } from '@angular/cdk/table';
-import {DragDropModule} from '@angular/cdk/drag-drop'; 
+import { DragDropModule} from '@angular/cdk/drag-drop'; 
 import { MatButtonModule } from '@angular/material/button';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatListModule } from '@angular/material/list';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatTableModule } from '@angular/material/table';
-import { HomepageComponent } from './components/homepage/homepage.component';
+import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS } from '@angular-material-components/color-picker';
 
 @NgModule({
   declarations: [
@@ -49,6 +49,7 @@ import { HomepageComponent } from './components/homepage/homepage.component';
     AppRoutingModule,
     NgbDropdownModule,
     NgbModule,
+    NgxMatColorPickerModule,
     FontAwesomeModule,
     FormsModule,
     MatFormFieldModule,
@@ -75,7 +76,7 @@ import { HomepageComponent } from './components/homepage/homepage.component';
       preventDuplicates: true
     }),
   ],
-  providers: [],
+  providers: [{provide: MAT_COLOR_FORMATS, useValue: NGX_MAT_COLOR_FORMATS}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

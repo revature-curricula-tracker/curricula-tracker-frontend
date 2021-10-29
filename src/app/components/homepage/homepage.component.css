@@ -119,19 +119,11 @@ table {
 }
 
 .mat-input-element {
-    caret-color: #f44336 !important;
+    caret-color: #000000 !important;
 }
 
 ::ng-deep.mat-paginator-container {
-    display: flex;
-    align-items: center;
-    justify-content: center !important;
-    padding: 0 8px;
-    flex-wrap: wrap-reverse;
-    width: 100%;
-    color: #f44336;
-    background: lightgray !important;
-    border-radius: 10px;
+width: 100%;
 }
 
 ::ng-deep.mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
@@ -140,7 +132,7 @@ table {
 }
 
 ::ng-deep.mat-select-value {
-    color: black;
+    color: rgb(0, 0, 0);
 }
 
 ::ng-deep.mat-form-field-wrapper {
@@ -157,5 +149,5 @@ table {
 }
 
 ::ng-deep.mat-form-field.mat-focused.mat-primary .mat-select-arrow {
-    color: #f44336;
+    color: black;
 }

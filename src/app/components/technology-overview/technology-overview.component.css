@@ -29,9 +29,9 @@
     background-color: #F26925;
     color: white;
     width: auto;
-    height: 46px;
+    height: 50px;
     position: absolute;
-    top: 26px;
+    top: 23px;
 }
 mat-paginator {
     width: 100%;

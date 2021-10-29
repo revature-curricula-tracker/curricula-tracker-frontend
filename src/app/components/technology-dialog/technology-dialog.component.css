@@ -1,8 +1,17 @@
 .button-accent {
     background-color: #F26925;
     color: white;
+    font-weight: bold;
 }
 .actions-div{
     display: flex;
     justify-content: center;
+}
+.mat-dialog-content {
+    height: auto;
+    overflow: hidden;
+}
+form {
+    display: flex;
+    flex-direction: column;
 }

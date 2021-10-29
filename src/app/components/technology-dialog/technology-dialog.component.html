@@ -1,12 +1,64 @@
-<h1 mat-dialog-title>Technology {{data.name}}</h1>
+<h1 mat-dialog-title style="">Technology</h1>
 <div mat-dialog-content>
-  <p></p>
-  <mat-form-field appearance="fill">
-    <mat-label>Name</mat-label>
-    <input matInput [(ngModel)]="data.technology">
-  </mat-form-field>
-</div>
-<div mat-dialog-actions class="actions-div">
-  <button mat-button (click)="onNoClick()">Cancel</button>
-  <button class="button-accent" mat-button [mat-dialog-close]="data.technology" cdkFocusInitial>Create</button>
+
+  <!-- Create a technology form content -->
+
+  <ng-container *ngIf="dialogType == 'create'">
+    <p></p>
+    <form #techForm="ngForm" (ngSubmit)="onCreateClick(techForm)" ngNativeValidate>
+      <mat-form-field appearance="outline" hideRequiredMarker="true" floatLabel="always">
+        <mat-label>Name</mat-label>
+        <input name="techName" placeHolder="Ex. Java" matInput [(ngModel)]="data.techName" required>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Color</mat-label>
+        <input type="color" name ="colorHex" matInput [(ngModel)]="data.colorHex">
+      </mat-form-field>
+      <div mat-dialog-actions class="actions-div">
+        <button mat-button (click)="closeDialog()">Cancel</button>
+        <button type="submit" class="button-accent" mat-button cdkFocusInitial>Create</button>
+      </div>
+    </form>
+  </ng-container>
+
+  <!-- Delete a technology form dialog -->
+
+  <ng-container *ngIf="dialogType == 'delete'">
+    
+      <p>
+        Are you sure you want to delete "{{incomingRow!.techName}}"?
+      </p>
+      <div mat-dialog-actions class="actions-div">
+        <button mat-button (click)="closeDialog()">Cancel</button>
+        <button class="button-accent" mat-button (click)="deleteTech(incomingRow!.techId)" cdkFocusInitial>Yes</button>
+      </div>
+    
+
+  </ng-container>
+
+  <!-- Edit a technology -->
+
+  <ng-container *ngIf="dialogType == 'edit'">
+    <p></p>
+    <form #techForm="ngForm" (ngSubmit)="editTech(techForm)" ngNativeValidate>
+      <mat-form-field appearance="outline" hideRequiredMarker="true" floatLabel="always" style="display: noneListooo;">
+        <mat-label>Name</mat-label>
+        <input name="techName" placeHolder="Ex. Java" matInput [(ngModel)]="data.id" [value]="incomingRow!.techId" required>
+      </mat-form-field>
+      <mat-form-field appearance="outline" hideRequiredMarker="true" floatLabel="always">
+        <mat-label>Name</mat-label>
+        <input name="techName" placeHolder="Ex. Java" matInput [(ngModel)]="data.techName" [value]="incomingRow!.techName" required>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Color</mat-label>
+        <input type="color" name ="colorHex" matInput [(ngModel)]="data.colorHex" [value]="incomingRow!.color">
+      </mat-form-field>
+      <div mat-dialog-actions class="actions-div">
+        <button mat-button (click)="closeDialog()">Cancel</button>
+        <button type="submit" class="button-accent" mat-button cdkFocusInitial>Create</button>
+      </div>
+    </form>
+  </ng-container>
+  
+  
 </div>
