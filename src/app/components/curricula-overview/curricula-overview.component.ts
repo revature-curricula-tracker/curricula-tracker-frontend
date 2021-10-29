@@ -29,8 +29,8 @@ export class CurriculaOverviewComponent implements OnInit {
   testTech2: Technology = new Technology(2, "Javascript", "");
   testTopic: Topic = new Topic("Angular topic", 1, "Angular Fun", this.testTech);
   testTopic2: Topic = new Topic("topic that has a long name", 1, "JavaScript Advanced Topic for everything and anything", this.testTech2);
-  testT: Topic[] = [this.testTopic, this.testTopic2]
-  //testC: Curriculum = new Curriculum(1, "Testing Curriculum", 10, 10 * 5);
+  testT: Topic[] = [this.testTopic, this.testTopic2];
+  
   weekArray: Week[] = [];
   title = this.curriculum?.curriculumName || "No Curriculum Chosen"; //name to be replaced by which curriculum it is
   btnStyle = 'edit-btn-default';
@@ -41,15 +41,11 @@ export class CurriculaOverviewComponent implements OnInit {
   displayedColumns: string[] = ['week', 'day1', 'day2', 'day3', 'day4', 'day5'];
   dataSource = this.weekArray;
   ngOnInit(): void {
-    this.route.params.subscribe(routeParams => {
-      this.getCurriculum(routeParams.search);
-    });
+    this.getCurriculum(this.route.snapshot.params['id'])
 
     for (let i = 1; i <= this.curriculum.numWeeks; i++) {
       this.weekArray.push(new Week(i));
     }
-    console.log(this.weekArray);
-
     this.tech.push(this.testTech);
     this.tech.push(this.testTech2);
     this.getTopicData();
@@ -64,7 +60,6 @@ export class CurriculaOverviewComponent implements OnInit {
 
   }
   setWeeks() {
-
     for (let t of this.topicArray) {
       this.weekArray[Math.floor((t.topicDay) / 5.1)].days[((t.topicDay - 1) % 5)].push(t);
     }
@@ -117,7 +112,6 @@ export class CurriculaOverviewComponent implements OnInit {
 
       data.forEach(t => {
         this.topicArray.push(t);
-        console.log(t.curriculum.curriculumName + " " + t.topic.technology);
         this.weekArray[Math.floor((t.topicDay) / 5.1)].days[((t.topicDay - 1) % 5)].push(t)
         if (!this.tech.includes(t.topic.technology)) this.tech.push(t.topic.technology);
       });
@@ -126,6 +120,7 @@ export class CurriculaOverviewComponent implements OnInit {
   getCurriculum(routeParm: string) {
     this.curService.getCurriculumById(Number.parseInt(routeParm)).subscribe(data => {
       this.curriculum = data;
+      this.title=this.curriculum.curriculumName;
     })
 
   }

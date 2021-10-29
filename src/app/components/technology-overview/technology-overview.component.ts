@@ -6,15 +6,16 @@ import { MatTableDataSource } from '@angular/material/table';
 import { TechnologyDialogComponent } from '../technology-dialog/technology-dialog.component';
 import { Technology } from 'src/app/model/technology';
 import { faPencilAlt, faTrash, faPlusSquare, faSearch} from '@fortawesome/free-solid-svg-icons';
+import { Topic } from 'src/app/model/topic';
 
-const testTech: Technology[] = [{id: 1, techName: 'Java1', color: "#fff"},
-{id: 2, techName: 'AWS2', color: "#fff"},
-{id: 3, techName: 'Spring3', color: "#fff"},
-{id: 4, techName: 'Kubernetes4', color: "#fff"},
-{id: 5, techName: 'Docker5', color: "#fff"},
-{id: 6, techName: 'JavaScript6', color: '#fff'},
-{id: 7, techName: 'Test7', color: '#fff'},
-{id: 8, techName: 'Test8', color: '#fff'}];
+const testTech: Technology[] = [{techId: 1, techName: 'Java1', color: "#fff"},
+{techId: 2, techName: 'AWS2', color: "#fff"},
+{techId: 3, techName: 'Spring3', color: "#fff"},
+{techId: 4, techName: 'Kubernetes4', color: "#fff"},
+{techId: 5, techName: 'Docker5', color: "#fff"},
+{techId: 6, techName: 'JavaScript6', color: '#fff'},
+{techId: 7, techName: 'Test7', color: '#fff'},
+{techId: 8, techName: 'Test8', color: '#fff'}];
 
 @Component({
   selector: 'app-technology-overview',
@@ -57,7 +58,7 @@ export class TechnologyOverviewComponent implements AfterViewInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       let newId = this.dataSource.data.length + 1;
-      this.dataSource.data.push({id: newId, techName: result, color: '#fff'});
+      this.dataSource.data.push({techId: newId, techName: result, color: '#fff'});
     });
   }
 
