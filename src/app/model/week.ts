@@ -9,5 +9,6 @@ export class Week {
     id: number,
   ) {
     this.id=id;
+    
   }
 }

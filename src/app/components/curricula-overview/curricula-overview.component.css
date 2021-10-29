@@ -1,7 +1,8 @@
-h1{
-    color:  #F26925;
+h1 {
+    color: #F26925;
 }
-h4{
+
+h4 {
     padding-left: 5%;
 }
 tr>td:hover{
@@ -9,15 +10,19 @@ tr>td:hover{
     border-style:solid; */
     background-color: rgb(115, 165, 194) !important;
 }
-tr>td{
+
+tr>td {
     padding: 20px;
     align-content: center;
-} 
-.topic-button {  
+}
+
+.topic-button {
     white-space: break-spaces;
     line-height: 1.5;
+    margin-top: 5px;
 }
-.edit-button{
+
+#edit-button {
     margin-left: 10px;
     border-radius: 25px;
 }
@@ -35,19 +40,24 @@ tr>td{
     margin-left: 10px;
     border-radius: 50px;
 }
-#java{
+
+#java {
     background-color: red;
 }
-#angular{
-    background-color: orange ;
+
+#angular {
+    background-color: orange;
 }
-#javascript{
-    background-color: yellow ;
+
+#javascript {
+    background-color: yellow;
 }
-li{
+
+li {
     list-style: none;
 }
-th{
+
+th {
     text-align: center;
 }
 
