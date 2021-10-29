@@ -11,6 +11,7 @@ import { LoginComponent } from './components/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -44,6 +45,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatAutocompleteModule,
     MatIconModule,
     MatInputModule,
+    MatSlideToggleModule,
     CdkTableModule,
     DragDropModule,
     MatTableModule,
