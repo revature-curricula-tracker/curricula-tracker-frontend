@@ -17,6 +17,7 @@ export class NavbarComponent {
     this.router.events.subscribe((event: any) => {
       if (event instanceof NavigationStart) {
         // Show progress spinner or progress bar
+        this.currentRoute = event.url;
       }
 
       if (event instanceof NavigationEnd) {

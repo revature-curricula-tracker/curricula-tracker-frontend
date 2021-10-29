@@ -3,13 +3,14 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CurriculaOverviewComponent } from './components/curricula-overview/curricula-overview.component';
 import { HomepageComponent } from './components/homepage/homepage.component';
+import { RouteGuardGuard } from './guard/route-guard.guard';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'curriculum', component: CurriculaOverviewComponent },
+  { path: 'curriculum/:id', component: CurriculaOverviewComponent },
   { path: 'home', component: HomepageComponent },
-  { path: '**', component: LoginComponent }
+  { path: '**', canActivate: [RouteGuardGuard] }
 ];
 
 @NgModule({
