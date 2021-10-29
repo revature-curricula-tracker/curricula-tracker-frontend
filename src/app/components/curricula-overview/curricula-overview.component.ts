@@ -25,18 +25,13 @@ export class CurriculaOverviewComponent implements OnInit {
 
   //TESTING MODELS, DELETE AFTER ACTUALLY GETTING SERVICE METHODS
   testKey: CurriculumTopicKey = new CurriculumTopicKey(1, 1);
-  testTech: Technology = new Technology(1, "Angular", "");
-  testTech2: Technology = new Technology(2, "Javascript", "");
-  testTopic: Topic = new Topic("Angular topic", 1, "Angular Fun", this.testTech);
-  testTopic2: Topic = new Topic("topic that has a long name", 1, "JavaScript Advanced Topic for everything and anything", this.testTech2);
-  testT: Topic[] = [this.testTopic, this.testTopic2];
   
   weekArray: Week[] = [];
   title = this.curriculum?.curriculumName || "No Curriculum Chosen"; //name to be replaced by which curriculum it is
   btnStyle = 'edit-btn-default';
   constructor(private curService: CurriculaService, private route: ActivatedRoute) {
     this.getCurriculum(this.route.snapshot.params['id']);
-    this.curriculum = this.curriculum || new Curriculum(1, "No Curriculum Found", 5, 5*5);
+    this.curriculum = this.curriculum || new Curriculum(1, "No Curriculum Found", 5, 5*5, new Array<Topic>());
   }
 
   displayedColumns: string[] = ['week', 'day1', 'day2', 'day3', 'day4', 'day5'];
@@ -50,10 +45,6 @@ export class CurriculaOverviewComponent implements OnInit {
     }
   }
   setWeeks() {
-    this.topicArray.push(new TopicsForCurriculum(this.curriculum, this.testKey, this.testTopic, 1));
-    this.topicArray.push(new TopicsForCurriculum(this.curriculum, this.testKey, this.testTopic2, 2));
-    this.topicArray.push(new TopicsForCurriculum(this.curriculum, this.testKey, this.testTopic, 7));
-    this.topicArray.push(new TopicsForCurriculum(this.curriculum, this.testKey, this.testTopic, 2));
     for (let t of this.topicArray) {
       this.weekArray[Math.floor((t.topicDay) / 5.1)].days[((t.topicDay - 1) % 5)].push(t);
     }

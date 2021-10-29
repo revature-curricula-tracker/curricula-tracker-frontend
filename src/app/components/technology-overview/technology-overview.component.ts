@@ -1,3 +1,4 @@
+import { Topic } from 'src/app/model/topic';
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
@@ -7,14 +8,14 @@ import { TechnologyDialogComponent } from '../technology-dialog/technology-dialo
 import { Technology } from 'src/app/model/technology';
 import { faPencilAlt, faTrash, faPlusSquare, faSearch} from '@fortawesome/free-solid-svg-icons';
 
-const testTech: Technology[] = [{techId: 1, techName: 'Java1', color: "#fff"},
-{techId: 2, techName: 'AWS2', color: "#fff"},
-{techId: 3, techName: 'Spring3', color: "#fff"},
-{techId: 4, techName: 'Kubernetes4', color: "#fff"},
-{techId: 5, techName: 'Docker5', color: "#fff"},
-{techId: 6, techName: 'JavaScript6', color: '#fff'},
-{techId: 7, techName: 'Test7', color: '#fff'},
-{techId: 8, techName: 'Test8', color: '#fff'}];
+const testTech: Technology[] = [{techId: 1, techName: 'Java1', color: "#fff", topics:Array<Topic>(),id:1},
+{techId: 2, techName: 'AWS2', color: "#fff", topics:Array<Topic>(),id:2},
+{techId: 3, techName: 'Spring3', color: "#fff", topics:Array<Topic>(),id:3},
+{techId: 4, techName: 'Kubernetes4', color: "#fff", topics:Array<Topic>(),id:4},
+{techId: 5, techName: 'Docker5', color: "#fff", topics:Array<Topic>(),id:5},
+{techId: 6, techName: 'JavaScript6', color: '#fff', topics:Array<Topic>(),id:6},
+{techId: 7, techName: 'Test7', color: '#fff', topics:Array<Topic>(),id:7},
+{techId: 8, techName: 'Test8', color: '#fff', topics:Array<Topic>(),id:8}];
 
 @Component({
   selector: 'app-technology-overview',
@@ -57,7 +58,7 @@ export class TechnologyOverviewComponent implements AfterViewInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       let newId = this.dataSource.data.length + 1;
-      this.dataSource.data.push({techId: newId, techName: result, color: '#fff'});
+      this.dataSource.data.push({techId: newId, techName: result, color: '#fff', topics:Array<Topic>(),id:newId});
     });
   }
 

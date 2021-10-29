@@ -46,7 +46,8 @@ export class HomepageComponent implements OnInit {
             curriculumId: x.curriculumId,
             curriculumName: x.curriculumName,
             numWeeks: x.numWeeks,
-            numDays: x.numDays
+            numDays: x.numDays,
+            topics: x.topics
           };
           counter++;
         });
