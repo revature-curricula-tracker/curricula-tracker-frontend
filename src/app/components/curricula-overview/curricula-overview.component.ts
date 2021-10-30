@@ -72,7 +72,7 @@ export class CurriculaOverviewComponent implements OnInit {
         newDropId = parseInt(event.container.element.nativeElement.id.substr(14));
         event.container.data.forEach(v => {
           if (v.topicDay != newDropId+1) {
-            console.log(`Updated ${v.topicDay} to ${newDropId+1}`)
+            console.log(`Updated ${oldDropId+1} to ${newDropId+1}`)
             v.topicDay = newDropId+1;
             //this.curService.updateCurricula(v).subscribe(output=>console.log(`Updated ${v} to ${output}`))
             //this.topicServ.updateTopic(v);
