@@ -50,13 +50,14 @@ export class TechnologyOverviewComponent implements AfterViewInit {
   // Show add, edit or delete popUp
   openDialog(type: string, row?: Technology): void {
     let dialogHeight = '350px';
-    
+    let dialogWidth = '300px';
     if (type == 'delete') {
       dialogHeight = '250px';
+      dialogWidth = '350px';
     }
     
     const dialogRef = this.dialog.open(TechnologyDialogComponent, {
-      width: '275px',
+      width: dialogWidth,
       height: dialogHeight,
       data: { 
         techName: this.techName, 

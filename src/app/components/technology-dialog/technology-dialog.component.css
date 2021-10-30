@@ -15,3 +15,7 @@ form {
     display: flex;
     flex-direction: column;
 }
+.dialog-content{
+    margin: 10px;
+    text-align: center;
+}
