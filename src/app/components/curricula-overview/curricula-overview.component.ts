@@ -22,8 +22,8 @@ export class CurriculaOverviewComponent implements OnInit {
   topicArray: TopicsForCurriculum[] = [];
   //TESTING MODELS, DELETE AFTER ACTUALLY GETTING SERVICE METHODS
   testKey: CurriculumTopicKey = new CurriculumTopicKey(1, 1);
-  testTech: Technology = new Technology(1, "Angular", "");
-  testTech2: Technology = new Technology(2, "Javascript", "");
+  testTech: Technology = new Technology(1, "Angular", "", []);
+  testTech2: Technology = new Technology(2, "Javascript", "", []);
   testTopic: Topic = new Topic("Angular topic", 1, "Angular Fun", this.testTech);
   testTopic2: Topic = new Topic("topic that has a long name", 1, "JavaScript Advanced Topic for everything and anything", this.testTech2);
   testT: Topic[] = [this.testTopic, this.testTopic2]

@@ -5,7 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { TechnologyDialogComponent } from '../technology-dialog/technology-dialog.component';
 import { Technology } from 'src/app/model/technology';
-import { faPencilAlt, faTrash, faPlusSquare, faSearch, faPalette } from '@fortawesome/free-solid-svg-icons';
+import { faPencilAlt, faTrash, faPlusSquare, faSearch, faPalette, faSquare } from '@fortawesome/free-solid-svg-icons';
 import { TechnologyService } from 'src/app/services/technology.service';
 import { ThemePalette } from "@angular/material/core";
 
@@ -25,10 +25,11 @@ export class TechnologyOverviewComponent implements AfterViewInit {
   faTrash = faTrash;
   faPlus = faPlusSquare;
   faPalette = faPalette;
+  faSquare = faSquare;
 
   techName: string = '';
   technologies: Technology[] = [];
-  displayedColumns: string[] = ['techName', 'color', 'actions'];
+  displayedColumns: string[] = ['techName', 'topics', 'actions'];
 
   dataSource = new MatTableDataSource<Technology>();
 
@@ -68,7 +69,9 @@ export class TechnologyOverviewComponent implements AfterViewInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log("Closed dialog");
-      if (result !== undefined) {
+      console.log(result);
+      this.closeTypeDialog(result);
+      if (result !== undefined && result.typeDialog == 'created') {
         this.techService.createTechnology(result).subscribe((data: Technology) => {
           console.log(`Sent to the database --> ${data}`);
           this.dataSource.data.push(data);
@@ -76,6 +79,14 @@ export class TechnologyOverviewComponent implements AfterViewInit {
         console.log("Created technology" + JSON.stringify(result));
       }
     });
+  }
+
+  closeTypeDialog(closedObj: any) {
+    console.log(closedObj);
+    if (closedObj.typeDialog == 'delete') {
+      //console.log(this.dataSource.data.findIndex(closedObj.row));
+      console.log(this.dataSource.data);
+    }
   }
 
   // Search filter method for technologies table

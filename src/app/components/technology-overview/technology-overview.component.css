@@ -46,6 +46,10 @@
     height: 100%;
     color: #000000;
 }
+th
+{
+    border-bottom: black 1px groove !important;
+}
 /*change color of form label*/
 ::ng-deep .search-box .mat-focused .mat-form-field-label {
     color: #F26925 !important;

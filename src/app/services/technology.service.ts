@@ -27,6 +27,7 @@ export class TechnologyService {
   }
 
   public editTechnology(tech:Technology): Observable<Technology> {
-    return this.http.post<Technology>(`${url}/${tech.techId}`, tech);
+    console.log(tech);
+    return this.http.patch<Technology>(`${url}/${tech.techId}`, tech);
   }
 }

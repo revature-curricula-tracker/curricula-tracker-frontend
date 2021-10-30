@@ -4,6 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { TechnologyService } from 'src/app/services/technology.service';
 import { Technology } from 'src/app/model/technology';
+import { Topic } from 'src/app/model/topic';
 
 export interface DialogData {
   id: number,
@@ -22,6 +23,9 @@ export class TechnologyDialogComponent implements OnInit{
 
   dialogType = '';
   incomingRow: Technology | null | undefined;
+  editName? = '';
+  editId? = 0;
+  editColor? = '';
 
   constructor(
     public dialogRef: MatDialogRef<TechnologyDialogComponent>,
@@ -32,6 +36,12 @@ export class TechnologyDialogComponent implements OnInit{
   ngOnInit(): void {
     this.dialogType = this.data.type;
     this.incomingRow = this.data.row;
+
+    if (this.data.type == 'edit') {
+      this.editId = this.data.row?.techId;
+      this.editName = this.data.row?.techName;
+      this.editColor = this.data.row?.color
+    }
   }
 
   closeDialog(): void {
@@ -39,18 +49,18 @@ export class TechnologyDialogComponent implements OnInit{
   }
 
   onCreateClick(form: NgForm): void {
-    this.dialogRef.close(new Technology(0, form.value.techName, form.value.colorHex));
+    this.dialogRef.close(new Technology(0, form.value.techName, form.value.colorHex, []));
   }
 
   deleteTech(id: number): void {
     console.log(id);
     this.techService.deleteTechnology(id);
-    this.dialogRef.close();
+    this.dialogRef.close({typeDialog: 'delete', row: this.data.row});
   }
 
   editTech(form: NgForm): void {
     // edit logic
-    console.log(JSON.stringify(form));
+    this.techService.editTechnology(new Technology(this.editId!, this.editName!, this.editColor!, this.incomingRow!.topics));
     this.dialogRef.close();
   }
 }
