@@ -17,8 +17,8 @@
 <h4>Technologies:</h4><!-- Headline for tech list-->
 <br>
 <div class="example-button-row">
-  <div *ngFor="let item of tech;index as i;" class="button-row">
-    <button mat-raised-button id="java" class="tech-button" [style.background-color]=stringToColor(item.techName)>{{item.techName}}</button>
+  <div *ngFor="let item of pieChartLabels;index as i;" class="button-row">
+    <button mat-raised-button id="" class="tech-button" [style.background-color]=stringToColor(pieChartLabels[i])>{{pieChartLabels[i]}}</button>
   </div>
 </div>
 <br>

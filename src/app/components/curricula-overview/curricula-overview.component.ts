@@ -19,7 +19,6 @@ export interface TopicElement {
 })
 export class CurriculaOverviewComponent implements OnInit {
   @Input() curriculum !: Curriculum;
-
   editing: boolean = false;//if editing
   tech: Technology[] = [];//array of tech for tech buttons
   topicArray: TopicsForCurriculum[] = [];
@@ -30,7 +29,7 @@ export class CurriculaOverviewComponent implements OnInit {
   public pieChartType:string = 'pie';
   public pieChartColors: Array < any > = [{
     backgroundColor: [],
-    borderColor: ['rgba(135,206,250,1)', 'rgba(106,90,205,1)', 'rgba(148,159,177,1)']
+    borderColor: []
  }];
 
 
@@ -73,6 +72,7 @@ export class CurriculaOverviewComponent implements OnInit {
       this.editing = true;
       this.btnStyle = 'edit-btn-change';
     }
+    this.getChartdata();
   }
   drop(event: CdkDragDrop<string[]>) {
     if (this.editing) {
@@ -88,7 +88,6 @@ export class CurriculaOverviewComponent implements OnInit {
         console.log(dropId);
         //update topic date using crud
         //this.curService.updateJoinTable();
-        this.getChartdata();
       }
     }
   }
@@ -128,27 +127,22 @@ export class CurriculaOverviewComponent implements OnInit {
   getChartdata()
   {
     let techCounter = new Map();
-    console.log(this.tech);
    for(var t of this.tech)
    {
      if(!this.pieChartLabels.includes(t.techName))
      {
        techCounter.set(t.techName , 1);
-        let count = this.pieChartLabels.push(t.techName );
+        this.pieChartLabels.push(t.techName );
         this.pieChartColors[0].backgroundColor.push(this.stringToColor(t.techName));
-       console.log( "colors: "+this.pieChartColors[0].backgroundColor); 
-      
      }
      else
      {
       techCounter.set(t.techName , techCounter.get(t.techName) + 1);
      }
-     
    }
    for(var i of techCounter)
    {
    this.pieChartData.push(i[1]);
-   console.log(i[1]);
    }
   }
  
