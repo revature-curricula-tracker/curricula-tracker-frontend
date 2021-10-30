@@ -3,7 +3,16 @@
   <h1>{{title}}</h1>
   <!--<button mat-raised-button class="edit-button" (click)=startEdit()>Edit</button>  H1 Title and an edit button-->
   <mat-slide-toggle (change)=startEdit()>Edit</mat-slide-toggle>
- 
+  <!-- Piechart -->
+  <div   id="pie-chart">
+    <canvas baseChart
+            [data]="pieChartData"
+            [labels]="pieChartLabels"
+            [colors]="colors"
+            chartType="pie"
+            (chartHover)="chartHovered($event)"
+            (chartClick)="chartClicked($event)"></canvas>
+  </div>
 </div>
 
 <h4>Technologies:</h4><!-- Headline for tech list-->

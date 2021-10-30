@@ -8,6 +8,7 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 import { Curriculum } from 'src/app/model/curriculum';
 import { Topic } from 'src/app/model/topic';
 import { CurriculaService } from 'src/app/services/curricula.service';
+import { Color } from 'ng2-charts';
 export interface TopicElement {
 
 }
@@ -22,6 +23,19 @@ export class CurriculaOverviewComponent implements OnInit {
   editing: boolean = false;//if editing
   tech: Technology[] = [];//array of tech for tech buttons
   topicArray: TopicsForCurriculum[] = [];
+
+  ////piechart variables
+  public pieChartLabels:string[] = [];
+  public pieChartData:number[] = [];
+  public pieChartType:string = 'pie';
+  colors: Color[] = [
+    {
+      backgroundColor: [
+        
+      ]
+    }
+  ];
+
 
   //TESTING MODELS, DELETE AFTER ACTUALLY GETTING SERVICE METHODS
   testKey: CurriculumTopicKey = new CurriculumTopicKey(1, 1);
@@ -38,16 +52,20 @@ export class CurriculaOverviewComponent implements OnInit {
   dataSource = this.weekArray;
   ngOnInit(): void {
     this.getTopicData();
+    
   }
   fillout(){
     for (let i = 1; i <= this.curriculum.numWeeks; i++) {
       this.weekArray.push(new Week(i));
     }
+   
   }
   setWeeks() {
     for (let t of this.topicArray) {
       this.weekArray[Math.floor((t.topicDay) / 5.1)].days[((t.topicDay - 1) % 5)].push(t);
+      
     }
+    
   }
   startEdit() {
     if (this.editing) {
@@ -73,6 +91,7 @@ export class CurriculaOverviewComponent implements OnInit {
         console.log(dropId);
         //update topic date using crud
         //this.curService.updateJoinTable();
+        this.getChartdata();
       }
     }
   }
@@ -107,5 +126,43 @@ export class CurriculaOverviewComponent implements OnInit {
     })
 
   }
+
+  
+  getChartdata()
+  {
+    let techCounter = new Map();
+    console.log(this.tech);
+   for(var t of this.tech)
+   {
+     if(!this.pieChartLabels.includes(t.techName))
+     {
+       techCounter.set(t.techName , 1);
+        let count = this.pieChartLabels.push(t.techName );
+        console.log("added label "+count+" :"+t.techName);
+        this.colors[0].backgroundColor = this.stringToColor(t.techName) ;
+     }
+     else
+     {
+      techCounter.set(t.techName , techCounter.get(t.techName) + 1);
+     }
+     
+   }
+   for(var i of techCounter)
+   {
+   this.pieChartData.push(i[1]);
+   
+   console.log(i[1]);
+   }
+  }
+ 
+  // piechart events
+  public chartClicked(e:any):void {
+    
+  }
+ 
+  public chartHovered(e:any):void {
+    
+  }
+
 }
 
