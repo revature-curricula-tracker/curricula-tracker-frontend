@@ -28,13 +28,10 @@ export class CurriculaOverviewComponent implements OnInit {
   public pieChartLabels:string[] = [];
   public pieChartData:number[] = [];
   public pieChartType:string = 'pie';
-  colors: Color[] = [
-    {
-      backgroundColor: [
-        
-      ]
-    }
-  ];
+  public pieChartColors: Array < any > = [{
+    backgroundColor: [],
+    borderColor: ['rgba(135,206,250,1)', 'rgba(106,90,205,1)', 'rgba(148,159,177,1)']
+ }];
 
 
   //TESTING MODELS, DELETE AFTER ACTUALLY GETTING SERVICE METHODS
@@ -138,8 +135,9 @@ export class CurriculaOverviewComponent implements OnInit {
      {
        techCounter.set(t.techName , 1);
         let count = this.pieChartLabels.push(t.techName );
-        console.log("added label "+count+" :"+t.techName);
-        this.colors[0].backgroundColor = this.stringToColor(t.techName) ;
+        this.pieChartColors[0].backgroundColor.push(this.stringToColor(t.techName));
+       console.log( "colors: "+this.pieChartColors[0].backgroundColor); 
+      
      }
      else
      {
@@ -150,7 +148,6 @@ export class CurriculaOverviewComponent implements OnInit {
    for(var i of techCounter)
    {
    this.pieChartData.push(i[1]);
-   
    console.log(i[1]);
    }
   }
