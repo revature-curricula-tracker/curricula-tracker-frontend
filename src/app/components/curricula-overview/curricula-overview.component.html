@@ -11,10 +11,8 @@
   <div *ngFor="let item of tech;index as i;" class="button-row">
     <button mat-raised-button id="java" class="tech-button" [style.background-color]=stringToColor(item.techName)>{{item.techName}}</button>
   </div>
-</div>
-<br>
+</div><br><br>
 <!--tech list-->
-
   <!-- div for styling/coding-->
   <table cdk-table id="data_table" [dataSource]="dataSource">
     <caption>Table of topics thoughout the weeks of the curriculum</caption>

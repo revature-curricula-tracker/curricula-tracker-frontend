@@ -21,6 +21,6 @@ export class Topic {
     this.description=description;
     this.technology=technology;
     this.curriculum=curriculum;
-    this.topicDay=topicDay;
+    this.topicDay=10;
   }
 }
