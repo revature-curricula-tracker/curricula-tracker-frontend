@@ -23,6 +23,7 @@ export class TechnologyService {
   }
 
   public deleteTechnology(id: number): Observable<Technology> {
+    console.log(`${url}/${id}`);
     return this.http.delete<Technology>(`${url}/${id}`);
   }
 

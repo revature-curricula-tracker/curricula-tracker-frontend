@@ -31,6 +31,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatTableModule } from '@angular/material/table';
+import { MatTooltipModule} from '@angular/material/tooltip';
 import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS } from '@angular-material-components/color-picker';
 
 @NgModule({
@@ -68,6 +69,7 @@ import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS } fro
     MatGridListModule,
     MatChipsModule,
     MatTableModule,
+    MatTooltipModule,
     CdkTableModule,
     ToastrModule.forRoot({
       timeOut: 5000,

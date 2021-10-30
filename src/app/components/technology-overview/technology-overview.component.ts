@@ -2,12 +2,14 @@ import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
+import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { TechnologyDialogComponent } from '../technology-dialog/technology-dialog.component';
 import { Technology } from 'src/app/model/technology';
 import { faPencilAlt, faTrash, faPlusSquare, faSearch, faPalette, faSquare } from '@fortawesome/free-solid-svg-icons';
 import { TechnologyService } from 'src/app/services/technology.service';
 import { ThemePalette } from "@angular/material/core";
+import { Observable, ReplaySubject } from 'rxjs';
 
 @Component({
   selector: 'app-technology-overview',
@@ -19,6 +21,7 @@ export class TechnologyOverviewComponent implements AfterViewInit {
   public disabled = false;
   public color: ThemePalette = 'primary';
   public touchUi = false;
+  public panelOpenState = false;
 
   faSearch = faSearch;
   faPencil = faPencilAlt;
@@ -42,7 +45,9 @@ export class TechnologyOverviewComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.techService.getAllTechnologies().subscribe(data => {
-      this.dataSource.data = data;
+      this.technologies = [...data];
+      console.log(this.technologies);
+      this.dataSource.data = [...this.technologies];
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
@@ -69,24 +74,32 @@ export class TechnologyOverviewComponent implements AfterViewInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log("Closed dialog");
-      console.log(result);
-      this.closeTypeDialog(result);
-      if (result !== undefined && result.typeDialog == 'created') {
-        this.techService.createTechnology(result).subscribe((data: Technology) => {
+
+      if (result !== undefined && result.typeDialog == 'create') {
+        this.techService.createTechnology(result.row).subscribe((data: Technology) => {
           console.log(`Sent to the database --> ${data}`);
-          this.dataSource.data.push(data);
+          this.technologies.unshift(data);
+          this.dataSource.data = [...this.technologies];
         })
         console.log("Created technology" + JSON.stringify(result));
+      } else if (result !== undefined && result.typeDialog !== 'create'){
+        this.closeTypeDialog(result);
       }
     });
   }
 
   closeTypeDialog(closedObj: any) {
-    console.log(closedObj);
+    let hasId = ((obj: Technology) => obj.techId == closedObj.row.techId);
+    let indexToRemove = this.technologies.findIndex(hasId);
+
     if (closedObj.typeDialog == 'delete') {
-      //console.log(this.dataSource.data.findIndex(closedObj.row));
-      console.log(this.dataSource.data);
+      this.technologies.splice(indexToRemove, 1);
+    } else if (closedObj.typeDialog == 'edit') {
+      this.technologies.splice(indexToRemove, 1, closedObj.row);
     }
+
+    this.dataSource.data = [...this.technologies];
+
   }
 
   // Search filter method for technologies table

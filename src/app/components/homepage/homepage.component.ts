@@ -1,27 +1,12 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-
-export interface PeriodicElement {
-  name: string;
-  weeks: number;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  { name: 'Java', weeks: 3 },
-  { name: 'SQL', weeks: 2 },
-  { name: 'Spring Boot', weeks: 1 },
-  { name: 'Javascript', weeks: 1 },
-  { name: 'Java', weeks: 3 },
-  { name: 'SQL', weeks: 2 },
-  { name: 'Spring Boot', weeks: 1 },
-  { name: 'Javascript', weeks: 1 },
-  { name: 'Java', weeks: 3 },
-  { name: 'SQL', weeks: 2 },
-  { name: 'Spring Boot', weeks: 1 },
-  { name: 'Javascript', weeks: 1 },
-];
+import { MatTable, MatTableDataSource } from '@angular/material/table';
+import { CollectionViewer, DataSource } from '@angular/cdk/collections';
+import { Curriculum } from 'src/app/model/curriculum';
+import { ThemePalette } from "@angular/material/core";
+import { Observable, ReplaySubject } from 'rxjs';
+import { CurriculaService } from 'src/app/services/curricula.service';
 
 @Component({
   selector: 'app-homepage',
@@ -31,14 +16,17 @@ const ELEMENT_DATA: PeriodicElement[] = [
 
 export class HomepageComponent implements AfterViewInit {
 
-  title = "Curricula";
-  result = ELEMENT_DATA.length;
+  curriculumName: string ='';
+  numWeeks: number = 0;
+  curricula: Curriculum[] = [];
 
-  displayedColumns: string[] = ['name'];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
+  displayedColumns: string[] = ['name','weeks'];
+  dataSource = new MatTableDataSource<Curriculum>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+
+  constructor(private techService: CurriculaService) { }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;

@@ -49,7 +49,8 @@ export class TechnologyDialogComponent implements OnInit{
   }
 
   onCreateClick(form: NgForm): void {
-    this.dialogRef.close(new Technology(0, form.value.techName, form.value.colorHex, []));
+    let createdTech = new Technology(0, form.value.techName, form.value.colorHex, [])
+    this.dialogRef.close({typeDialog: 'create', row: createdTech});
   }
 
   deleteTech(id: number): void {
@@ -60,7 +61,8 @@ export class TechnologyDialogComponent implements OnInit{
 
   editTech(form: NgForm): void {
     // edit logic
-    this.techService.editTechnology(new Technology(this.editId!, this.editName!, this.editColor!, this.incomingRow!.topics));
-    this.dialogRef.close();
+    let editedTech = new Technology(this.editId!, this.editName!, this.editColor!, this.incomingRow!.topics);
+    this.techService.editTechnology(editedTech);
+    this.dialogRef.close({typeDialog: 'edit', row: editedTech});
   }
 }
