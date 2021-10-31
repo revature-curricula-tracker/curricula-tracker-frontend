@@ -1,28 +1,21 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { Sort } from '@angular/material/sort';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
+import { CollectionViewer, DataSource } from '@angular/cdk/collections';
+import { Curriculum } from 'src/app/model/curriculum';
+import { ThemePalette } from "@angular/material/core";
+import { Observable, ReplaySubject } from 'rxjs';
+import { CurriculaService } from 'src/app/services/curricula.service';
+import { faPlusSquare } from '@fortawesome/free-solid-svg-icons';
+import { Router } from '@angular/router';
 
-export interface PeriodicElement {
+
+export interface Dessert {
   name: string;
   weeks: number;
 }
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  { name: 'Java', weeks: 3 },
-  { name: 'SQL', weeks: 2 },
-  { name: 'Spring Boot', weeks: 1 },
-  { name: 'Javascript', weeks: 1 },
-  { name: 'Java', weeks: 3 },
-  { name: 'SQL', weeks: 2 },
-  { name: 'Spring Boot', weeks: 1 },
-  { name: 'Javascript', weeks: 1 },
-  { name: 'Java', weeks: 3 },
-  { name: 'SQL', weeks: 2 },
-  { name: 'Spring Boot', weeks: 1 },
-  { name: 'Javascript', weeks: 1 },
-];
-
 @Component({
   selector: 'app-homepage',
   templateUrl: './homepage.component.html',
@@ -31,20 +24,32 @@ const ELEMENT_DATA: PeriodicElement[] = [
 
 export class HomepageComponent implements AfterViewInit {
 
-  title = "Curricula";
-  result = ELEMENT_DATA.length;
+  faPlus = faPlusSquare;
 
-  displayedColumns: string[] = ['name'];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
+  curriculumName: string = '';
+  numWeeks: number = 0;
+  curricula: Curriculum[] = [];
+
+  displayedColumns: string[] = ['name', 'weeks'];
+  dataSource = new MatTableDataSource<Curriculum>();
+  sortedData;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+  constructor(private curriculaService: CurriculaService, private route: Router) {
+    this.sortedData = this.curricula.slice();
   }
 
+  ngAfterViewInit() {
+    this.curriculaService.getAllCurricula().subscribe(data => {
+      this.curricula = [...data];
+      console.log(this.curricula);
+      this.dataSource.data = [...this.curricula];
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    });
+  }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -52,4 +57,28 @@ export class HomepageComponent implements AfterViewInit {
       this.dataSource.paginator.firstPage();
     }
   }
+  sortData(sort: Sort) {
+    const data = this.curricula.slice();
+    if (!sort.active || sort.direction == '') {
+      this.sortedData = data;
+      return;
+    }
+
+    this.sortedData = data.sort((a, b) => {
+      let isAsc = sort.direction == 'asc';
+      switch (sort.active) {
+        case 'name': return this.compare(a.curriculumName, b.curriculumName, isAsc);
+        case 'weeks': return this.compare(+a.numWeeks, +b.numWeeks, isAsc);
+        default: return 0;
+      }
+    });
+  }
+  compare(a: number | string, b: number | string, isAsc: boolean) {
+    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+  }
+  //Change to CreatePage...
+  navigateTo() {
+    this.route.navigate(['/curriculum']);
+  }
 }
+

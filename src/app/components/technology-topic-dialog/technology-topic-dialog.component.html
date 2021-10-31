@@ -1,0 +1,21 @@
+<div mat-dialog-content>
+    <div class="dialog-content">
+
+        <h1 mat-dialog-title>Topics</h1>
+  
+        <mat-list role="list" *ngIf="topics.length > 0">
+            <ng-container *ngFor="let topic of topics; index as i">
+                <mat-list-item role="listitem"> {{topic.description}} </mat-list-item>
+                <mat-divider *ngIf="!(i == topics.length-1)"></mat-divider>
+            </ng-container>
+            
+        </mat-list>
+
+        <ng-container *ngIf="!(topics.length > 0)">
+            <p>There are no topics created, create one here!</p>
+            <button mat-raised-button color="primary" (click)="closeAndCreateTopic()"> Create Topic </button>
+        </ng-container>
+        
+  
+    </div>
+</div>

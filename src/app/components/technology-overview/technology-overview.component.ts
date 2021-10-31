@@ -2,19 +2,18 @@ import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
-import { TechnologyDialogComponent } from '../technology-dialog/technology-dialog.component';
-import { Technology } from 'src/app/model/technology';
-import { faPencilAlt, faTrash, faPlusSquare, faSearch} from '@fortawesome/free-solid-svg-icons';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
+import { CollectionViewer, DataSource } from '@angular/cdk/collections';
+import { faPencilAlt, faTrash, faPlusSquare, faSearch, faPalette, faSquare, faList } from '@fortawesome/free-solid-svg-icons';
+import { ThemePalette } from "@angular/material/core";
+import { Observable, ReplaySubject } from 'rxjs';
 
-const testTech: Technology[] = [{id: 1, techName: 'Java1', color: "#fff"},
-{id: 2, techName: 'AWS2', color: "#fff"},
-{id: 3, techName: 'Spring3', color: "#fff"},
-{id: 4, techName: 'Kubernetes4', color: "#fff"},
-{id: 5, techName: 'Docker5', color: "#fff"},
-{id: 6, techName: 'JavaScript6', color: '#fff'},
-{id: 7, techName: 'Test7', color: '#fff'},
-{id: 8, techName: 'Test8', color: '#fff'}];
+// Custom imports
+import { TechnologyTopicDialogComponent } from '../technology-topic-dialog/technology-topic-dialog.component';
+import { TechnologyDialogComponent } from '../technology-dialog/technology-dialog.component';
+import { TechnologyService } from 'src/app/services/technology.service';
+import { Technology } from 'src/app/model/technology';
+import { Topic } from '../../model/topic';
 
 @Component({
   selector: 'app-technology-overview',
@@ -23,42 +22,103 @@ const testTech: Technology[] = [{id: 1, techName: 'Java1', color: "#fff"},
 })
 export class TechnologyOverviewComponent implements AfterViewInit {
 
+  public disabled = false;
+  public color: ThemePalette = 'primary';
+  public touchUi = false;
+  public panelOpenState = false;
+
   faSearch = faSearch;
   faPencil = faPencilAlt;
   faTrash = faTrash;
   faPlus = faPlusSquare;
+  faPalette = faPalette;
+  faSquare = faSquare;
+  faList = faList;
 
-  animal: string = '';
   techName: string = '';
   technologies: Technology[] = [];
-  displayedColumns: string[] = ['techName', 'color', 'actions'];
+  displayedColumns: string[] = ['techName', 'topics', 'actions'];
 
-
-
-  dataSource = new MatTableDataSource<Technology>(testTech);
+  dataSource = new MatTableDataSource<Technology>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   
-  constructor(public dialog: MatDialog) {}
+
+  constructor(public dialog: MatDialog, private techService: TechnologyService) { }
+
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.techService.getAllTechnologies().subscribe(data => {
+      this.technologies = [...data];
+      console.log(this.technologies);
+      this.dataSource.data = [...this.technologies];
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    });
   }
 
   // Show add, edit or delete popUp
-  openDialog(): void {
+  openDialog(type: string, row?: Technology): void {
+    let dialogHeight = '350px';
+    let dialogWidth = '300px';
+    if (type == 'delete') {
+      dialogHeight = '250px';
+      dialogWidth = '350px';
+    }
+    
     const dialogRef = this.dialog.open(TechnologyDialogComponent, {
-      width: '250px',
-      data: {techName: this.techName}
+      width: dialogWidth,
+      height: dialogHeight,
+      data: { 
+        techName: this.techName, 
+        type,
+        row
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      let newId = this.dataSource.data.length + 1;
-      this.dataSource.data.push({id: newId, techName: result, color: '#fff'});
+      console.log("Closed dialog");
+
+      if (result !== undefined && result.typeDialog == 'create') {
+        this.techService.createTechnology(result.row).subscribe((data: Technology) => {
+          console.log(`Sent to the database --> ${data}`);
+          this.technologies.unshift(data);
+          this.dataSource.data = [...this.technologies];
+        })
+        console.log("Created technology" + JSON.stringify(result));
+      } else if (result !== undefined && result.typeDialog !== 'create'){
+        this.closeTypeDialog(result);
+      }
     });
+  }
+  
+  
+  openDialogTopic(topics: Topic[]): void {
+    console.log('Test');
+    const dialogRef = this.dialog.open(TechnologyTopicDialogComponent, {
+      width: '500px',
+      height: '400px',
+      data: {
+        topics
+      }
+    })
+  }
+
+  closeTypeDialog(closedObj: any) {
+    let hasId = ((obj: Technology) => obj.techId == closedObj.row.techId);
+    let indexToRemove = this.technologies.findIndex(hasId);
+
+    if (closedObj.typeDialog == 'delete') {
+      this.technologies.splice(indexToRemove, 1);
+    } else if (closedObj.typeDialog == 'edit') {
+      this.technologies.splice(indexToRemove, 1, closedObj.row);
+    } else if (closedObj.typeDialog == 'deleteError') {
+      
+    }
+
+    this.dataSource.data = [...this.technologies];
+
   }
 
   // Search filter method for technologies table
