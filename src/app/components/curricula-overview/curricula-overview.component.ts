@@ -7,6 +7,8 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 import { Curriculum } from 'src/app/model/curriculum';
 import { Topic } from 'src/app/model/topic';
 import { CurriculaService } from 'src/app/services/curricula.service';
+import { CurriculaTopicService } from 'src/app/services/curricula-topic.service';
+
 export interface TopicElement {
 
 }
@@ -24,14 +26,14 @@ export class CurriculaOverviewComponent implements OnInit {
   testKey: CurriculumTopicKey = new CurriculumTopicKey(1, 1);
   testTech: Technology = new Technology(1, "Angular", "", []);
   testTech2: Technology = new Technology(2, "Javascript", "", []);
-  testTopic: Topic = new Topic("Angular topic", 1, "Angular Fun", this.testTech);
-  testTopic2: Topic = new Topic("topic that has a long name", 1, "JavaScript Advanced Topic for everything and anything", this.testTech2);
+  testTopic: Topic = new Topic("Angular topic", 1, "Angular Fun");
+  testTopic2: Topic = new Topic("topic that has a long name", 1, "JavaScript Advanced Topic for everything and anything");
   testT: Topic[] = [this.testTopic, this.testTopic2]
   testC: Curriculum = new Curriculum(1, "Testing Curriculum", 10, 10 * 5);
 
   title: string = this.testC.curriculumName; //name to be replaced by which curriculum it is
   weekArray: Week[] = [new Week(1), new Week(2), new Week(3), new Week(4), new Week(5), new Week(6), new Week(7), new Week(8), new Week(9), new Week(10), new Week(11)];
-  constructor(private curService: CurriculaService) { }
+  constructor(private curService: CurriculaTopicService) { }
 
   displayedColumns: string[] = ['week', 'day1', 'day2', 'day3', 'day4', 'day5'];
   dataSource = this.weekArray;
@@ -98,7 +100,7 @@ export class CurriculaOverviewComponent implements OnInit {
 
       data.forEach(t => {
         this.topicArray.push(t);
-        console.log(t.curriculum.curriculumName + " " + t.topic.technology);
+        console.log(t.curriculum.curriculumName + " ");
         this.weekArray[Math.floor((t.topicDay) / 5.1)].days[((t.topicDay - 1) % 5)].push(t)
       });
     }).add(this.addTopics())

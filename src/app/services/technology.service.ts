@@ -22,13 +22,11 @@ export class TechnologyService {
     return this.http.post<Technology>(`${url}/add`, tech);
   }
 
-  public deleteTechnology(id: number): Observable<Technology> {
-    console.log(`${url}/${id}`);
-    return this.http.delete<Technology>(`${url}/${id}`);
+  public deleteTechnology(id: number): Observable<boolean> {
+    return this.http.delete<boolean>(`${url}/${id}`);
   }
 
   public editTechnology(tech:Technology): Observable<Technology> {
-    console.log(tech);
     return this.http.patch<Technology>(`${url}/${tech.techId}`, tech);
   }
 }

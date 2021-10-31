@@ -12,8 +12,9 @@ import { LoginComponent } from './components/login/login.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { TechnologyDialogComponent } from './components/technology-dialog/technology-dialog.component';
 import { HomepageComponent } from './components/homepage/homepage.component';
+import { TechnologyTopicDialogComponent } from './components/technology-topic-dialog/technology-topic-dialog.component';
 
-// Material Components
+// Material & 3rd party Components
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
@@ -33,6 +34,9 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule} from '@angular/material/tooltip';
 import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS } from '@angular-material-components/color-picker';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatSortModule } from '@angular/material/sort';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -42,7 +46,8 @@ import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS } fro
     LoginComponent,
     TechnologyOverviewComponent,
     TechnologyDialogComponent,
-    HomepageComponent
+    HomepageComponent,
+    TechnologyTopicDialogComponent
   ],
   imports: [
     HttpClientModule,
@@ -71,6 +76,8 @@ import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS } fro
     MatTableModule,
     MatTooltipModule,
     CdkTableModule,
+    MatBadgeModule,
+    MatSortModule,
     ToastrModule.forRoot({
       timeOut: 5000,
       progressBar: true,

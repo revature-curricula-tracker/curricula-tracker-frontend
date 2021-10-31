@@ -15,7 +15,7 @@
           <input type="color" name="colorHex" matInput [(ngModel)]="data.colorHex">
         </mat-form-field>
         <div mat-dialog-actions class="actions-div">
-          <button mat-button (click)="closeDialog()">Cancel</button>
+          <button mat-button type="button" (click)="closeDialog()">Cancel</button>
           <button type="submit" mat-raised-button class="button-accent" mat-button>Create</button>
         </div>
       </form>
@@ -30,7 +30,7 @@
       <hr>
       <div mat-dialog-actions class="actions-div">
         <button mat-button (click)="closeDialog()">Cancel</button>
-        <button class="button-accent" mat-raised-button (click)="deleteTech(incomingRow!.techId)">Confirm</button>
+        <button class="button-accent" mat-raised-button (click)="deleteTech(incomingRow!)">Confirm</button>
       </div>
     </ng-container>
 
@@ -54,7 +54,7 @@
           <input type="color" name="colorHex" matInput [(ngModel)]="editColor">
         </mat-form-field>
         <div mat-dialog-actions class="actions-div">
-          <button mat-button (click)="closeDialog()">Cancel</button>
+          <button mat-button type="button" (click)="closeDialog()">Cancel</button>
           <button type="submit" mat-raised-button class="button-accent" mat-button>Update</button>
         </div>
       </form>

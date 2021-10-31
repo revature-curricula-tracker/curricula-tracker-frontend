@@ -4,12 +4,16 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
-import { TechnologyDialogComponent } from '../technology-dialog/technology-dialog.component';
-import { Technology } from 'src/app/model/technology';
-import { faPencilAlt, faTrash, faPlusSquare, faSearch, faPalette, faSquare } from '@fortawesome/free-solid-svg-icons';
-import { TechnologyService } from 'src/app/services/technology.service';
+import { faPencilAlt, faTrash, faPlusSquare, faSearch, faPalette, faSquare, faList } from '@fortawesome/free-solid-svg-icons';
 import { ThemePalette } from "@angular/material/core";
 import { Observable, ReplaySubject } from 'rxjs';
+
+// Custom imports
+import { TechnologyTopicDialogComponent } from '../technology-topic-dialog/technology-topic-dialog.component';
+import { TechnologyDialogComponent } from '../technology-dialog/technology-dialog.component';
+import { TechnologyService } from 'src/app/services/technology.service';
+import { Technology } from 'src/app/model/technology';
+import { Topic } from '../../model/topic';
 
 @Component({
   selector: 'app-technology-overview',
@@ -29,6 +33,7 @@ export class TechnologyOverviewComponent implements AfterViewInit {
   faPlus = faPlusSquare;
   faPalette = faPalette;
   faSquare = faSquare;
+  faList = faList;
 
   techName: string = '';
   technologies: Technology[] = [];
@@ -87,6 +92,18 @@ export class TechnologyOverviewComponent implements AfterViewInit {
       }
     });
   }
+  
+  
+  openDialogTopic(topics: Topic[]): void {
+    console.log('Test');
+    const dialogRef = this.dialog.open(TechnologyTopicDialogComponent, {
+      width: '500px',
+      height: '400px',
+      data: {
+        topics
+      }
+    })
+  }
 
   closeTypeDialog(closedObj: any) {
     let hasId = ((obj: Technology) => obj.techId == closedObj.row.techId);
@@ -96,6 +113,8 @@ export class TechnologyOverviewComponent implements AfterViewInit {
       this.technologies.splice(indexToRemove, 1);
     } else if (closedObj.typeDialog == 'edit') {
       this.technologies.splice(indexToRemove, 1, closedObj.row);
+    } else if (closedObj.typeDialog == 'deleteError') {
+      
     }
 
     this.dataSource.data = [...this.technologies];

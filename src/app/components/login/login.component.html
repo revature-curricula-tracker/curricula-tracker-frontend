@@ -3,15 +3,15 @@
   <div class="general-content">
     <div class="login-content">
       <h2 class="text-center header">{{ title }}</h2>
-      <mat-form-field appearance="fill" class="bg-white input-style">
+      <mat-form-field appearance="fill" class="bg-white input-style" hideRequiredMarker="true">
         <mat-label class="user-label">Email</mat-label>
-        <input matInput [(ngModel)]="user.email" placeholder="" [formControl]="email" class="user-input">
+        <input matInput [(ngModel)]="user.email" placeholder="" [formControl]="email" class="user-input" required>
         <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
       </mat-form-field>
       <br>
-      <mat-form-field appearance="fill" class="bg-white input-style">
+      <mat-form-field appearance="fill" class="bg-white input-style" hideRequiredMarker="true">
         <mat-label class="user-label">Password</mat-label>
-        <input matInput [(ngModel)]="user.password" [type]="hide ? 'password' : 'text'" class="user-input">
+        <input matInput [(ngModel)]="user.password" [type]="hide ? 'password' : 'text'" class="user-input" required>
         <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
           [attr.aria-pressed]="hide">
           <span class="material-icons">{{hide ? 'visibility_off' : 'visibility'}}</span>
