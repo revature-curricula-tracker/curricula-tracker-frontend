@@ -46,7 +46,7 @@
     margin-right: 5% !important;
 }
 .curriculum-calendar{
-
+    margin-top: 10px;
 }
 tr>td:hover{
     /* border-color: blue;
@@ -84,15 +84,15 @@ tr>td:hover{
 li {
     list-style: none;
 }
-
+th{
+    width: 16%;
+}
 .cdk-row .cdk-cell
 {
-    background-color: rgb(212, 211, 211);
     border-width: 1;
     border-style: solid;
     border-color: grey;
-    min-width: 16% !important;
-    
+    height: 200px !important;
 }
   
 .cdk-row:nth-child(even) .cdk-cell:nth-child(odd), 
@@ -105,7 +105,8 @@ li {
     border-collapse: collapse;
     border-width: 1;
     border-color: darkgrey;
-    table-layout: auto;
+    /* table-layout: auto; */
+    width: 100%;
 } 
 .legend-labels
 {
@@ -113,6 +114,8 @@ li {
     display: ruby;
 }
 #legend-title{
+    margin-top: 10px;
+    margin-bottom: 20px;
     padding-left: 5%;
     color: darkgray;
 }

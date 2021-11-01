@@ -31,7 +31,7 @@
           </div>
         </div>
         <div class="pie-chart-content">
-          <canvas baseChart  [data]="pieChartData" [labels]="pieChartLabels" [colors]="pieChartColors"
+          <canvas baseChart [legend]="false" [data]="pieChartData" [labels]="pieChartLabels" [colors]="pieChartColors"
             chartType="pie"></canvas>
         </div>
       </div>
@@ -39,7 +39,7 @@
         <!--tech list-->
         <table cdk-table id="data_table" [dataSource]="dataSource">
           <ng-container cdkColumnDef="week">
-            <th id="tech" cdk-header-cell *cdkHeaderCellDef> Weeks </th>
+            <th id="tech" cdk-header-cell *cdkHeaderCellDef> </th>
             <td cdk-cell *cdkCellDef="let week"> Week {{week.id}}: {{week.name}} </td>
           </ng-container>
 
@@ -54,7 +54,7 @@
                   <ng-template #elseBlock>
                     <div *ngFor="let item of week.days[0];index as i;" cdkDrag [cdkDragDisabled]="!this.editing">
                       <button mat-raised-button class="topic-button"
-                        [style.background-color]=stringToColor(item.topic.technology.techName)>{{item.topic.name}}</button>
+                        [style.background-color]=stringToColor(item.technology.techName)>{{item.name}}</button>
                     </div>
                   </ng-template>
                 </div>
@@ -71,7 +71,7 @@
                   <ng-template #elseBlock>
                     <div *ngFor="let item of week.days[1];index as i;" cdkDrag [cdkDragDisabled]="!this.editing">
                       <button mat-raised-button class="topic-button"
-                        [style.background-color]=stringToColor(item.topic.technology.techName)>{{item.topic.name}}</button>
+                        [style.background-color]=stringToColor(item.technology.techName)>{{item.name}}</button>
                     </div>
                   </ng-template>
                 </div>
@@ -88,7 +88,7 @@
                   <ng-template #elseBlock>
                     <div *ngFor="let item of week.days[2];index as i;" cdkDrag [cdkDragDisabled]="!this.editing">
                       <button mat-raised-button class="topic-button"
-                        [style.background-color]=stringToColor(item.topic.technology.techName)>{{item.topic.name}}</button>
+                        [style.background-color]=stringToColor(item.technology.techName)>{{item.name}}</button>
                     </div>
                   </ng-template>
                 </div>
@@ -105,7 +105,7 @@
                   <ng-template #elseBlock>
                     <div *ngFor="let item of week.days[3];index as i;" cdkDrag [cdkDragDisabled]="!this.editing">
                       <button mat-raised-button class="topic-button"
-                        [style.background-color]=stringToColor(item.topic.technology.techName)>{{item.topic.name}}</button>
+                        [style.background-color]=stringToColor(item.technology.techName)>{{item.name}}</button>
                     </div>
                   </ng-template>
                 </div>
@@ -122,7 +122,7 @@
                   <ng-template #elseBlock>
                     <div *ngFor="let item of week.days[4];index as i;" cdkDrag [cdkDragDisabled]="!this.editing">
                       <button mat-raised-button class="topic-button"
-                        [style.background-color]=stringToColor(item.topic.technology.techName)>{{item.topic.name}}</button>
+                        [style.background-color]="stringToColor(item.technology.techName)">{{item.name}}</button>
                     </div>
                   </ng-template>
                 </div>

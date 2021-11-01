@@ -37,7 +37,6 @@ export class CurriculaOverviewComponent implements OnInit {
     backgroundColor: [],
     borderColor: []
   }];
-
   weekArray: Week[] = [];
   title = this.curriculum?.curriculumName || "Java Enterprise"; //name to be replaced by which curriculum it is
   btnStyle = 'edit-btn-default';
@@ -116,6 +115,17 @@ export class CurriculaOverviewComponent implements OnInit {
     return color;
   }
   public getTopicData(): any {
+    this.curriculum.topics.push(this.testTopic);
+    this.curriculum.topics.push(this.testTopic);
+    this.curriculum.topics.push(this.testTopic);
+    this.curriculum.topics.push(this.testTopic);
+    this.curriculum.topics.push(this.testTopic);
+    this.curriculum.topics.push(this.testTopic);
+    this.curriculum.topics.push(this.testTopic);
+    this.curriculum.topics.push(this.testTopic);
+    this.curriculum.topics.push(this.testTopic);
+    this.curriculum.topics.push(this.testTopic);
+    this.curriculum.topics.push(this.testTopic);
     this.curriculum.topics.push(this.testTopic);
     console.log(this.curriculum);
     this.fillout();
