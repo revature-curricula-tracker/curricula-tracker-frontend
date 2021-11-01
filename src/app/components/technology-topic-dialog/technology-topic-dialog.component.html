@@ -2,14 +2,47 @@
     <div class="dialog-content">
 
         <h1 mat-dialog-title>Topics</h1>
-  
-        <mat-list role="list" *ngIf="topics.length > 0">
-            <ng-container *ngFor="let topic of topics; index as i">
-                <mat-list-item role="listitem"> {{topic.description}} </mat-list-item>
-                <mat-divider *ngIf="!(i == topics.length-1)"></mat-divider>
-            </ng-container>
-            
-        </mat-list>
+
+        <mat-accordion displayMode="default" [multi]="true" [hideToggle]="false" *ngIf="topics.length > 0">
+            <mat-expansion-panel *ngFor="let topic of topics">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        {{topic.name}}
+                        &nbsp;
+                        <fa-icon class="icons" [icon]="faPencil" *ngIf="edit.target == topic.id && edit.state"></fa-icon>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                    <ng-container *ngIf="edit.target != topic.id">
+                        <p> {{topic.description}} </p>
+                    </ng-container>
+                    
+                    <ng-container *ngIf="edit.target == topic.id && edit.state">
+                        <div class="form-content">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Name</mat-label>
+                                <input matInput [formControl]="editName">
+                            </mat-form-field>
+                            <mat-form-field appearance="fill">
+                                <mat-label>Description</mat-label>
+                                <textarea matInput [formControl]="editDescription"></textarea>
+                            </mat-form-field>
+                        </div>
+                    </ng-container>
+                <mat-action-row>
+
+                    <ng-container *ngIf="edit.target == topic.id && edit.state">
+                        <button mat-button color="primary" (click)="cancelEdit()"> Cancel </button>
+                        <button mat-button color="primary" (click)="saveEditTopic(topic)"> Save </button>
+                    </ng-container>
+
+                    <ng-container *ngIf="edit.target != topic.id">
+                        <button mat-button color="primary" (click)="editTopic(topic)"> Edit </button>
+                        <button mat-button color="primary" (click)="removeTopic(topic)"> Remove </button>
+                    </ng-container>
+                    
+                </mat-action-row>
+            </mat-expansion-panel>
+        </mat-accordion>
 
         <ng-container *ngIf="!(topics.length > 0)">
             <p>There are no topics created, create one here!</p>

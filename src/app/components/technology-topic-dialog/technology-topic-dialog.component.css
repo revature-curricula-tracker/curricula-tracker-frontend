@@ -1,0 +1,17 @@
+.mat-dialog-content, .dialog-content {
+    height: 100%;
+}
+.mat-expansion-panel-header-title {
+    font-weight: 600;
+}
+p {
+    margin: 16px 0px 0px 0px;
+}
+.form-content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+mat-form-field {
+    width: 100%;
+}
