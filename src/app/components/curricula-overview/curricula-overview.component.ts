@@ -74,7 +74,7 @@ export class CurriculaOverviewComponent implements OnInit {
           if (v.topicDay != newDropId+1) {
             console.log(`Updated ${oldDropId+1} to ${newDropId+1}`)
             v.topicDay = newDropId+1;
-            //this.curService.updateCurricula(v).subscribe(output=>console.log(`Updated ${v} to ${output}`))
+            this.curService.updateCurricula(v).subscribe(output=>console.log(`Updated ${v} to ${output}`))
             //this.topicServ.updateTopic(v);
           }
         })

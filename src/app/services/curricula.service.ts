@@ -13,10 +13,8 @@ const url = `${backendUrl}`;
   providedIn: 'root'
 })
 export class CurriculaService {
-  public updateCurricula(top: TopicsForCurriculum): Observable<TopicsForCurriculum> {
-    return this.http.patch<TopicsForCurriculum>(`${url}/${top.curriculumTopicKey.curr_id}&${top.curriculumTopicKey.topic_id}`, top)
-      .pipe(catchError(e => this.handleError('update a topic date', e)));
-  }
+
+
   constructor(private http: HttpClient, private router: Router) { }
 
   //get all Curricula topics in the join table
@@ -25,6 +23,11 @@ export class CurriculaService {
   }
   public getCurriculumById(id: number): Observable<Curriculum> {
     return this.http.get<Curriculum>(`${url}/curriculum/findId/${id}`);
+  }
+  public updateCurricula(top: TopicsForCurriculum): Observable<TopicsForCurriculum> {
+    console.log(top);
+    return this.http.patch<TopicsForCurriculum>(`${url}/${top.curriculum.curriculumId}&${top.topic.id}`, top)
+      .pipe(catchError(e => this.handleError('update a topic date', e)));
   }
   //get all Curriculum
   public getAllCurriculum(): Observable<Curriculum[]> {
