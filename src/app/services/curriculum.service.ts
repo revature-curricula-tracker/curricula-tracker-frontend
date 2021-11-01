@@ -64,7 +64,7 @@ export class CurriculumService {
   // error handler logger helper
   private handleError(httpError: HttpErrorResponse) {
     if (httpError instanceof ErrorEvent) {
-      console.log('And error occurred: ', httpError);
+      console.log('An error occurred: ', httpError);
     }
     else {
       console.error(`
@@ -72,6 +72,6 @@ export class CurriculumService {
         body was: ${httpError.error}
       `)
     }
-    return throwError('Something bad happened; please try again later');
+    return throwError('Something went wrong; please try again later');
   }
 }
