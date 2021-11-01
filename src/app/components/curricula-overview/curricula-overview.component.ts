@@ -7,7 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Topic } from 'src/app/model/topic';
 import { CurriculumService } from 'src/app/services/curriculum.service';
-import { faPen, faPenAlt, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
+import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 
 export interface TopicElement {
 }
@@ -37,7 +37,6 @@ export class CurriculaOverviewComponent implements OnInit {
     backgroundColor: [],
     borderColor: []
   }];
-
   weekArray: Week[] = [];
   title = this.curriculum?.curriculumName || "Java Enterprise"; //name to be replaced by which curriculum it is
   btnStyle = 'edit-btn-default';
@@ -50,6 +49,8 @@ export class CurriculaOverviewComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.topics.push(this.testTopic);
+    this.getTopicData();
 
   }
   fillout(n:number) {
@@ -113,8 +114,20 @@ export class CurriculaOverviewComponent implements OnInit {
     return color;
   }
   public getTopicData(): any {
-    //this.curriculum.topics.push(this.testTopic);
-    this.fillout(this.curriculum.numWeeks);
+    this.curriculum.topics.push(this.testTopic);
+    this.curriculum.topics.push(this.testTopic);
+    this.curriculum.topics.push(this.testTopic);
+    this.curriculum.topics.push(this.testTopic);
+    this.curriculum.topics.push(this.testTopic);
+    this.curriculum.topics.push(this.testTopic);
+    this.curriculum.topics.push(this.testTopic);
+    this.curriculum.topics.push(this.testTopic);
+    this.curriculum.topics.push(this.testTopic);
+    this.curriculum.topics.push(this.testTopic);
+    this.curriculum.topics.push(this.testTopic);
+    this.curriculum.topics.push(this.testTopic);
+    console.log(this.curriculum);
+    this.fillout(10);
     this.curriculum.topics.forEach(t => {
       this.getTopic(t.id);
     });
