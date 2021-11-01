@@ -48,6 +48,7 @@
                     <div *ngFor="let item of week.days[0];index as i;" cdkDrag [cdkDragDisabled]="!this.editing">
                       <button mat-raised-button class="topic-button"
                         [style.background-color]=stringToColor(item.technology.techName)>{{item.name}}</button>
+                        s
                     </div>
                   </ng-template>
                 </div>

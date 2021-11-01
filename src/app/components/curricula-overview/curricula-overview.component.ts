@@ -46,27 +46,23 @@ export class CurriculaOverviewComponent implements OnInit {
 
   constructor(private curService: CurriculumService, private topicServ: TopicsService, private route: ActivatedRoute) {
     this.getCurriculum(this.route.snapshot.params['id']);
-    this.curriculum = this.curriculum || new Curriculum(1, "No Curriculum Found", 5, 5 * 5, this.topics);
+   //this.curriculum = this.curriculum || new Curriculum(1, "No Curriculum Found", 10, 10 * 5, this.topics);
   }
 
   ngOnInit(): void {
 
-    this.getTopicData();
-
   }
   fillout(n:number) {
-    for (let i = 1; i <= n; i++) {
+    for (let i = 1; i <= this.curriculum.numWeeks; i++) {
+      //console.log(this.weekArray.length);
       this.weekArray.push(new Week(i));
-    }
-    this.dataSource=this.weekArray;
-
+    }this.dataSource = this.weekArray;
+    
   }
   setWeeks() {
     for (let t of this.topics) {
       this.weekArray[Math.floor((t.topicDay) / 5.1)].days[((t.topicDay - 1) % 5)].push(t);
-
     }
-
   }
   startEdit() {
     if (this.editing) {
@@ -118,9 +114,7 @@ export class CurriculaOverviewComponent implements OnInit {
   }
   public getTopicData(): any {
     //this.curriculum.topics.push(this.testTopic);
-    console.log(this.curriculum.numWeeks);
     this.fillout(this.curriculum.numWeeks);
-    console.log(this.curriculum.numWeeks);
     this.curriculum.topics.forEach(t => {
       this.getTopic(t.id);
     });
@@ -138,6 +132,8 @@ export class CurriculaOverviewComponent implements OnInit {
   getTopic(id: number) {
     this.topicServ.findById(id).subscribe(top => {
       this.topics.push(top);
+      console.log(top);
+      
       this.weekArray[Math.floor((top.topicDay) / 5.1)].days[((top.topicDay - 1) % 5)].push(top)
       if (!this.tech.includes(top.technology)) this.tech.push(top.technology);
       if (!this.topics.includes(top)) this.topics.push(top);
