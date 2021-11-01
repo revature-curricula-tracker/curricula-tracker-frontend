@@ -1,21 +1,12 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { Sort } from '@angular/material/sort';
-import { MatTable, MatTableDataSource } from '@angular/material/table';
-import { CollectionViewer, DataSource } from '@angular/cdk/collections';
+import { MatSort, Sort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { Curriculum } from 'src/app/model/curriculum';
-import { ThemePalette } from "@angular/material/core";
-import { Observable, ReplaySubject } from 'rxjs';
-import { CurriculaService } from 'src/app/services/curricula.service';
 import { faPlusSquare } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
+import { CurriculumService } from 'src/app/services/curriculum.service';
 
-
-export interface Dessert {
-  name: string;
-  weeks: number;
-}
 @Component({
   selector: 'app-homepage',
   templateUrl: './homepage.component.html',
@@ -32,22 +23,20 @@ export class HomepageComponent implements AfterViewInit {
 
   displayedColumns: string[] = ['name', 'weeks'];
   dataSource = new MatTableDataSource<Curriculum>();
-  sortedData;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private curriculaService: CurriculaService, private route: Router) {
-    this.sortedData = this.curricula.slice();
-  }
+  constructor(private curriculumService: CurriculumService, private route: Router) {
 
+  }
   ngAfterViewInit() {
-    this.curriculaService.getAllCurricula().subscribe(data => {
+    this.curriculumService.findAllCurricula().subscribe(data => {
       this.curricula = [...data];
-      console.log(this.curricula);
+      this.dataSource.sort = this.sort;
       this.dataSource.data = [...this.curricula];
       this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
+      console.log(this.curricula);
     });
   }
   applyFilter(event: Event) {
@@ -60,11 +49,11 @@ export class HomepageComponent implements AfterViewInit {
   sortData(sort: Sort) {
     const data = this.curricula.slice();
     if (!sort.active || sort.direction == '') {
-      this.sortedData = data;
+      this.dataSource.data = data;
       return;
     }
 
-    this.sortedData = data.sort((a, b) => {
+    this.dataSource.data = data.sort((a, b) => {
       let isAsc = sort.direction == 'asc';
       switch (sort.active) {
         case 'name': return this.compare(a.curriculumName, b.curriculumName, isAsc);

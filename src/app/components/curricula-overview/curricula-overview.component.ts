@@ -1,68 +1,81 @@
+import { TopicsService } from './../../services/topics.service';
+import { ActivatedRoute } from '@angular/router';
 import { CurriculumTopicKey } from './../../model/CurriculumTopicKey';
 import { Week } from './../../model/week';
 import { TopicsForCurriculum } from './../../model/topicsForCurriculum';
 import { Technology } from './../../model/technology';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Curriculum } from 'src/app/model/curriculum';
 import { Topic } from 'src/app/model/topic';
-import { CurriculaService } from 'src/app/services/curricula.service';
-import { CurriculaTopicService } from 'src/app/services/curricula-topic.service';
+import { Color } from 'ng2-charts';
+import { CurriculumService } from 'src/app/services/curriculum.service';
+import { faPen, faPenAlt, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 
 export interface TopicElement {
 
 }
+
 @Component({
   selector: 'app-curricula-overview',
   templateUrl: './curricula-overview.component.html',
   styleUrls: ['./curricula-overview.component.css']
 })
 export class CurriculaOverviewComponent implements OnInit {
-
+  @Input() curriculum !: Curriculum;
   editing: boolean = false;//if editing
   tech: Technology[] = [];//array of tech for tech buttons
-  topicArray: TopicsForCurriculum[] = [];
-  //TESTING MODELS, DELETE AFTER ACTUALLY GETTING SERVICE METHODS
-  testKey: CurriculumTopicKey = new CurriculumTopicKey(1, 1);
-  testTech: Technology = new Technology(1, "Angular", "", []);
-  testTech2: Technology = new Technology(2, "Javascript", "", []);
-  testTopic: Topic = new Topic("Angular topic", 1, "Angular Fun");
-  testTopic2: Topic = new Topic("topic that has a long name", 1, "JavaScript Advanced Topic for everything and anything");
-  testT: Topic[] = [this.testTopic, this.testTopic2]
-  testC: Curriculum = new Curriculum(1, "Testing Curriculum", 10, 10 * 5);
+  topics: Topic[] = [];
+  faEdit = faPencilAlt;
 
-  title: string = this.testC.curriculumName; //name to be replaced by which curriculum it is
-  weekArray: Week[] = [new Week(1), new Week(2), new Week(3), new Week(4), new Week(5), new Week(6), new Week(7), new Week(8), new Week(9), new Week(10), new Week(11)];
-  constructor(private curService: CurriculaTopicService) { }
-
+  ////piechart variables
+  public pieChartLabels:string[] = [];
+  public pieChartData:number[] = [];
+  public pieChartType:string = 'pie';
+  public pieChartColors: Array < any > = [{
+    backgroundColor: [],
+    borderColor: []
+ }];
+  
+  weekArray: Week[] = [];
+  title = this.curriculum?.curriculumName || "Java Enterprise"; //name to be replaced by which curriculum it is
+  btnStyle = 'edit-btn-default';
   displayedColumns: string[] = ['week', 'day1', 'day2', 'day3', 'day4', 'day5'];
   dataSource = this.weekArray;
+
+  constructor(private curService: CurriculumService, private topicServ: TopicsService, private route: ActivatedRoute) {
+    this.getCurriculum(this.route.snapshot.params['id']);
+    this.curriculum = this.curriculum || new Curriculum(1, "No Curriculum Found", 5, 5 * 5, new Array<Topic>());
+  }
+
   ngOnInit(): void {
     this.getTopicData();
-    this.weekArray.length = 3;
-
+    
   }
-  addTopics() {
-
-    this.topicArray.push(new TopicsForCurriculum(this.testC, this.testKey, this.testTopic, 1));
-    this.topicArray.push(new TopicsForCurriculum(this.testC, this.testKey, this.testTopic2, 2));
-    this.topicArray.push(new TopicsForCurriculum(this.testC, this.testKey, this.testTopic, 10));
-    this.topicArray.push(new TopicsForCurriculum(this.testC, this.testKey, this.testTopic, 2));
-    this.setWeeks();
-
+  fillout() {
+    for (let i = 1; i <= this.curriculum.numWeeks; i++) {
+      this.weekArray.push(new Week(i));
+    }
+   
   }
   setWeeks() {
-    for (let t of this.topicArray) {
+    for (let t of this.topics) {
       this.weekArray[Math.floor((t.topicDay) / 5.1)].days[((t.topicDay - 1) % 5)].push(t);
+      
     }
+    
   }
   startEdit() {
     if (this.editing) {
       this.editing = false;
+      this.btnStyle = 'edit-btn-default';
     }
-    else this.editing = true;
+    else {
+      this.editing = true;
+      this.btnStyle = 'edit-btn-change';
+    }
   }
-  drop(event: CdkDragDrop<string[]>) {
+  drop(event: CdkDragDrop<Topic[]>) {
     if (this.editing) {
       if (event.previousContainer === event.container) {
         moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
@@ -71,19 +84,25 @@ export class CurriculaOverviewComponent implements OnInit {
           event.container.data,
           event.previousIndex,
           event.currentIndex);
-        let dropId = 0;
-        dropId = parseInt(event.container.element.nativeElement.id.substr(14));
-        console.log(dropId);
-        //update topic date using crud
+        let oldDropId = 0, newDropId = 0;//get where it was and where it is now
+        oldDropId = parseInt(event.previousContainer.element.nativeElement.id.substr(14));
+        newDropId = parseInt(event.container.element.nativeElement.id.substr(14));
+        event.container.data.forEach(v => {
+          if (v.topicDay != newDropId+1) {
+            console.log(`Updated ${oldDropId+1} to ${newDropId+1}`)
+            v.topicDay = newDropId+1;
+            this.topicServ.updateTopic(v).subscribe(output=>console.log(`Updated ${v} to ${output}`))
+            //this.topicServ.updateTopic(v);
+          }
+        })
       }
-
     }
   }
-  counter(i: number) {//create an array of n numbers
+  counter(i: number): Array<number> {//create an array of n numbers
     return new Array(i);
   }
   stringToColor(str: string) {
-    var hash = 1;
+    var hash = 3;
     for (var i = 0; i < str.length; i++) {
       hash = str.charCodeAt(i) + ((hash << 5) - hash);
     }
@@ -95,16 +114,54 @@ export class CurriculaOverviewComponent implements OnInit {
     return color;
   }
   public getTopicData(): any {
-    this.curService.getAllTopicsForCurriculum().subscribe(data => {
-      console.log(data);
-
-      data.forEach(t => {
-        this.topicArray.push(t);
-        console.log(t.curriculum.curriculumName + " ");
+    this.curriculum.topics.forEach(t => {
+        this.topics.push(t);
         this.weekArray[Math.floor((t.topicDay) / 5.1)].days[((t.topicDay - 1) % 5)].push(t)
+        if (!this.tech.includes(t.technology)) this.tech.push(t.technology);
+        if (!this.topics.includes(t)) this.topics.push(t);
       });
-    }).add(this.addTopics())
+      this.getChartdata();
+    this.fillout();
+  }
+  getCurriculum(routeParm: string) {
+    this.curService.findById(Number.parseInt(routeParm)).subscribe(data => {
+      this.curriculum = data;
+      this.title = this.curriculum.curriculumName;
+    })
 
   }
+
+  
+  getChartdata()
+  {
+    let techCounter = new Map();
+   for(var t of this.tech)
+   {
+     if(!this.pieChartLabels.includes(t.techName))
+     {
+       techCounter.set(t.techName , 1);
+        this.pieChartLabels.push(t.techName );
+        this.pieChartColors[0].backgroundColor.push(this.stringToColor(t.techName));
+     }
+     else
+     {
+      techCounter.set(t.techName , techCounter.get(t.techName) + 1);
+     }
+   }
+   for(var i of techCounter)
+   {
+   this.pieChartData.push(i[1]);
+   }
+  }
+ 
+  // piechart events
+  public chartClicked(e:any):void {
+    
+  }
+ 
+  public chartHovered(e:any):void {
+    
+  }
+
 }
 

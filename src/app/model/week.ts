@@ -1,13 +1,15 @@
-import { TopicsForCurriculum } from './topicsForCurriculum';
+import { Topic } from "./topic";
+
 export class Week {
   id: number;
   name: string="";
   week : string="";
-  days:TopicsForCurriculum[][]=[[],[],[],[],[]];
+  days:Topic[][]=[[],[],[],[],[]];
 
   constructor( 
     id: number,
   ) {
     this.id=id;
+    
   }
 }

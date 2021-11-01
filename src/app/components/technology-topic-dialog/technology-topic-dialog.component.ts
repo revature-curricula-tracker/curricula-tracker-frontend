@@ -1,7 +1,9 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { TechnologyService } from 'src/app/services/technology.service';
+import { TopicsService } from './../../services/topics.service';
+import { Component, Inject, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
+import { faPencilAlt, faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 import { Topic } from '../../model/topic';
 
 export interface DialogData {
@@ -18,6 +20,8 @@ export class TechnologyTopicDialogComponent implements OnInit {
   topics: Topic[] = [];
   edit = {target: 0, state: false, btnOneState: 'Edit', btnTwoState: 'Remove'};
   faPencil = faPencilAlt;
+  faWarning = faExclamationCircle;
+  confirmDelete = {target: 0, state: false};
 
   // Setting new form for topic edit
   editName = new FormControl('');
@@ -25,6 +29,7 @@ export class TechnologyTopicDialogComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<TechnologyTopicDialogComponent>,
+    private topicService: TopicsService,
     @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
     
     ngOnInit(): void {
@@ -49,20 +54,26 @@ export class TechnologyTopicDialogComponent implements OnInit {
       this.edit.state = false;
     }
 
-    removeTopic(topic: Topic) {
+    deleteTopic(topic: Topic) {
 
+      console.log(`Removing - ${topic.name}`);
+      let hasId = ((obj: Topic) => obj.id == topic.id);
+      let indexToRemove = this.topics.findIndex(hasId);
+
+      this.confirmDelete.target = 0;
+      this.confirmDelete.state = false;
+      this.topics.splice(indexToRemove, 1);
+
+      /* this.topicService.deleteTopicByName(topic.name)
+        .subscribe(data => console.log(data)); */
     }
 
     closeDialog() {
-
-    }
-
-    closeAndCreateTopic(){
-      
+      this.dialogRef.close(this.topics);
     }
 
     onNoClick(): void {
-      this.dialogRef.close();
+      this.dialogRef.close(this.topics);
     }
     
 }
