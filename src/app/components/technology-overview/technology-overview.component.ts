@@ -122,8 +122,7 @@ export class TechnologyOverviewComponent implements AfterViewInit {
       return;
     }
     
-    let sortedData = data;
-    this.dataSource.data = sortedData.sort((a, b) => {
+    this.dataSource.data = data.sort((a, b) => {
       let isAsc = sort.direction == 'asc';
       switch (sort.active) {
         case 'name': return this.compare(a.techName, b.techName, isAsc);
