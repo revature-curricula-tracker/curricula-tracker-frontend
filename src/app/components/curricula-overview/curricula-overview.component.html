@@ -8,24 +8,25 @@
 <div class="general-content">
   <div class="curricula-background">
     <div class="curricula-content">
-      <div class="weeks d- flex">
-        <div class="title_container">
-          <h1>{{title}}</h1>
-          <mat-slide-toggle (change)=startEdit()>Edit</mat-slide-toggle>
-          <!-- Piechart -->
+      <div class="weeks">
+        <div>
+          <div class="curriculum_title">
+            <h1>{{title}}</h1>
+            <mat-slide-toggle (change)=startEdit() style="text-shadow: #FC0 1px 0 10px;"></mat-slide-toggle>
+            <fa-icon class="icons" [icon]="faEdit" style="font-size: 22px; color: rgb(88, 88, 88);"></fa-icon>
+          </div>
           <div id="pie-chart">
             <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [colors]="pieChartColors"
               chartType="pie"></canvas>
           </div>
         </div>
         <h4>Technologies:</h4><!-- Headline for tech list-->
-        <br>
         <div class="example-button-row">
           <div *ngFor="let item of pieChartLabels;index as i;" class="button-row">
             <button mat-raised-button id="" class="tech-button"
               [style.background-color]=stringToColor(pieChartLabels[i])>{{pieChartLabels[i]}}</button>
           </div>
-        </div><br><br>
+        </div>
         <!--tech list-->
         <!-- div for styling/coding-->
         <table cdk-table id="data_table" [dataSource]="dataSource">
@@ -34,7 +35,7 @@
             <th id="tech" cdk-header-cell *cdkHeaderCellDef> Weeks </th>
             <td cdk-cell *cdkCellDef="let week"> Week {{week.id}}: {{week.name}} </td>
           </ng-container>
-      
+
           <div cdkDropListGroup>
             <ng-container cdkColumnDef="day1">
               <th id="day1" cdk-header-cell *cdkHeaderCellDef> Monday </th>
@@ -52,7 +53,7 @@
                 </div>
               </td>
             </ng-container>
-      
+
             <ng-container cdkColumnDef="day2">
               <th id="day2" cdk-header-cell *cdkHeaderCellDef> Tuesday </th>
               <td cdk-cell *cdkCellDef="let week">
@@ -69,7 +70,7 @@
                 </div>
               </td>
             </ng-container>
-      
+
             <ng-container cdkColumnDef="day3">
               <th id="day3" cdk-header-cell *cdkHeaderCellDef> Wednesday </th>
               <td cdk-cell *cdkCellDef="let week">
@@ -86,7 +87,7 @@
                 </div>
               </td>
             </ng-container>
-      
+
             <ng-container cdkColumnDef="day4">
               <th id="day4" cdk-header-cell *cdkHeaderCellDef> Thursday </th>
               <td cdk-cell *cdkCellDef="let week">
@@ -103,7 +104,7 @@
                 </div>
               </td>
             </ng-container>
-      
+
             <ng-container cdkColumnDef="day5">
               <th id="day5" cdk-header-cell *cdkHeaderCellDef> Friday </th>
               <td cdk-cell *cdkCellDef="let week">
@@ -119,7 +120,7 @@
                   </ng-template>
                 </div>
               </td>
-      
+
             </ng-container>
             <tr cdk-header-row *cdkHeaderRowDef="displayedColumns"></tr>
             <tr class="rowclass" cdk-row *cdkRowDef="let myRowData; columns: displayedColumns"></tr>

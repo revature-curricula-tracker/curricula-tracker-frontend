@@ -9,9 +9,12 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 import { Curriculum } from 'src/app/model/curriculum';
 import { Topic } from 'src/app/model/topic';
 import { CurriculumService } from 'src/app/services/curriculum.service';
+import { faPen, faPenAlt, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
+
 export interface TopicElement {
 
 }
+
 @Component({
   selector: 'app-curricula-overview',
   templateUrl: './curricula-overview.component.html',
@@ -22,6 +25,7 @@ export class CurriculaOverviewComponent implements OnInit {
   editing: boolean = false;//if editing
   tech: Technology[] = [];//array of tech for tech buttons
   topics: Topic[] = [];
+  faEdit = faPencilAlt;
 
   ////piechart variables
   public pieChartLabels:string[] = [];
@@ -33,15 +37,16 @@ export class CurriculaOverviewComponent implements OnInit {
  }];
   
   weekArray: Week[] = [];
-  title = this.curriculum?.curriculumName || "No Curriculum Chosen"; //name to be replaced by which curriculum it is
+  title = this.curriculum?.curriculumName || "Java Enterprise"; //name to be replaced by which curriculum it is
   btnStyle = 'edit-btn-default';
+  displayedColumns: string[] = ['week', 'day1', 'day2', 'day3', 'day4', 'day5'];
+  dataSource = this.weekArray;
+
   constructor(private curService: CurriculumService, private topicServ: TopicsService, private route: ActivatedRoute) {
     this.getCurriculum(this.route.snapshot.params['id']);
     this.curriculum = this.curriculum || new Curriculum(1, "No Curriculum Found", 5, 5 * 5, new Array<Topic>());
   }
 
-  displayedColumns: string[] = ['week', 'day1', 'day2', 'day3', 'day4', 'day5'];
-  dataSource = this.weekArray;
   ngOnInit(): void {
     this.getTopicData();
     
