@@ -1,9 +1,10 @@
-import { CurriculaService } from 'src/app/services/curricula.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
+import { MatSort, Sort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { Curriculum } from 'src/app/model/curriculum';
+import { CurriculaService } from 'src/app/services/curricula.service';
+import { faPlusSquare } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 
 @Component({
@@ -12,23 +13,32 @@ import { Router } from '@angular/router';
   styleUrls: ['./homepage.component.css']
 })
 
-export class HomepageComponent implements OnInit {
+export class HomepageComponent implements AfterViewInit {
 
-  title = "Curricula";
-  ELEMENT_DATA: Curriculum[] = [];
-  result = this.ELEMENT_DATA.length;
-  displayedColumns: string[] = ['name'];
-  dataSource = new MatTableDataSource(this.ELEMENT_DATA);
+  faPlus = faPlusSquare;
 
-  constructor(private curriculumService: CurriculaService, private router: Router) { }
+  curriculumName: string = '';
+  numWeeks: number = 0;
+  curricula: Curriculum[] = [];
+
+  displayedColumns: string[] = ['name', 'weeks'];
+  dataSource = new MatTableDataSource<Curriculum>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  ngOnInit() {
-    this.findAllCurricula();
-  }
+  constructor(private curriculaService: CurriculaService, private route: Router) {
 
+  }
+  ngAfterViewInit() {
+    this.curriculaService.getAllCurricula().subscribe(data => {
+      this.curricula = [...data];
+      this.dataSource.sort = this.sort;
+      this.dataSource.data = [...this.curricula];
+      this.dataSource.paginator = this.paginator;
+      console.log(this.curricula);
+    });
+  }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -36,28 +46,28 @@ export class HomepageComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
+  sortData(sort: Sort) {
+    const data = this.curricula.slice();
+    if (!sort.active || sort.direction == '') {
+      this.dataSource.data = data;
+      return;
+    }
 
-  findAllCurricula(): void {
-    let counter: number = 0;
-    this.curriculumService.getAllCurriculum().subscribe(
-      res => {
-        res.forEach(x => {
-          this.ELEMENT_DATA[counter] = {
-            curriculumId: x.curriculumId,
-            curriculumName: x.curriculumName,
-            numWeeks: x.numWeeks,
-            numDays: x.numDays
-          };
-          counter++;
-        });
-        this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
+    this.dataSource.data = data.sort((a, b) => {
+      let isAsc = sort.direction == 'asc';
+      switch (sort.active) {
+        case 'name': return this.compare(a.curriculumName, b.curriculumName, isAsc);
+        case 'weeks': return this.compare(+a.numWeeks, +b.numWeeks, isAsc);
+        default: return 0;
       }
-    );
+    });
   }
-
-  viewCurriculum(id: number) {
-    this.router.navigateByUrl(`curriculum/${id}`);
+  compare(a: number | string, b: number | string, isAsc: boolean) {
+    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+  }
+  //Change to CreatePage...
+  navigateTo() {
+    this.route.navigate(['/curriculum']);
   }
 }
+

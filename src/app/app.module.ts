@@ -11,14 +11,16 @@ import { CurriculaOverviewComponent } from './components/curricula-overview/curr
 import { LoginComponent } from './components/login/login.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { TechnologyDialogComponent } from './components/technology-dialog/technology-dialog.component';
+import { HomepageComponent } from './components/homepage/homepage.component';
+import { TechnologyTopicDialogComponent } from './components/technology-topic-dialog/technology-topic-dialog.component';
 
-
-// Material Components
+// Material & 3rd party Components
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -31,13 +33,16 @@ import { MatListModule } from '@angular/material/list';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatTableModule } from '@angular/material/table';
-import { HomepageComponent } from './components/homepage/homepage.component';
 import { CurriculumCreateComponent } from './components/curriculum-create/curriculum-create.component';
 import { DialogCreateComponent } from './components/dialog-create/dialog-create.component';
 import { MatSelectModule } from '@angular/material/select';
 import { ChartsModule } from 'ng2-charts';
 import { PieChartComponent } from './components/pie-chart/pie-chart.component';
 
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS } from '@angular-material-components/color-picker';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   declarations: [
@@ -50,7 +55,8 @@ import { PieChartComponent } from './components/pie-chart/pie-chart.component';
     HomepageComponent,
     CurriculumCreateComponent,
     DialogCreateComponent,
-    PieChartComponent
+    PieChartComponent,
+    TechnologyTopicDialogComponent
   ],
   imports: [
     HttpClientModule,
@@ -58,6 +64,7 @@ import { PieChartComponent } from './components/pie-chart/pie-chart.component';
     AppRoutingModule,
     NgbDropdownModule,
     NgbModule,
+    NgxMatColorPickerModule,
     FontAwesomeModule,
     FormsModule,
     MatFormFieldModule,
@@ -67,6 +74,7 @@ import { PieChartComponent } from './components/pie-chart/pie-chart.component';
     MatAutocompleteModule,
     MatIconModule,
     MatInputModule,
+    MatSlideToggleModule,
     MatDialogModule,
     CdkTableModule,
     DragDropModule,
@@ -76,9 +84,12 @@ import { PieChartComponent } from './components/pie-chart/pie-chart.component';
     MatGridListModule,
     MatChipsModule,
     MatTableModule,
+    MatTooltipModule,
     CdkTableModule,
     MatSelectModule,
     ChartsModule,
+    MatBadgeModule,
+    MatSortModule,
     ToastrModule.forRoot({
       timeOut: 5000,
       progressBar: true,
@@ -86,7 +97,7 @@ import { PieChartComponent } from './components/pie-chart/pie-chart.component';
       preventDuplicates: true
     }),
   ],
-  providers: [],
+  providers: [{ provide: MAT_COLOR_FORMATS, useValue: NGX_MAT_COLOR_FORMATS }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
