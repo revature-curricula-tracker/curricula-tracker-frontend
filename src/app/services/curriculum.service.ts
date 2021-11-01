@@ -1,10 +1,9 @@
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { Curriculum } from 'src/app/model/curriculum';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { backendUrl } from 'src/environments/environment';
 import { catchError } from "rxjs/operators";
-import { throwError } from 'rxjs';
 
 const url = backendUrl + "/curriculum";
 
@@ -41,7 +40,7 @@ export class CurriculumService {
       )
   }
 
-  public findByName(name: String): Observable<Curriculum> {
+  public findByName(name: string): Observable<Curriculum> {
     return this.http.get<Curriculum>(`${url}/findName/${name}`)
       .pipe(
         catchError(this.handleError)

@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: 'curriculum/:id', component: CurriculaOverviewComponent },
   { path: 'home', component: HomepageComponent },
   { path: 'technologies', component: TechnologyOverviewComponent },
-  { path: '**', canActivate: [RouteGuardGuard] }
+  // { path: '**', canActivate: [RouteGuardGuard] }
 ];
 
 @NgModule({
