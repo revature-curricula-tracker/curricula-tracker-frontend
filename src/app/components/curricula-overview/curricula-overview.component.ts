@@ -150,7 +150,5 @@ export class CurriculaOverviewComponent implements OnInit {
    this.pieChartData.push(i[1]);
    }
   }
- 
-  // piechart events
 }
 
