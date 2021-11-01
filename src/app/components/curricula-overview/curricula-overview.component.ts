@@ -10,7 +10,7 @@ import { Curriculum } from 'src/app/model/curriculum';
 import { Topic } from 'src/app/model/topic';
 import { Color } from 'ng2-charts';
 import { CurriculumService } from 'src/app/services/curriculum.service';
-import { faPen, faPenAlt, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
+import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 
 export interface TopicElement {
 
@@ -26,6 +26,11 @@ export class CurriculaOverviewComponent implements OnInit {
   editing: boolean = false;//if editing
   tech: Technology[] = [];//array of tech for tech buttons
   topics: Topic[] = [];
+  //testing vars
+  testTech =  new Technology(1,"","#0000", this.topics);
+  testCur= new Curriculum(1,"",10,50,this.topics);
+  testTopic:Topic = new Topic("",1,"",this.testTech,this.testCur,1);
+  
   faEdit = faPencilAlt;
 
   ////piechart variables
@@ -49,6 +54,7 @@ export class CurriculaOverviewComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.topics.push(this.testTopic);
     this.getTopicData();
     
   }

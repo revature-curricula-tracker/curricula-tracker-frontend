@@ -6,31 +6,38 @@
   </div>
 </div>
 <div class="general-content">
-  <div class="curricula-background">
-    <div class="curricula-content">
-      <div class="weeks">
-        <div>
-          <div class="curriculum_title">
-            <h1>{{title}}</h1>
-            <mat-slide-toggle (change)=startEdit() style="text-shadow: #FC0 1px 0 10px;"></mat-slide-toggle>
-            <fa-icon class="icons" [icon]="faEdit" style="font-size: 22px; color: rgb(88, 88, 88);"></fa-icon>
+  <div class="curriculum-background">
+    <div class="curriculum-content">
+      <div class="curriculum-heading">
+        <div style="width: 80%;">
+          <div class="curriculum-title">
+            <h1 style="color: #F26925">{{title}}</h1>
+            <mat-slide-toggle (change)=startEdit() style="padding-left: 2%;"></mat-slide-toggle>
+            &nbsp;
+            &nbsp;
+            <fa-icon class="icons" [icon]="faEdit" style="font-size: 22px; color: rgb(92, 92, 92);"></fa-icon>
           </div>
-          <div id="pie-chart">
-            <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [colors]="pieChartColors"
-              chartType="pie"></canvas>
+          <div class="pie-chart-legend">
+            <h5 id="legend-title">Technologies</h5>
+            <div class="legend-labels">
+
+            </div>
+            <div class="example-button-row">
+              <div *ngFor="let item of pieChartLabels;index as i;" class="button-row">
+                <button mat-raised-button id="" class="tech-button"
+                  [style.background-color]=stringToColor(pieChartLabels[i])>{{pieChartLabels[i]}}</button>
+              </div>
+            </div>
           </div>
         </div>
-        <h4>Technologies:</h4><!-- Headline for tech list-->
-        <div class="example-button-row">
-          <div *ngFor="let item of pieChartLabels;index as i;" class="button-row">
-            <button mat-raised-button id="" class="tech-button"
-              [style.background-color]=stringToColor(pieChartLabels[i])>{{pieChartLabels[i]}}</button>
-          </div>
+        <div class="pie-chart-content">
+          <canvas baseChart  [data]="pieChartData" [labels]="pieChartLabels" [colors]="pieChartColors"
+            chartType="pie"></canvas>
         </div>
+      </div>
+      <div class="curriculum-calendar">
         <!--tech list-->
-        <!-- div for styling/coding-->
         <table cdk-table id="data_table" [dataSource]="dataSource">
-          <caption>Table of topics thoughout the weeks of the curriculum</caption>
           <ng-container cdkColumnDef="week">
             <th id="tech" cdk-header-cell *cdkHeaderCellDef> Weeks </th>
             <td cdk-cell *cdkCellDef="let week"> Week {{week.id}}: {{week.name}} </td>
