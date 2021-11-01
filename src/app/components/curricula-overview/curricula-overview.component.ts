@@ -38,7 +38,7 @@ export class CurriculaOverviewComponent implements OnInit {
     borderColor: []
   }];
   weekArray: Week[] = [];
-  title = this.curriculum?.curriculumName || "Java Enterprise"; //name to be replaced by which curriculum it is
+  title = this.curriculum?.curriculumName || "Unselected"; //name to be replaced by which curriculum it is
   btnStyle = 'edit-btn-default';
   displayedColumns: string[] = ['week', 'day1', 'day2', 'day3', 'day4', 'day5'];
   dataSource = this.weekArray;
@@ -114,23 +114,10 @@ export class CurriculaOverviewComponent implements OnInit {
     return color;
   }
   public getTopicData(): any {
-    this.curriculum.topics.push(this.testTopic);
-    this.curriculum.topics.push(this.testTopic);
-    this.curriculum.topics.push(this.testTopic);
-    this.curriculum.topics.push(this.testTopic);
-    this.curriculum.topics.push(this.testTopic);
-    this.curriculum.topics.push(this.testTopic);
-    this.curriculum.topics.push(this.testTopic);
-    this.curriculum.topics.push(this.testTopic);
-    this.curriculum.topics.push(this.testTopic);
-    this.curriculum.topics.push(this.testTopic);
-    this.curriculum.topics.push(this.testTopic);
-    this.curriculum.topics.push(this.testTopic);
-    console.log(this.curriculum);
-    this.fillout(10);
     this.curriculum.topics.forEach(t => {
       this.getTopic(t.id);
     });
+    this.fillout(this.curriculum.numWeeks);
     this.getChartdata();
   }
   getCurriculum(routeParm: string) {
@@ -138,14 +125,11 @@ export class CurriculaOverviewComponent implements OnInit {
       this.curriculum = data;
       this.title = this.curriculum.curriculumName;
       this.getTopicData();
-      console.log(this.curriculum);
-      
     })
   }
   getTopic(id: number) {
     this.topicServ.findById(id).subscribe(top => {
       this.topics.push(top);
-      console.log(top);
       
       this.weekArray[Math.floor((top.topicDay) / 5.1)].days[((top.topicDay - 1) % 5)].push(top)
       if (!this.tech.includes(top.technology)) this.tech.push(top.technology);

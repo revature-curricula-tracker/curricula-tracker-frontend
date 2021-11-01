@@ -20,7 +20,6 @@
           <div class="pie-chart-legend">
             <h5 id="legend-title">Technologies</h5>
             <div class="legend-labels">
-
             </div>
             <div class="example-button-row">
               <div *ngFor="let item of pieChartLabels;index as i;" class="button-row">
@@ -55,10 +54,6 @@
                     <div *ngFor="let item of week.days[0];index as i;" cdkDrag [cdkDragDisabled]="!this.editing">
                       <button mat-raised-button class="topic-button"
                         [style.background-color]=stringToColor(item.technology.techName)>{{item.name}}</button>
-<<<<<<< HEAD
-                        s
-=======
->>>>>>> bf5696888fb067a8ee85faf44aad9986c38a886a
                     </div>
                   </ng-template>
                 </div>
@@ -126,11 +121,7 @@
                   <ng-template #elseBlock>
                     <div *ngFor="let item of week.days[4];index as i;" cdkDrag [cdkDragDisabled]="!this.editing">
                       <button mat-raised-button class="topic-button"
-<<<<<<< HEAD
                         [style.background-color]=stringToColor(item.technology.techName)>{{item.name}}</button>
-=======
-                        [style.background-color]="stringToColor(item.technology.techName)">{{item.name}}</button>
->>>>>>> bf5696888fb067a8ee85faf44aad9986c38a886a
                     </div>
                   </ng-template>
                 </div>
