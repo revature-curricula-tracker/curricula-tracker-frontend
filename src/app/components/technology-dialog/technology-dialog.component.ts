@@ -74,7 +74,7 @@ export class TechnologyDialogComponent implements OnInit{
   editTech(form: NgForm): void {
     // edit logic
     let editedTech = new Technology(this.editId!, this.editName!, this.editColor!, this.incomingRow!.topics);
-    this.techService.editTechnology(editedTech).subscribe(data => {
+    this.techService.updateTechnology(editedTech).subscribe(data => {
       console.log(data);
       if (data != null) {
         this.editSuccess(editedTech.techName);
