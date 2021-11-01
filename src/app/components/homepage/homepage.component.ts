@@ -11,11 +11,6 @@ import { CurriculaService } from 'src/app/services/curricula.service';
 import { faPlusSquare } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 
-
-export interface Dessert {
-  name: string;
-  weeks: number;
-}
 @Component({
   selector: 'app-homepage',
   templateUrl: './homepage.component.html',
@@ -32,22 +27,21 @@ export class HomepageComponent implements AfterViewInit {
 
   displayedColumns: string[] = ['name', 'weeks'];
   dataSource = new MatTableDataSource<Curriculum>();
-  sortedData;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private curriculaService: CurriculaService, private route: Router) {
-    this.sortedData = this.curricula.slice();
+
   }
 
   ngAfterViewInit() {
     this.curriculaService.getAllCurricula().subscribe(data => {
       this.curricula = [...data];
-      console.log(this.curricula);
+      this.dataSource.sort = this.sort;
       this.dataSource.data = [...this.curricula];
       this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
+      console.log(this.curricula);
     });
   }
   applyFilter(event: Event) {
@@ -60,11 +54,11 @@ export class HomepageComponent implements AfterViewInit {
   sortData(sort: Sort) {
     const data = this.curricula.slice();
     if (!sort.active || sort.direction == '') {
-      this.sortedData = data;
+      this.dataSource.data = data;
       return;
     }
 
-    this.sortedData = data.sort((a, b) => {
+    this.dataSource.data = data.sort((a, b) => {
       let isAsc = sort.direction == 'asc';
       switch (sort.active) {
         case 'name': return this.compare(a.curriculumName, b.curriculumName, isAsc);
