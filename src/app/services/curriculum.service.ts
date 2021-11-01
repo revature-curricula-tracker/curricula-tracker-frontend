@@ -34,6 +34,8 @@ export class CurriculumService {
   }
 
   public findById(id: number): Observable<Curriculum> {
+    console.log(typeof(id));
+     
     return this.http.get<Curriculum>(`${url}/findId/${id}`)
       .pipe(
         catchError(this.handleError)

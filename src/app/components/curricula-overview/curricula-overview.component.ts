@@ -23,9 +23,9 @@ export class CurriculaOverviewComponent implements OnInit {
   tech: Technology[] = [];//array of tech for tech buttons
   topics: Topic[] = [];
 
-  testCurr:Curriculum = new Curriculum(1,"C",10,50,this.topics);
-  testTech:Technology = new Technology(1,"Tech","#000F",this.topics);
-  testTopic:Topic= new Topic("Disc",1,"Name",this.testTech,this.testCurr,1);
+  testCurr: Curriculum = new Curriculum(1, "C", 10, 50, this.topics);
+  testTech: Technology = new Technology(1, "Tech", "#000F", this.topics);
+  testTopic: Topic = new Topic("Disc", 100, "Name", this.testTech, this.testCurr, 1);
 
   faEdit = faPencilAlt;
 
@@ -50,13 +50,15 @@ export class CurriculaOverviewComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     this.getTopicData();
 
   }
-  fillout() {
-    for (let i = 1; i <= this.curriculum.numWeeks; i++) {
+  fillout(n:number) {
+    for (let i = 1; i <= n; i++) {
       this.weekArray.push(new Week(i));
     }
+    this.dataSource=this.weekArray;
 
   }
   setWeeks() {
@@ -115,22 +117,30 @@ export class CurriculaOverviewComponent implements OnInit {
     return color;
   }
   public getTopicData(): any {
-    this.curriculum.topics.push(this.testTopic);
-    console.log(this.curriculum);
-    this.fillout();
+    //this.curriculum.topics.push(this.testTopic);
+    console.log(this.curriculum.numWeeks);
+    this.fillout(this.curriculum.numWeeks);
+    console.log(this.curriculum.numWeeks);
     this.curriculum.topics.forEach(t => {
-      this.topics.push(t);
-      this.weekArray[Math.floor((t.topicDay) / 5.1)].days[((t.topicDay - 1) % 5)].push(t)
-      if (!this.tech.includes(t.technology)) this.tech.push(t.technology);
-      if (!this.topics.includes(t)) this.topics.push(t);
+      this.getTopic(t.id);
     });
     this.getChartdata();
-    
   }
   getCurriculum(routeParm: string) {
     this.curService.findById(Number.parseInt(routeParm)).subscribe(data => {
       this.curriculum = data;
       this.title = this.curriculum.curriculumName;
+      this.getTopicData();
+      console.log(this.curriculum);
+      
+    })
+  }
+  getTopic(id: number) {
+    this.topicServ.findById(id).subscribe(top => {
+      this.topics.push(top);
+      this.weekArray[Math.floor((top.topicDay) / 5.1)].days[((top.topicDay - 1) % 5)].push(top)
+      if (!this.tech.includes(top.technology)) this.tech.push(top.technology);
+      if (!this.topics.includes(top)) this.topics.push(top);
     })
   }
 
