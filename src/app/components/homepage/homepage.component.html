@@ -68,9 +68,9 @@
     <div class="table-for-show">
         <mat-table [dataSource]="dataSource" matSort>
             <ng-container matColumnDef="name">
-                <mat-cell *matCellDef="let element" class="cell-corner">
-                    <div>{{element.name}}</div>
-                    <div>{{element.weeks}} week(s)</div>
+                <mat-cell *matCellDef="let element" class="cell-corner" (click)="viewCurriculum(element.curriculumId)">
+                    <div>{{element.curriculumName}}</div>
+                    <div>{{element.numWeeks}} week(s)</div>
                 </mat-cell>
             </ng-container>
             <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>

@@ -73,7 +73,7 @@ export class TechnologyOverviewComponent implements AfterViewInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result !== undefined && result.typeDialog == 'create') {
-        this.techService.createTechnology(result.row).subscribe((data: Technology) => {
+        this.techService.addTechnology(result.row).subscribe((data: Technology) => {
           console.log(`To database --> ${data}`);
           this.technologies.unshift(data);
           this.dataSource.data = [...this.technologies];

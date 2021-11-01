@@ -20,6 +20,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -65,6 +66,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatAutocompleteModule,
     MatIconModule,
     MatInputModule,
+    MatSlideToggleModule,
     MatDialogModule,
     CdkTableModule,
     DragDropModule,

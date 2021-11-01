@@ -34,7 +34,6 @@ export class HomepageComponent implements AfterViewInit {
   constructor(private curriculaService: CurriculaService, private route: Router) {
 
   }
-
   ngAfterViewInit() {
     this.curriculaService.getAllCurricula().subscribe(data => {
       this.curricula = [...data];
