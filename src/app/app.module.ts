@@ -11,9 +11,10 @@ import { CurriculaOverviewComponent } from './components/curricula-overview/curr
 import { LoginComponent } from './components/login/login.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { TechnologyDialogComponent } from './components/technology-dialog/technology-dialog.component';
+import { HomepageComponent } from './components/homepage/homepage.component';
+import { TechnologyTopicDialogComponent } from './components/technology-topic-dialog/technology-topic-dialog.component';
 
-
-// Material Components
+// Material & 3rd party Components
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
@@ -25,15 +26,20 @@ import { MatIconModule } from '@angular/material/icon';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { CdkTableModule } from '@angular/cdk/table';
-import {DragDropModule} from '@angular/cdk/drag-drop'; 
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatListModule } from '@angular/material/list';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatTableModule } from '@angular/material/table';
-import { HomepageComponent } from './components/homepage/homepage.component';
 import { ChartsModule } from 'ng2-charts';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS } from '@angular-material-components/color-picker';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatSortModule } from '@angular/material/sort';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,7 +48,8 @@ import { ChartsModule } from 'ng2-charts';
     LoginComponent,
     TechnologyOverviewComponent,
     TechnologyDialogComponent,
-    HomepageComponent
+    HomepageComponent,
+    TechnologyTopicDialogComponent
   ],
   imports: [
     HttpClientModule,
@@ -50,6 +57,7 @@ import { ChartsModule } from 'ng2-charts';
     AppRoutingModule,
     NgbDropdownModule,
     NgbModule,
+    NgxMatColorPickerModule,
     FontAwesomeModule,
     FormsModule,
     MatFormFieldModule,
@@ -69,8 +77,11 @@ import { ChartsModule } from 'ng2-charts';
     MatGridListModule,
     MatChipsModule,
     MatTableModule,
+    MatTooltipModule,
     CdkTableModule,
     ChartsModule,
+    MatBadgeModule,
+    MatSortModule,
     ToastrModule.forRoot({
       timeOut: 5000,
       progressBar: true,
@@ -78,7 +89,7 @@ import { ChartsModule } from 'ng2-charts';
       preventDuplicates: true
     }),
   ],
-  providers: [],
+  providers: [{ provide: MAT_COLOR_FORMATS, useValue: NGX_MAT_COLOR_FORMATS }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

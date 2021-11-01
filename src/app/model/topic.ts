@@ -5,7 +5,7 @@ export class Topic {
   id: number;
   name: string;
   technology: Technology;
-  curriculum:Curriculum;
+  curriculum: Curriculum;
   topicDay: number;
 
   constructor(
@@ -13,14 +13,14 @@ export class Topic {
     id: number,
     name: string,
     technology: Technology,
-    curriculum:Curriculum,
+    curriculum: Curriculum,
     topicDay: number
   ) {
-    this.id=id;
-    this.name=name;
-    this.description=description;
-    this.technology=technology;
-    this.curriculum=curriculum;
-    this.topicDay=10;
+    this.id = id;
+    this.name = name;
+    this.description = description;
+    this.technology = technology;
+    this.curriculum = curriculum;
+    this.topicDay = topicDay || 1;
   }
 }

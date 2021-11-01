@@ -8,7 +8,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Curriculum } from 'src/app/model/curriculum';
 import { Topic } from 'src/app/model/topic';
-import { CurriculaService } from 'src/app/services/curricula.service';
+import { Color } from 'ng2-charts';
+import { CurriculumService } from 'src/app/services/curriculum.service';
 export interface TopicElement {
 
 }
@@ -21,7 +22,6 @@ export class CurriculaOverviewComponent implements OnInit {
   @Input() curriculum !: Curriculum;
   editing: boolean = false;//if editing
   tech: Technology[] = [];//array of tech for tech buttons
-  topicsForCur: TopicsForCurriculum[] = [];
   topics: Topic[] = [];
 
   ////piechart variables
@@ -36,7 +36,7 @@ export class CurriculaOverviewComponent implements OnInit {
   weekArray: Week[] = [];
   title = this.curriculum?.curriculumName || "No Curriculum Chosen"; //name to be replaced by which curriculum it is
   btnStyle = 'edit-btn-default';
-  constructor(private curService: CurriculaService, private topicServ: TopicsService, private route: ActivatedRoute) {
+  constructor(private curService: CurriculumService, private topicServ: TopicsService, private route: ActivatedRoute) {
     this.getCurriculum(this.route.snapshot.params['id']);
     this.curriculum = this.curriculum || new Curriculum(1, "No Curriculum Found", 5, 5 * 5, new Array<Topic>());
   }
@@ -54,7 +54,7 @@ export class CurriculaOverviewComponent implements OnInit {
    
   }
   setWeeks() {
-    for (let t of this.topicsForCur) {
+    for (let t of this.topics) {
       this.weekArray[Math.floor((t.topicDay) / 5.1)].days[((t.topicDay - 1) % 5)].push(t);
       
     }
@@ -69,9 +69,8 @@ export class CurriculaOverviewComponent implements OnInit {
       this.editing = true;
       this.btnStyle = 'edit-btn-change';
     }
-    this.getChartdata();
   }
-  drop(event: CdkDragDrop<TopicsForCurriculum[]>) {
+  drop(event: CdkDragDrop<Topic[]>) {
     if (this.editing) {
       if (event.previousContainer === event.container) {
         moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
@@ -87,7 +86,7 @@ export class CurriculaOverviewComponent implements OnInit {
           if (v.topicDay != newDropId+1) {
             console.log(`Updated ${oldDropId+1} to ${newDropId+1}`)
             v.topicDay = newDropId+1;
-            this.curService.updateCurricula(v).subscribe(output=>console.log(`Updated ${v} to ${output}`))
+            this.topicServ.updateTopic(v).subscribe(output=>console.log(`Updated ${v} to ${output}`))
             //this.topicServ.updateTopic(v);
           }
         })
@@ -110,18 +109,17 @@ export class CurriculaOverviewComponent implements OnInit {
     return color;
   }
   public getTopicData(): any {
-    this.curService.getAllTopicsForCurriculum().subscribe(data => {
-      data.forEach(t => {
-        this.topicsForCur.push(t);
+    this.curriculum.topics.forEach(t => {
+        this.topics.push(t);
         this.weekArray[Math.floor((t.topicDay) / 5.1)].days[((t.topicDay - 1) % 5)].push(t)
-        if (!this.tech.includes(t.topic.technology)) this.tech.push(t.topic.technology);
-        if (!this.topics.includes(t.topic)) this.topics.push(t.topic);
+        if (!this.tech.includes(t.technology)) this.tech.push(t.technology);
+        if (!this.topics.includes(t)) this.topics.push(t);
       });
-      this.getChartdata()
-    }).add(this.fillout())
+      this.getChartdata();
+    this.fillout();
   }
   getCurriculum(routeParm: string) {
-    this.curService.getCurriculumById(Number.parseInt(routeParm)).subscribe(data => {
+    this.curService.findById(Number.parseInt(routeParm)).subscribe(data => {
       this.curriculum = data;
       this.title = this.curriculum.curriculumName;
     })
@@ -152,5 +150,13 @@ export class CurriculaOverviewComponent implements OnInit {
   }
  
   // piechart events
+  public chartClicked(e:any):void {
+    
+  }
+ 
+  public chartHovered(e:any):void {
+    
+  }
+
 }
 

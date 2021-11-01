@@ -1,3 +1,38 @@
+.title-content{
+    position: relative;
+    padding: 8px;
+    width: 100%;
+    background-color: #474C55;
+    color: #fff;
+    box-shadow: 0px 2px 8px 1px rgba(0, 0, 0, 0.4);
+}
+#title{
+    position: relative;
+    left: 9%;
+    width:fit-content;
+}
+.general-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: whitesmoke;
+}
+.curricula-background {
+    width: 76%;
+    background-color: #ffffff;
+    border: solid .5px rgb(207, 207, 207);
+    box-shadow: 0px 0px 10px 0.2px rgba(0, 0, 0, 0.25);
+    margin-top: 0rem;
+}
+.curricula-content{
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    padding-bottom: 10px;
+}
 h1 {
     color: #F26925;
 }
