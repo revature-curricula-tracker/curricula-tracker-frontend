@@ -33,7 +33,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatTableModule } from '@angular/material/table';
 import { HomepageComponent } from './components/homepage/homepage.component';
-
+import { ChartsModule } from 'ng2-charts';
 @NgModule({
   declarations: [
     AppComponent,
@@ -70,6 +70,7 @@ import { HomepageComponent } from './components/homepage/homepage.component';
     MatChipsModule,
     MatTableModule,
     CdkTableModule,
+    ChartsModule,
     ToastrModule.forRoot({
       timeOut: 5000,
       progressBar: true,

@@ -9,6 +9,7 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 import { Curriculum } from 'src/app/model/curriculum';
 import { Topic } from 'src/app/model/topic';
 import { CurriculaService } from 'src/app/services/curricula.service';
+import { Color } from 'ng2-charts';
 export interface TopicElement {
 
 }
@@ -19,12 +20,20 @@ export interface TopicElement {
 })
 export class CurriculaOverviewComponent implements OnInit {
   @Input() curriculum !: Curriculum;
-
   editing: boolean = false;//if editing
   tech: Technology[] = [];//array of tech for tech buttons
   topicsForCur: TopicsForCurriculum[] = [];
   topics: Topic[] = [];
 
+  ////piechart variables
+  public pieChartLabels:string[] = [];
+  public pieChartData:number[] = [];
+  public pieChartType:string = 'pie';
+  public pieChartColors: Array < any > = [{
+    backgroundColor: [],
+    borderColor: []
+ }];
+  
   weekArray: Week[] = [];
   title = this.curriculum?.curriculumName || "No Curriculum Chosen"; //name to be replaced by which curriculum it is
   btnStyle = 'edit-btn-default';
@@ -37,16 +46,20 @@ export class CurriculaOverviewComponent implements OnInit {
   dataSource = this.weekArray;
   ngOnInit(): void {
     this.getTopicData();
+    
   }
   fillout() {
     for (let i = 1; i <= this.curriculum.numWeeks; i++) {
       this.weekArray.push(new Week(i));
     }
+   
   }
   setWeeks() {
     for (let t of this.topicsForCur) {
       this.weekArray[Math.floor((t.topicDay) / 5.1)].days[((t.topicDay - 1) % 5)].push(t);
+      
     }
+    
   }
   startEdit() {
     if (this.editing) {
@@ -57,6 +70,7 @@ export class CurriculaOverviewComponent implements OnInit {
       this.editing = true;
       this.btnStyle = 'edit-btn-change';
     }
+    this.getChartdata();
   }
   drop(event: CdkDragDrop<TopicsForCurriculum[]>) {
     if (this.editing) {
@@ -74,7 +88,7 @@ export class CurriculaOverviewComponent implements OnInit {
           if (v.topicDay != newDropId+1) {
             console.log(`Updated ${oldDropId+1} to ${newDropId+1}`)
             v.topicDay = newDropId+1;
-            //this.curService.updateCurricula(v).subscribe(output=>console.log(`Updated ${v} to ${output}`))
+            this.curService.updateCurricula(v).subscribe(output=>console.log(`Updated ${v} to ${output}`))
             //this.topicServ.updateTopic(v);
           }
         })
@@ -113,5 +127,38 @@ export class CurriculaOverviewComponent implements OnInit {
     })
 
   }
+
+  
+  getChartdata()
+  {
+    let techCounter = new Map();
+   for(var t of this.tech)
+   {
+     if(!this.pieChartLabels.includes(t.techName))
+     {
+       techCounter.set(t.techName , 1);
+        this.pieChartLabels.push(t.techName );
+        this.pieChartColors[0].backgroundColor.push(this.stringToColor(t.techName));
+     }
+     else
+     {
+      techCounter.set(t.techName , techCounter.get(t.techName) + 1);
+     }
+   }
+   for(var i of techCounter)
+   {
+   this.pieChartData.push(i[1]);
+   }
+  }
+ 
+  // piechart events
+  public chartClicked(e:any):void {
+    
+  }
+ 
+  public chartHovered(e:any):void {
+    
+  }
+
 }
 
