@@ -3,9 +3,9 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Curriculum } from 'src/app/model/curriculum';
-import { CurriculaService } from 'src/app/services/curricula.service';
 import { faPlusSquare } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
+import { CurriculumService } from 'src/app/services/curriculum.service';
 
 @Component({
   selector: 'app-homepage',
@@ -27,11 +27,11 @@ export class HomepageComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private curriculaService: CurriculaService, private route: Router) {
+  constructor(private curriculumService: CurriculumService, private route: Router) {
 
   }
   ngAfterViewInit() {
-    this.curriculaService.getAllCurricula().subscribe(data => {
+    this.curriculumService.findAllCurricula().subscribe(data => {
       this.curricula = [...data];
       this.dataSource.sort = this.sort;
       this.dataSource.data = [...this.curricula];

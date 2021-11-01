@@ -33,10 +33,12 @@ import { MatListModule } from '@angular/material/list';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatTableModule } from '@angular/material/table';
+import { ChartsModule } from 'ng2-charts';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS } from '@angular-material-components/color-picker';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatSortModule } from '@angular/material/sort';
+
 
 @NgModule({
   declarations: [
@@ -77,6 +79,7 @@ import { MatSortModule } from '@angular/material/sort';
     MatTableModule,
     MatTooltipModule,
     CdkTableModule,
+    ChartsModule,
     MatBadgeModule,
     MatSortModule,
     ToastrModule.forRoot({

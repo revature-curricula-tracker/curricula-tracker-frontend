@@ -1,16 +1,17 @@
+import { backendUrl } from './../../environments/environment';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { url } from 'inspector';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Topic } from '../model/topic';
 
+const url = `${backendUrl}/topics`;
 @Injectable({
   providedIn: 'root'
 })
 export class TopicsService {
-
+  
   constructor(private http: HttpClient, private router: Router) { }
   public findAll(): Observable<Topic[]> {
     return this.http.get<Topic[]>(`${url}`)
