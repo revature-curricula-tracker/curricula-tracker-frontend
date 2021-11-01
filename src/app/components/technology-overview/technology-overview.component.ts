@@ -1,21 +1,17 @@
-import { Topic } from 'src/app/model/topic';
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSort } from '@angular/material/sort';
+import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { TechnologyDialogComponent } from '../technology-dialog/technology-dialog.component';
-import { Technology } from 'src/app/model/technology';
-import { faPencilAlt, faTrash, faPlusSquare, faSearch} from '@fortawesome/free-solid-svg-icons';
+import { faPencilAlt, faTrash, faPlusSquare, faSearch, faPalette, faSquare, faList } from '@fortawesome/free-solid-svg-icons';
+import { ThemePalette } from "@angular/material/core";
 
-const testTech: Technology[] = [{techId: 1, techName: 'Java1', color: "#fff", topics:Array<Topic>(),id:1},
-{techId: 2, techName: 'AWS2', color: "#fff", topics:Array<Topic>(),id:2},
-{techId: 3, techName: 'Spring3', color: "#fff", topics:Array<Topic>(),id:3},
-{techId: 4, techName: 'Kubernetes4', color: "#fff", topics:Array<Topic>(),id:4},
-{techId: 5, techName: 'Docker5', color: "#fff", topics:Array<Topic>(),id:5},
-{techId: 6, techName: 'JavaScript6', color: '#fff', topics:Array<Topic>(),id:6},
-{techId: 7, techName: 'Test7', color: '#fff', topics:Array<Topic>(),id:7},
-{techId: 8, techName: 'Test8', color: '#fff', topics:Array<Topic>(),id:8}];
+// Custom imports
+import { TechnologyTopicDialogComponent } from '../technology-topic-dialog/technology-topic-dialog.component';
+import { TechnologyDialogComponent } from '../technology-dialog/technology-dialog.component';
+import { TechnologyService } from 'src/app/services/technology.service';
+import { Technology } from 'src/app/model/technology';
+import { Topic } from '../../model/topic';
 
 @Component({
   selector: 'app-technology-overview',
@@ -24,45 +20,93 @@ const testTech: Technology[] = [{techId: 1, techName: 'Java1', color: "#fff", to
 })
 export class TechnologyOverviewComponent implements AfterViewInit {
 
+  public disabled = false;
+  public color: ThemePalette = 'primary';
+  public touchUi = false;
+  public panelOpenState = false;
+
   faSearch = faSearch;
   faPencil = faPencilAlt;
   faTrash = faTrash;
   faPlus = faPlusSquare;
+  faPalette = faPalette;
+  faSquare = faSquare;
+  faList = faList;
 
-  animal: string = '';
   techName: string = '';
   technologies: Technology[] = [];
-  displayedColumns: string[] = ['techName', 'color', 'actions'];
+  displayedColumns: string[] = ['techName', 'topics', 'actions'];
 
-
-
-  dataSource = new MatTableDataSource<Technology>(testTech);
+  dataSource = new MatTableDataSource<Technology>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog, private techService: TechnologyService) { }
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.techService.getAllTechnologies().subscribe(data => {
+      this.technologies = [...data];
+      this.dataSource.data = [...this.technologies];
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+      console.log(this.technologies);
+    });
   }
 
-  // Show add, edit or delete popUp
-  openDialog(): void {
+  openDialog(type: string, row?: Technology): void {
+    let dialogHeight = '350px';
+    let dialogWidth = '300px';
+    if (type == 'delete') {
+      dialogHeight = '250px';
+      dialogWidth = '350px';
+    }
     const dialogRef = this.dialog.open(TechnologyDialogComponent, {
-      width: '250px',
-      data: {techName: this.techName}
+      width: dialogWidth,
+      height: dialogHeight,
+      data: { 
+        techName: this.techName, 
+        type,
+        row
+      }
     });
-
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      let newId = this.dataSource.data.length + 1;
-      this.dataSource.data.push({techId: newId, techName: result, color: '#fff', topics:Array<Topic>(),id:newId});
+      if (result !== undefined && result.typeDialog == 'create') {
+        this.techService.addTechnology(result.row).subscribe((data: Technology) => {
+          console.log(`To database --> ${data}`);
+          this.technologies.unshift(data);
+          this.dataSource.data = [...this.technologies];
+        })
+        console.log("Created technology" + JSON.stringify(result));
+      } else if (result !== undefined && result.typeDialog !== 'create'){
+        this.closeTypeDialog(result);
+      }
     });
   }
 
-  // Search filter method for technologies table
+  openDialogTopic(topics: Topic[]): void {
+    const dialogRef = this.dialog.open(TechnologyTopicDialogComponent, {
+      width: '500px',
+      height: '400px',
+      data: {
+        topics
+      }
+    })
+  }
+
+  closeTypeDialog(closedObj: any) {
+    let hasId = ((obj: Technology) => obj.techId == closedObj.row.techId);
+    let indexToRemove = this.technologies.findIndex(hasId);
+
+    if (closedObj.typeDialog == 'delete') {
+      this.technologies.splice(indexToRemove, 1);
+    } else if (closedObj.typeDialog == 'edit') {
+      this.technologies.splice(indexToRemove, 1, closedObj.row);
+    }
+    this.dataSource.data = [...this.technologies];
+  }
+
+  // Search method for technologies table
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -71,5 +115,23 @@ export class TechnologyOverviewComponent implements AfterViewInit {
       this.dataSource.paginator.firstPage();
     }
   }
-
+  sortData(sort: Sort) {
+    const data = this.technologies.slice();
+    if (!sort.active || sort.direction == '') {
+      this.dataSource.data = data;
+      return;
+    }
+    
+    this.dataSource.data = data.sort((a, b) => {
+      let isAsc = sort.direction == 'asc';
+      switch (sort.active) {
+        case 'name': return this.compare(a.techName, b.techName, isAsc);
+        case 'topics': return this.compare(+a.topics.length, +b.topics.length, isAsc);
+        default: return 0;
+      }
+    });
+  }
+  compare(a: number | string, b: number | string, isAsc: boolean) {
+    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+  }
 }
