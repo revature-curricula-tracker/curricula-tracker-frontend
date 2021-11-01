@@ -118,6 +118,7 @@ export class CurriculaOverviewComponent implements OnInit {
         if (!this.tech.includes(t.topic.technology)) this.tech.push(t.topic.technology);
         if (!this.topics.includes(t.topic)) this.topics.push(t.topic);
       });
+      this.getChartdata()
     }).add(this.fillout())
   }
   getCurriculum(routeParm: string) {
