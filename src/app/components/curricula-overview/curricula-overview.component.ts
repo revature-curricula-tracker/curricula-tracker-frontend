@@ -9,7 +9,6 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 import { Curriculum } from 'src/app/model/curriculum';
 import { Topic } from 'src/app/model/topic';
 import { CurriculaService } from 'src/app/services/curricula.service';
-import { Color } from 'ng2-charts';
 export interface TopicElement {
 
 }
@@ -118,6 +117,7 @@ export class CurriculaOverviewComponent implements OnInit {
         if (!this.tech.includes(t.topic.technology)) this.tech.push(t.topic.technology);
         if (!this.topics.includes(t.topic)) this.topics.push(t.topic);
       });
+      this.getChartdata()
     }).add(this.fillout())
   }
   getCurriculum(routeParm: string) {
@@ -152,13 +152,5 @@ export class CurriculaOverviewComponent implements OnInit {
   }
  
   // piechart events
-  public chartClicked(e:any):void {
-    
-  }
- 
-  public chartHovered(e:any):void {
-    
-  }
-
 }
 
