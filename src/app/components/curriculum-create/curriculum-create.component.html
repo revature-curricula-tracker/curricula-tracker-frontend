@@ -1,0 +1,122 @@
+<div class="container-for-all">
+    <!-- [(ngModel)]="user.email" placeholder="" [formControl]="email" -->
+    <!-- <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error> -->
+    <!-- <div class="create-for-two">
+        <mat-form-field appearance="fill" class="bg-white input-style">
+            <mat-label class="user-label">Name</mat-label>
+            <input matInput class="user-input">
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="bg-white input-style">
+            <mat-label class="user-label">Duration</mat-label>
+            <input matInput class="user-input">
+        </mat-form-field>
+    </div> -->
+    <!-- MAKE A HEADER TO DISPLAY THE NAME SOMEHWERER HERE -->
+    <div class="create-for-week">
+        <div class="two-for-two fb50 monday">
+            <p>Primary Tech</p>
+            <fa-icon class="icons" [icon]="icon" (click)="openDialog2('tech')"></fa-icon>
+        </div>
+        <div class="two-for-two fb50 monday">
+            <p>Monday</p>
+            <button mat-raised-button (click)="openDialog2('topic')">Pick one</button>
+        </div>
+        <div class="two-for-two fb50">
+            <p>Tuesday</p>
+            <button mat-raised-button (click)="openDialog2('topic')">Pick one</button>
+        </div>
+        <div class="two-for-two fb50">
+            <p>Wednesday</p>
+            <button mat-raised-button (click)="openDialog2('topic')">Pick one</button>
+        </div>
+        <div class="two-for-two fb50">
+            <p>Thursday</p>
+            <button mat-raised-button (click)="openDialog2('topic')">Pick one</button>
+        </div>
+        <div class="two-for-two fb50">
+            <p>Friday</p>
+            <button mat-raised-button (click)="openDialog2('topic')">Pick one</button>
+        </div>
+    </div>
+</div>
+
+<!-- <div class="container-for-all">
+    <div class="create-for-two">
+        <p>Curriculum WHY AM I DOING THIS ALONE?</p>
+        <app-pie-chart [item]="currentItem"></app-pie-chart>
+    </div>
+    <table cdk-table id="data_table" [dataSource]="dataSource">
+        <caption>Create topics for the entire week or something</caption>
+
+        <ng-container cdkColumnDef="week">
+            <th id="tech" cdk-header-cell *cdkHeaderCellDef> Weeks </th>
+            <td cdk-cell *cdkCellDef="let week">
+                <ng-container *ngFor="let dialog of newDialogData2">
+                    <div *ngIf="dialog.counter === (week.id)">
+                        Week {{week.id}}: {{dialog.name}}
+                    </div>
+                </ng-container>
+                <button mat-raised-button (click)="openDialogForWeek('tech', week.id)">Pick one</button>
+            </td>
+        </ng-container>
+        <ng-container cdkColumnDef="day1">
+            <th id="day1" cdk-header-cell *cdkHeaderCellDef> Monday </th>
+            <td cdk-cell *cdkCellDef="let week">
+                <ng-container *ngFor="let dialog of newDialogData">
+                    <div *ngIf="dialog.counter === ((week.id - 1) * 5 + 0)">
+                        {{dialog.name}}
+                    </div>
+                </ng-container>
+                <button mat-raised-button (click)="openDialog('topic', 0, week.id)">Pick one</button>
+            </td>
+        </ng-container>
+        <ng-container cdkColumnDef="day2">
+            <th id="day2" cdk-header-cell *cdkHeaderCellDef> Tuesday </th>
+            <td cdk-cell *cdkCellDef="let week">
+                <ng-container *ngFor="let dialog of newDialogData">
+                    <div *ngIf="dialog.counter === ((week.id - 1) * 5 + 1)">
+                        {{dialog.name}}
+                    </div>
+                </ng-container>
+                <button mat-raised-button (click)="openDialog('topic', 1, week.id)">Pick one</button>
+            </td>
+        </ng-container>
+        <ng-container cdkColumnDef="day3">
+            <th id="day3" cdk-header-cell *cdkHeaderCellDef> Wednesday </th>
+            <td cdk-cell *cdkCellDef="let week">
+                <ng-container *ngFor="let dialog of newDialogData">
+                    <div *ngIf="dialog.counter === ((week.id - 1) * 5 + 2)">
+                        {{dialog.name}}
+                    </div>
+                </ng-container>
+                <button mat-raised-button (click)="openDialog('topic', 2, week.id)">Pick one</button>
+            </td>
+        </ng-container>
+        <ng-container cdkColumnDef="day4">
+            <th id="day4" cdk-header-cell *cdkHeaderCellDef> Thursday </th>
+            <td cdk-cell *cdkCellDef="let week">
+                <ng-container *ngFor="let dialog of newDialogData">
+                    <div *ngIf="dialog.counter === ((week.id - 1) * 5 + 3)">
+                        {{dialog.name}}
+                    </div>
+                </ng-container>
+                <button mat-raised-button (click)="openDialog('topic', 3, week.id)">Pick one</button>
+            </td>
+        </ng-container>
+        <ng-container cdkColumnDef="day5">
+            <th id="day5" cdk-header-cell *cdkHeaderCellDef> Friday </th>
+            <td cdk-cell *cdkCellDef="let week">
+                <ng-container *ngFor="let dialog of newDialogData">
+                    <div *ngIf="dialog.counter === ((week.id - 1) * 5 + 4)">
+                        {{dialog.name}}
+                    </div>
+                </ng-container>
+                <button mat-raised-button (click)="openDialog('topic', 4, week.id)">Pick one</button>
+            </td>
+        </ng-container>
+        <tr cdk-header-row *cdkHeaderRowDef="displayedColumns"></tr>
+        <tr class="rowclass" cdk-row *cdkRowDef="let myRowData; columns: displayedColumns"></tr>
+    </table>
+    <button mat-raised-button (click)="createTable()">Create</button>
+    <button mat-raised-button (click)="removeTable()">Remove</button>
+</div> -->

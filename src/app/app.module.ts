@@ -24,7 +24,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { CdkTableModule } from '@angular/cdk/table';
-import {DragDropModule} from '@angular/cdk/drag-drop'; 
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatListModule } from '@angular/material/list';
@@ -32,6 +32,12 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatTableModule } from '@angular/material/table';
 import { HomepageComponent } from './components/homepage/homepage.component';
+import { CurriculumCreateComponent } from './components/curriculum-create/curriculum-create.component';
+import { DialogCreateComponent } from './components/dialog-create/dialog-create.component';
+import { MatSelectModule } from '@angular/material/select';
+import { ChartsModule } from 'ng2-charts';
+import { PieChartComponent } from './components/pie-chart/pie-chart.component';
+
 
 @NgModule({
   declarations: [
@@ -41,7 +47,10 @@ import { HomepageComponent } from './components/homepage/homepage.component';
     LoginComponent,
     TechnologyOverviewComponent,
     TechnologyDialogComponent,
-    HomepageComponent
+    HomepageComponent,
+    CurriculumCreateComponent,
+    DialogCreateComponent,
+    PieChartComponent
   ],
   imports: [
     HttpClientModule,
@@ -68,6 +77,8 @@ import { HomepageComponent } from './components/homepage/homepage.component';
     MatChipsModule,
     MatTableModule,
     CdkTableModule,
+    MatSelectModule,
+    ChartsModule,
     ToastrModule.forRoot({
       timeOut: 5000,
       progressBar: true,

@@ -13,7 +13,7 @@
                 </mat-cell>
             </ng-container>
             <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-            <tr class="mat-row" *matNoDataRow>
+            <tr *matNoDataRow>
                 <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
             </tr>
         </mat-table>

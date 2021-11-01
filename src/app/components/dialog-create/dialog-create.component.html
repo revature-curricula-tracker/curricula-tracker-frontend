@@ -1,0 +1,31 @@
+<ng-container *ngIf="data.input == 'tech'">
+    <mat-form-field>
+        <mat-select multiple placeholder="Favorite food">
+            <mat-option (onSelectionChange)="changeWeek($event)" *ngFor="let food of techs" [value]="food.value">
+                {{ food.viewValue }}
+            </mat-option>
+            <button mat-button (click)="onNoClickWeek()">No Thanks</button>
+            <button mat-button (click)="onYesClickWeek()">Ok</button>
+        </mat-select>
+    </mat-form-field>
+</ng-container>
+<ng-container *ngIf="data.input == 'topic'">
+    <mat-form-field>
+        <mat-select multiple placeholder="Favorite food">
+            <mat-option (onSelectionChange)="change($event, data.counter)" *ngFor="let food of foods"
+                [value]="food.value">
+                {{ food.viewValue }}
+            </mat-option>
+            <button mat-button (click)="onNoClick()">No Thanks</button>
+            <button mat-button (click)="onYesClick()">Ok</button>
+        </mat-select>
+    </mat-form-field>
+</ng-container>
+<ng-container>
+    <mat-form-field appearance="fill" class="bg-white input-style">
+        <mat-label class="user-label">Name</mat-label>
+        <input matInput class="user-input">
+    </mat-form-field>
+    <button mat-button (click)="onNoClick()">No Thanks</button>
+    <button mat-button (click)="onYesClick()">Ok</button>
+</ng-container>
