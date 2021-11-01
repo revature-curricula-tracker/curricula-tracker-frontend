@@ -1,8 +1,7 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSort } from '@angular/material/sort';
-import { Sort } from '@angular/material/sort';
+import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { faPencilAlt, faTrash, faPlusSquare, faSearch, faPalette, faSquare, faList } from '@fortawesome/free-solid-svg-icons';
 import { ThemePalette } from "@angular/material/core";
@@ -103,8 +102,6 @@ export class TechnologyOverviewComponent implements AfterViewInit {
       this.technologies.splice(indexToRemove, 1);
     } else if (closedObj.typeDialog == 'edit') {
       this.technologies.splice(indexToRemove, 1, closedObj.row);
-    } else if (closedObj.typeDialog == 'deleteError') {
-      
     }
     this.dataSource.data = [...this.technologies];
   }
@@ -124,8 +121,9 @@ export class TechnologyOverviewComponent implements AfterViewInit {
       this.dataSource.data = data;
       return;
     }
-
-    this.dataSource.data = data.sort((a, b) => {
+    
+    let sortedData = data;
+    this.dataSource.data = sortedData.sort((a, b) => {
       let isAsc = sort.direction == 'asc';
       switch (sort.active) {
         case 'name': return this.compare(a.techName, b.techName, isAsc);

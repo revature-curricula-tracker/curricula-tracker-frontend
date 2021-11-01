@@ -1,12 +1,8 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { Sort } from '@angular/material/sort';
-import { MatTable, MatTableDataSource } from '@angular/material/table';
-import { CollectionViewer, DataSource } from '@angular/cdk/collections';
+import { MatSort, Sort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { Curriculum } from 'src/app/model/curriculum';
-import { ThemePalette } from "@angular/material/core";
-import { Observable, ReplaySubject } from 'rxjs';
 import { CurriculaService } from 'src/app/services/curricula.service';
 import { faPlusSquare } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
@@ -56,8 +52,8 @@ export class HomepageComponent implements AfterViewInit {
       this.dataSource.data = data;
       return;
     }
-
-    this.dataSource.data = data.sort((a, b) => {
+    let sortedData = data;
+    this.dataSource.data = sortedData.sort((a, b) => {
       let isAsc = sort.direction == 'asc';
       switch (sort.active) {
         case 'name': return this.compare(a.curriculumName, b.curriculumName, isAsc);

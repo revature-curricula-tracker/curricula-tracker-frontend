@@ -1,10 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormsModule, NgForm } from '@angular/forms';
+import { NgForm } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { TechnologyService } from 'src/app/services/technology.service';
 import { Technology } from 'src/app/model/technology';
-import { Topic } from 'src/app/model/topic';
 import { ToastrService } from 'ngx-toastr';
 
 export interface DialogData {
