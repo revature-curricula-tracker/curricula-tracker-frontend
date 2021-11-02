@@ -29,6 +29,7 @@ export class CurriculaOverviewComponent implements OnInit {
   techCounter = new Map<string,number>();
   faEdit = faPencilAlt;
   faSquare=faSquare;
+  pieloaded=false;
 
   ////piechart variables
   public pieChartLabels: string[] = [];
@@ -66,7 +67,9 @@ export class CurriculaOverviewComponent implements OnInit {
     }
   }
   startEdit() {
-    this.finalChart();
+    if(!this.pieloaded){
+      this.finalChart();
+      this.pieloaded=true}
     if (this.editing) {
       this.editing = false;
       this.btnStyle = 'edit-btn-default';
@@ -97,9 +100,7 @@ export class CurriculaOverviewComponent implements OnInit {
     })
   }
   getTopic(id: number) {
-    console.log(id);
     this.topicServ.findById(id).subscribe(top => {
-      console.log(top);
       this.topics.push(top);
       this.weekArray[Math.floor((top.topicDay) / 5.1)].days[((top.topicDay - 1) % 5)].push(top);
       if (!this.tech.includes(top.technology))this.tech.push(top.technology);
