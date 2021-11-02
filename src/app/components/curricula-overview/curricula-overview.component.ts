@@ -26,7 +26,7 @@ export class CurriculaOverviewComponent implements OnInit {
   testCurr: Curriculum = new Curriculum(1, "C", 10, 50, this.topics);
   testTech: Technology = new Technology(1, "Tech", "#000F", this.topics);
   testTopic: Topic = new Topic("Disc", 100, "Test", this.testTech, this.testCurr, 5);
-
+  techCounter = new Map<string,number>();
   faEdit = faPencilAlt;
   faSquare=faSquare;
 
@@ -52,13 +52,13 @@ export class CurriculaOverviewComponent implements OnInit {
   ngOnInit(): void {
     this.getTopicData();
     
+    
   }
   fillout(n: number) {
     for (let i = 1; i <= this.curriculum.numWeeks; i++) {
       //console.log(this.weekArray.length);
       this.weekArray.push(new Week(i));
     }
-    //this.weekArray[0].days[4].push(this.testTopic)
   }
   setWeeks() {
     for (let t of this.topics) {
@@ -66,6 +66,7 @@ export class CurriculaOverviewComponent implements OnInit {
     }
   }
   startEdit() {
+    this.finalChart();
     if (this.editing) {
       this.editing = false;
       this.btnStyle = 'edit-btn-default';
@@ -81,18 +82,12 @@ export class CurriculaOverviewComponent implements OnInit {
   }
 
   public getTopicData(): any {
-    this.curriculum.topics.push(this.testTopic);
-    this.curriculum.topics.push(this.testTopic);
-    this.curriculum.topics.push(this.testTopic);
-    this.curriculum.topics.push(this.testTopic);
-    this.curriculum.topics.push(this.testTopic);
-    this.curriculum.topics.push(this.testTopic);
-    this.curriculum.topics.push(this.testTopic);
     console.log(this.curriculum);
     this.fillout(1);
     this.curriculum.topics.forEach(t => {
       this.getTopic(t.id);
     });
+    
   }
   getCurriculum(routeParm: string) {
     this.curService.findById(Number.parseInt(routeParm)).subscribe(data => {
@@ -102,33 +97,34 @@ export class CurriculaOverviewComponent implements OnInit {
     })
   }
   getTopic(id: number) {
+    console.log(id);
     this.topicServ.findById(id).subscribe(top => {
+      console.log(top);
       this.topics.push(top);
       this.weekArray[Math.floor((top.topicDay) / 5.1)].days[((top.topicDay - 1) % 5)].push(top);
       if (!this.tech.includes(top.technology))this.tech.push(top.technology);
       if (!this.topics.includes(top)) this.topics.push(top);
-      this.getChartdata();
+      this.getChartdata(top);
     })
-    
   }
 
-  getChartdata() {
-    let techCounter = new Map();
-    for (var t of this.tech) {
-      if (!this.pieChartLabels.includes(t.techName)) {
-        techCounter.set(t.techName, 1);
-        this.pieChartLabels.push(t.techName);
-        this.pieChartColors[0].backgroundColor.push(this.stringToColor(t.techName));
+  getChartdata(t:Topic) {
+      let name = t.technology.techName;
+      if (!this.pieChartLabels.includes(name)) {
+        this.techCounter.set(name, 1);
+        this.pieChartLabels.push(name);
+        this.pieChartColors[0].backgroundColor.push(this.stringToColor(name));
       }
       else {
-        techCounter.set(t.techName, techCounter.get(t.techName) + 1);
+        this.techCounter.set(t.technology.techName, (this.techCounter.get(name)||0)+1);
       }
-    }
-    for (var i of techCounter) {
+  }
+
+  finalChart(){
+     for (let i of this.techCounter) {
       this.pieChartData.push(i[1]);
     }
   }
-
   // piechart events
   public chartClicked(e: any): void {
 
