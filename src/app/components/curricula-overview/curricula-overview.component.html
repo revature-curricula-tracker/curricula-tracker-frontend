@@ -37,6 +37,7 @@
       <div class="curriculum-calendar">
         <!--tech list-->
         <table cdk-table frame="void" id="data_table" [dataSource]="dataSource">
+          <caption>Table of topics every day of the curriculum</caption>
           <ng-container cdkColumnDef="week">
             <th id="tech" cdk-header-cell *cdkHeaderCellDef> </th>
             <td cdk-cell *cdkCellDef="let week" class="week-cell">
