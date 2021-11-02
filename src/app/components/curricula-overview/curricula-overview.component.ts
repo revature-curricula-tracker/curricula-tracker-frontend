@@ -8,6 +8,7 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/dr
 import { Topic } from 'src/app/model/topic';
 import { CurriculumService } from 'src/app/services/curriculum.service';
 import { faPencilAlt, faSquare } from '@fortawesome/free-solid-svg-icons';
+import { MatTableDataSource } from '@angular/material/table';
 
 export interface TopicElement {
 }
@@ -30,6 +31,7 @@ export class CurriculaOverviewComponent implements OnInit {
   faEdit = faPencilAlt;
   faSquare = faSquare;
   pieloaded = false;
+  weekCounter=0;
 
   ////piechart variables
   public pieChartLabels: string[] = [];
@@ -43,32 +45,31 @@ export class CurriculaOverviewComponent implements OnInit {
   title = this.curriculum?.curriculumName || "Unselected"; //name to be replaced by which curriculum it is
   btnStyle = 'edit-btn-default';
   displayedColumns: string[] = ['week', 'day1', 'day2', 'day3', 'day4', 'day5'];
-  dataSource = this.weekArray;
-
+  dataSource = new MatTableDataSource(this.weekArray);
   constructor(private curService: CurriculumService, private topicServ: TopicsService, private route: ActivatedRoute) {
-    this.getCurriculum(this.route.snapshot.params['id']);
-    this.curriculum = this.curriculum || new Curriculum(0, "No Curriculum Found", 5, 5 * 5, this.topics);
+    //this.curriculum = this.curriculum || new Curriculum(0, "No Curriculum Found", 10, 5 * 5, this.topics);
   }
 
   ngOnInit(): void {
-    this.getTopicData();
-    
+    this.getCurriculum(this.route.snapshot.params['id']);
   }
-  
-  fillout(n: number) {
-    for (let i = 1; i <= this.curriculum.numWeeks; i++) {
-      //console.log(this.weekArray.length);
+  fillout() {
+    for (let i = 1; i <= this.weekCounter; i++) {
       this.weekArray.push(new Week(i));
-    }
+    }console.log(this.weekArray.length);
+    this.dataSource.data=this.weekArray;
   }
+
   setWeeks() {
     for (let t of this.topics) {
       this.weekArray[Math.floor((t.topicDay) / 5.1)].days[((t.topicDay - 1) % 5)].push(t);
     }
   }
   startEdit() {
-    if(!this.pieloaded){
-      this.pieloaded=true}
+    if (!this.pieloaded) {
+      this.finalChart();
+      this.pieloaded = true
+    }
     if (this.editing) {
       this.editing = false;
       this.btnStyle = 'edit-btn-default';
@@ -85,16 +86,17 @@ export class CurriculaOverviewComponent implements OnInit {
 
   public getTopicData(): any {
     console.log(this.curriculum);
-    this.fillout(1);
     this.curriculum.topics.forEach(t => {
       this.getTopic(t.id);
-      
     });
+
   }
   getCurriculum(routeParm: string) {
     this.curService.findById(Number.parseInt(routeParm)).subscribe(data => {
       this.curriculum = data;
       this.title = this.curriculum.curriculumName;
+      this.weekCounter=this.curriculum.numWeeks;
+      this.fillout();
       this.getTopicData();
     })
   }
@@ -107,22 +109,27 @@ export class CurriculaOverviewComponent implements OnInit {
       this.weekArray[week].days[dayofWeek].push(top);
       if (!this.tech.includes(top.technology)) this.tech.push(top.technology);
       if (!this.topics.includes(top)) this.topics.push(top);
-      //piechartstuff
-      if (!this.pieChartLabels.includes(top.technology.techName)) {
-        this.techCounter.set(top.technology.techName, 1);
-        this.pieChartLabels.push(top.technology.techName);
-        this.pieChartColors[0].backgroundColor.push(this.stringToColor(top.technology.techName));
-      }
-      else {
-        this.techCounter.set(top.technology.techName, (this.techCounter.get(top.technology.techName)||0)+1);
-      }  
-      this.pieChartData = [];
-      for (let i of this.techCounter) {
-        this.pieChartData.push(i[1]);
-      }
+      this.getChartdata(top);
     })
   }
-  
+
+  getChartdata(t: Topic) {
+    let name = t.technology.techName;
+    if (!this.pieChartLabels.includes(name)) {
+      this.techCounter.set(name, 1);
+      this.pieChartLabels.push(name);
+      this.pieChartColors[0].backgroundColor.push(this.stringToColor(name));
+    }
+    else {
+      this.techCounter.set(t.technology.techName, (this.techCounter.get(name) || 0) + 1);
+    }
+  }
+
+  finalChart() {
+    for (let i of this.techCounter) {
+      this.pieChartData.push(i[1]);
+    }
+  }
   // piechart events
   public chartClicked(e: any): void {
 
