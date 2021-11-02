@@ -32,23 +32,33 @@
       </div>
       <div class="curriculum-calendar">
         <!--tech list-->
-        <table cdk-table id="data_table" [dataSource]="dataSource">
-
+        <table cdk-table frame="void" id="data_table" [dataSource]="dataSource">
+          <caption>Table of topics every day of the curriculum</caption>
           <ng-container cdkColumnDef="week">
             <th id="tech" cdk-header-cell *cdkHeaderCellDef> </th>
             <td cdk-cell *cdkCellDef="let week" class="week-cell">
               <!-- <div class="week-title">
                 Week {{week.id}} {{week.name}}
               </div> -->
-              <ng-container *ngFor="let values of weekObj">
+              <!-- <ng-container *ngFor="let values of weekObj">
                 <div *ngIf="values.weekId === week.id" class="week-title">
                   <p>{{ values.selectedTech }}</p>
                 </div>
               </ng-container>
-              <div class="btn-edit-table">
-                <button mat-icon-button class="btn-edit">
-                  <fa-icon class="btn-icon" [icon]="faEdit" (click)="openDialogWeek('tech', week.id)"></fa-icon>
-                </button>
+               -->
+                <div *ngFor="let item of week.techs;index as i;">
+                  <button mat-raised-button class="topic-button">
+                    <fa-icon class="topic-color" [style.color]=stringToColor(item) [icon]="faSquare"
+                      style="font-size: 22px;"></fa-icon>
+                    &nbsp;
+                    {{item}}
+                  </button>
+                </div>
+                <div class="btn-edit-table">
+                  <button mat-icon-button class="btn-edit">
+                    <fa-icon class="btn-icon" [icon]="faEdit" (click)="openDialogWeek('tech', week.id)"></fa-icon>
+                  </button>
+                  </div>
               </div>
             </td>
           </ng-container>

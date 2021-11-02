@@ -36,6 +36,11 @@ export class CurriculaOverviewComponent implements OnInit {
   faPlus = faPlus;
   faMinus = faMinus;
 
+  // testTopic: Topic = new Topic("Disc", 100, "Test", this.testTech, this.testCurr, 5);
+  techCounter = new Map<string, number>();
+  pieloaded = false;
+  weekCounter = 0;
+
   ////piechart variables
   public pieChartLabels: string[] = [];
   public pieChartData: number[] = [];
@@ -50,7 +55,7 @@ export class CurriculaOverviewComponent implements OnInit {
   }];
 
   dayObj: any[] = [];
-  
+
   id: number = 0;
   curriculumId !: number;
   newDialogData: DialogData[] = [];
@@ -60,87 +65,58 @@ export class CurriculaOverviewComponent implements OnInit {
   btnStyle = 'edit-btn-default';
   displayedColumns: string[] = ['week', 'day1', 'day2', 'day3', 'day4', 'day5'];
   // dataSource: Week[] = [];
-  weekCounter = 0;
   dataSource = new MatTableDataSource(this.weekArray); // this.weekArray;
 
-  constructor(private curService: CurriculumService,
+  constructor(
+    private curService: CurriculumService,
     private topicServ: TopicsService,
     private route: ActivatedRoute,
     private toastr: ToastrService,
     public dialog: MatDialog) {
-    // this.getCurriculum(this.route.snapshot.params['id']);
-    //  this.curriculum = this.curriculum || new Curriculum(1, "No Curriculum Found", 0, 5 * 5, this.topics); // change 5 to 0
   }
-
+  // this.getCurriculum(this.route.snapshot.params['id']);
+  //  this.curriculum = this.curriculum || new Curriculum(1, "No Curriculum Found", 0, 5 * 5, this.topics); // change 5 to 0
   ngOnInit(): void {
     this.getCurriculum(this.route.snapshot.params['id']);
     // this.topics.push(this.testTopic);
   }
   fillout() {
-    for (let i = 1; i <= this.curriculum.numWeeks; i++) {
+    for (let i = 1; i <= this.weekCounter; i++) {
       this.weekArray.push(new Week(i));
     }
     this.dataSource.data = this.weekArray
     console.log(this.dataSource);
   }
+
   setWeeks() {
     for (let t of this.topics) {
       this.weekArray[Math.floor((t.topicDay) / 5.1)].days[((t.topicDay - 1) % 5)].push(t);
     }
   }
-  drop(event: CdkDragDrop<Topic[]>) {
-    if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    } else {
-      transferArrayItem(event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex);
-      let oldDropId = 0, newDropId = 0;//get where it was and where it is now
-      oldDropId = parseInt(event.previousContainer.element.nativeElement.id.substr(14));
-      newDropId = parseInt(event.container.element.nativeElement.id.substr(14));
-      event.container.data.forEach(v => {
-        if (v.topicDay != newDropId + 1) {
-          console.log(`Updated ${oldDropId + 1} to ${newDropId + 1}`)
-          v.topicDay = newDropId + 1;
-          this.topicServ.updateTopic(v).subscribe(output => console.log(`Updated ${v} to ${output}`))
-          //this.topicServ.updateTopic(v);
-        }
-      })
-    }
-  }
+  // startEdit() {
+  //   if (!this.pieloaded) {
+  //     this.finalChart();
+  //     this.pieloaded = true
+  //   }
+  //   if (this.editing) {
+  //     this.editing = false;
+  //     this.btnStyle = 'edit-btn-default';
+  //   }
+  //   else {
+  //     this.editing = true;
+  //     this.btnStyle = 'edit-btn-change';
+  //   }
+  // }
+
   counter(i: number): Array<number> {//create an array of n numbers
     return new Array(i);
   }
-  stringToColor(str: string) {
-    var hash = 3;
-    for (var i = 0; i < str.length; i++) {
-      hash = str.charCodeAt(i) + ((hash << 5) - hash);
-    }
-    var color = '#';
-    for (var i2 = 0; i2 < 3; i2++) {
-      var value = (hash >> (i2 * 8)) & 0xFF;
-      color += ('00' + value.toString(16)).substr(-2);
-    }
-    return color;
-  }
+
   public getTopicData(): any {
-    this.topics.push(this.testTopic);
-    this.topics.push(this.testTopic);
-    this.topics.push(this.testTopic);
-    this.topics.push(this.testTopic);
-    this.topics.push(this.testTopic);
-    this.topics.push(this.testTopic);
-    this.topics.push(this.testTopic);
-    this.getChartdata();
     console.log(this.curriculum);
-    // this.topics.forEach(t => {
-    //   this.topics.push(t);
-    //   this.weekArray[Math.floor((t.topicDay) / 5.1)].days[((t.topicDay - 1) % 5)].push(t)
-    //   if (!this.tech.includes(t.technology)) this.tech.push(t.technology);
-    //   if (!this.topics.includes(t)) this.topics.push(t);
-    // });
-    // this.getChartdata();
+    this.curriculum.topics.forEach(t => {
+      this.getTopic(t.id);
+    });
 
   }
   getCurriculum(routeParm: string) {
@@ -152,23 +128,36 @@ export class CurriculaOverviewComponent implements OnInit {
       this.getTopicData();
     })
   }
-  getChartdata() {
-    let techCounter = new Map();
-    for (var t of this.tech) {
-      if (!this.pieChartLabels.includes(t.techName)) {
-        techCounter.set(t.techName, 1);
-        this.pieChartLabels.push(t.techName);
-        this.pieChartColors[0].backgroundColor.push(this.stringToColor(t.techName));
-      }
-      else {
-        techCounter.set(t.techName, techCounter.get(t.techName) + 1);
-      }
+  getTopic(id: number) {
+    this.topicServ.findById(id).subscribe(top => {
+      this.topics.push(top);
+      let week = Math.floor((top.topicDay) / 5.1);
+      let dayofWeek = ((top.topicDay - 1) % 5);
+      if (!this.weekArray[week].techs.includes(top.technology.techName)) this.weekArray[week].techs.push(top.technology.techName);
+      this.weekArray[week].days[dayofWeek].push(top);
+      if (!this.tech.includes(top.technology)) this.tech.push(top.technology);
+      if (!this.topics.includes(top)) this.topics.push(top);
+      this.getChartdata(top);
+    })
+  }
+
+  getChartdata(t: Topic) {
+    let name = t.technology.techName;
+    if (!this.pieChartLabels.includes(name)) {
+      this.techCounter.set(name, 1);
+      this.pieChartLabels.push(name);
+      this.pieChartColors[0].backgroundColor.push(this.stringToColor(name));
     }
-    for (var i of techCounter) {
-      this.pieChartData.push(i[1]);
+    else {
+      this.techCounter.set(t.technology.techName, (this.techCounter.get(name) || 0) + 1);
     }
   }
 
+  finalChart() {
+    for (let i of this.techCounter) {
+      this.pieChartData.push(i[1]);
+    }
+  }
   // piechart events
   public chartClicked(e: any): void {
 
@@ -177,7 +166,6 @@ export class CurriculaOverviewComponent implements OnInit {
   public chartHovered(e: any): void {
 
   }
-
 
   addWeek() {
     console.log("Creating table")
@@ -253,6 +241,41 @@ export class CurriculaOverviewComponent implements OnInit {
       this.dayObj.push(result);
       console.log(`dayObj is ${JSON.stringify(this.dayObj)}`);
     });
+  }
+
+  stringToColor(str: string) {
+    var hash = 3;
+    for (var i = 0; i < str.length; i++) {
+      hash = str.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    var color = '#';
+    for (var i2 = 0; i2 < 3; i2++) {
+      var value = (hash >> (i2 * 8)) & 0xFF;
+      color += ('00' + value.toString(16)).substr(-2);
+    }
+    return color;
+  }
+  drop(event: CdkDragDrop<Topic[]>) {
+    // if (this.editing) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex);
+      let oldDropId = 0, newDropId = 0;//get where it was and where it is now
+      oldDropId = parseInt(event.previousContainer.element.nativeElement.id.substr(14));
+      newDropId = parseInt(event.container.element.nativeElement.id.substr(14));
+      event.container.data.forEach(v => {
+        if (v.topicDay != newDropId + 1) {
+          console.log(`Updated ${oldDropId + 1} to ${newDropId + 1}`)
+          v.topicDay = newDropId + 1;
+          this.topicServ.updateTopic(v).subscribe(output => console.log(`Updated ${v} to ${output}`))
+        }
+      })
+    }
+    // }
   }
 }
 
