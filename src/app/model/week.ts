@@ -1,4 +1,3 @@
-import { Technology } from './technology';
 import { Topic } from "./topic";
 
 export class Week {
