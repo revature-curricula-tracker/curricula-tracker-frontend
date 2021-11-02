@@ -36,12 +36,20 @@
       </div>
       <div class="curriculum-calendar">
         <!--tech list-->
-        <table cdk-table id="data_table" [dataSource]="dataSource">
+        <table cdk-table frame="void" id="data_table" [dataSource]="dataSource">
           <ng-container cdkColumnDef="week">
             <th id="tech" cdk-header-cell *cdkHeaderCellDef> </th>
             <td cdk-cell *cdkCellDef="let week" class="week-cell">
               <div class="week-title">
                 Week {{week.id}} {{week.name}}
+                <div *ngFor="let item of week.techs;index as i;">
+                  <button mat-raised-button class="topic-button">
+                    <fa-icon class="topic-color" [style.color]=stringToColor(item) [icon]="faSquare"
+                      style="font-size: 22px;"></fa-icon>
+                    &nbsp;
+                    {{item}}
+                  </button>
+                </div>
               </div>
             </td>
           </ng-container>
@@ -50,14 +58,16 @@
             <ng-container cdkColumnDef="day1">
               <th id="day1" cdk-header-cell *cdkHeaderCellDef> Monday </th>
               <td cdk-cell *cdkCellDef="let week" class="day-cell">
-                <div cdkDropList [cdkDropListData]="week.days[0]" class="day-dragbox" (cdkDropListDropped)="drop($event)">
+                <div cdkDropList [cdkDropListData]="week.days[0]" class="day-dragbox"
+                  (cdkDropListDropped)="drop($event)">
                   <div *ngIf="week.days[0].length==0; else elseBlock">
                     &nbsp;
                   </div>
                   <ng-template #elseBlock>
                     <div *ngFor="let item of week.days[0];index as i;" cdkDrag [cdkDragDisabled]="!this.editing">
-                      <button mat-raised-button class="topic-button">    
-                        <fa-icon class="topic-color" [style.color]=stringToColor(item.technology.techName) [icon]="faSquare" style="font-size: 22px;"></fa-icon>
+                      <button mat-raised-button class="topic-button">
+                        <fa-icon class="topic-color" [style.color]=stringToColor(item.technology.techName)
+                          [icon]="faSquare" style="font-size: 22px;"></fa-icon>
                         &nbsp;
                         {{item.name}}
                       </button>
@@ -70,14 +80,16 @@
             <ng-container cdkColumnDef="day2">
               <th id="day2" cdk-header-cell *cdkHeaderCellDef> Tuesday </th>
               <td cdk-cell *cdkCellDef="let week" class="day-cell">
-                <div cdkDropList [cdkDropListData]="week.days[1]" class="day-dragbox" (cdkDropListDropped)="drop($event)">
+                <div cdkDropList [cdkDropListData]="week.days[1]" class="day-dragbox"
+                  (cdkDropListDropped)="drop($event)">
                   <div *ngIf="week.days[1].length==0; else elseBlock">
                     &nbsp;
                   </div>
                   <ng-template #elseBlock>
                     <div *ngFor="let item of week.days[1];index as i;" cdkDrag [cdkDragDisabled]="!this.editing">
-                      <button mat-raised-button class="topic-button">    
-                        <fa-icon class="topic-color" [style.color]=stringToColor(item.technology.techName) [icon]="faSquare" style="font-size: 22px;"></fa-icon>
+                      <button mat-raised-button class="topic-button">
+                        <fa-icon class="topic-color" [style.color]=stringToColor(item.technology.techName)
+                          [icon]="faSquare" style="font-size: 22px;"></fa-icon>
                         &nbsp;
                         {{item.name}}
                       </button>
@@ -90,14 +102,16 @@
             <ng-container cdkColumnDef="day3">
               <th id="day3" cdk-header-cell *cdkHeaderCellDef> Wednesday </th>
               <td cdk-cell *cdkCellDef="let week" class="day-cell">
-                <div cdkDropList [cdkDropListData]="week.days[2]" class="day-dragbox" (cdkDropListDropped)="drop($event)">
+                <div cdkDropList [cdkDropListData]="week.days[2]" class="day-dragbox"
+                  (cdkDropListDropped)="drop($event)">
                   <div *ngIf="week.days[2].length==0; else elseBlock">
                     &nbsp;
                   </div>
                   <ng-template #elseBlock>
                     <div *ngFor="let item of week.days[2];index as i;" cdkDrag [cdkDragDisabled]="!this.editing">
-                      <button mat-raised-button class="topic-button">    
-                        <fa-icon class="topic-color" [style.color]=stringToColor(item.technology.techName) [icon]="faSquare" style="font-size: 22px;"></fa-icon>
+                      <button mat-raised-button class="topic-button">
+                        <fa-icon class="topic-color" [style.color]=stringToColor(item.technology.techName)
+                          [icon]="faSquare" style="font-size: 22px;"></fa-icon>
                         &nbsp;
                         {{item.name}}
                       </button>
@@ -110,14 +124,16 @@
             <ng-container cdkColumnDef="day4">
               <th id="day4" cdk-header-cell *cdkHeaderCellDef> Thursday </th>
               <td cdk-cell *cdkCellDef="let week" class="day-cell">
-                <div cdkDropList [cdkDropListData]="week.days[3]" class="day-dragbox" (cdkDropListDropped)="drop($event)">
+                <div cdkDropList [cdkDropListData]="week.days[3]" class="day-dragbox"
+                  (cdkDropListDropped)="drop($event)">
                   <div *ngIf="week.days[3].length==0; else elseBlock">
                     &nbsp;
                   </div>
                   <ng-template #elseBlock>
                     <div *ngFor="let item of week.days[3];index as i;" cdkDrag [cdkDragDisabled]="!this.editing">
-                      <button mat-raised-button class="topic-button">    
-                        <fa-icon class="topic-color" [style.color]=stringToColor(item.technology.techName) [icon]="faSquare" style="font-size: 22px;"></fa-icon>
+                      <button mat-raised-button class="topic-button">
+                        <fa-icon class="topic-color" [style.color]=stringToColor(item.technology.techName)
+                          [icon]="faSquare" style="font-size: 22px;"></fa-icon>
                         &nbsp;
                         {{item.name}}
                       </button>
@@ -130,14 +146,16 @@
             <ng-container cdkColumnDef="day5">
               <th id="day5" cdk-header-cell *cdkHeaderCellDef> Friday </th>
               <td cdk-cell *cdkCellDef="let week" class="day-cell">
-                <div cdkDropList [cdkDropListData]="week.days[4]" class="day-dragbox" (cdkDropListDropped)="drop($event)">
+                <div cdkDropList [cdkDropListData]="week.days[4]" class="day-dragbox"
+                  (cdkDropListDropped)="drop($event)">
                   <div *ngIf="week.days[4].length==0; else elseBlock">
                     &nbsp;
                   </div>
                   <ng-template #elseBlock>
                     <div *ngFor="let item of week.days[4];index as i;" cdkDrag [cdkDragDisabled]="!this.editing">
-                      <button mat-raised-button class="topic-button">    
-                        <fa-icon class="topic-color" [style.color]=stringToColor(item.technology.techName) [icon]="faSquare" style="font-size: 22px;"></fa-icon>
+                      <button mat-raised-button class="topic-button">
+                        <fa-icon class="topic-color" [style.color]=stringToColor(item.technology.techName)
+                          [icon]="faSquare" style="font-size: 22px;"></fa-icon>
                         &nbsp;
                         {{item.name}}
                       </button>
