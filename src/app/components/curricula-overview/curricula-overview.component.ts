@@ -3,7 +3,7 @@ import { TopicsService } from './../../services/topics.service';
 import { ActivatedRoute } from '@angular/router';
 import { Week } from './../../model/week';
 import { Technology } from './../../model/technology';
-import { Component, Input, OnInit, AfterViewInit, AfterViewChecked } from '@angular/core';
+import { Component, Input, OnInit} from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Topic } from 'src/app/model/topic';
 import { CurriculumService } from 'src/app/services/curriculum.service';
