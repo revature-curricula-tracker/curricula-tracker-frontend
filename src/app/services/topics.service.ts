@@ -33,7 +33,7 @@ export class TopicsService {
   }
 
   public updateTopic(top: Topic): Observable<Topic> {
-    return this.http.patch<Topic>(`${url}/${top.id}`, top)
+    return this.http.put<Topic>(`${url}/${top.id}`, top)
       .pipe(catchError(e => this.handleError('update a top', e)));
   }
 

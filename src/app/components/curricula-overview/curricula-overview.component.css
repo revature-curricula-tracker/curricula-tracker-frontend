@@ -51,6 +51,7 @@
 .curriculum-calendar{
     margin-top: 10px;
 }
+<<<<<<< HEAD
 
 tr>td:hover {
     /* border-color: blue;
@@ -63,6 +64,8 @@ tr>td:hover {
     margin-top: 5px;
 }
 
+=======
+>>>>>>> 260618c24d8339b519f52ca9e8a4104364c1d962
 #edit-button {
     margin-left: 10px;
     border-radius: 25px;
