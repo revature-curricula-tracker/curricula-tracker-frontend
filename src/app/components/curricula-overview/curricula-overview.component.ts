@@ -3,7 +3,7 @@ import { TopicsService } from './../../services/topics.service';
 import { ActivatedRoute } from '@angular/router';
 import { Week } from './../../model/week';
 import { Technology } from './../../model/technology';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, AfterViewInit, AfterViewChecked } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Topic } from 'src/app/model/topic';
 import { CurriculumService } from 'src/app/services/curriculum.service';
@@ -17,7 +17,7 @@ export interface TopicElement {
   templateUrl: './curricula-overview.component.html',
   styleUrls: ['./curricula-overview.component.css']
 })
-export class CurriculaOverviewComponent implements OnInit {
+export class CurriculaOverviewComponent implements OnInit{
   @Input() curriculum !: Curriculum;
   editing: boolean = false;//if editing
   tech: Technology[] = [];//array of tech for tech buttons
@@ -52,8 +52,6 @@ export class CurriculaOverviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.getTopicData();
-    
-    
   }
   fillout(n: number) {
     for (let i = 1; i <= this.curriculum.numWeeks; i++) {
