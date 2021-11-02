@@ -6,6 +6,8 @@ import { Week } from 'src/app/model/week';
 import { DialogData } from 'src/app/model/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { MatTableDataSource } from '@angular/material/table';
+import { CurriculumService } from 'src/app/services/curriculum.service';
+import { Technology } from 'src/app/model/technology';
 
 @Component({
   selector: 'app-curriculum-create',
@@ -27,10 +29,21 @@ export class CurriculumCreateComponent implements OnInit {
   // techArray: DialogData = new DialogData("", 0, [], 0);
   newDialogData: DialogData[] = [];
   newDialogData2: DialogData[] = [];
-
+  title !: string;
+  curriculumId !: number;
   icon = faPlusSquare;
+  // tech: Technology[] = [];
+  weekObj: any[] = [{
+    selectedTech: [],
+    weekId: 0
+  }];
 
-  constructor(public dialog: MatDialog, private toastr: ToastrService) { }
+  dayObj: any[] = [{
+    selectedTech: [],
+    dayId: 0
+  }];
+
+  constructor(public dialog: MatDialog, private toastr: ToastrService, private curriculumService: CurriculumService) { }
 
   openDialog(input: string, days: number, id: number): void {
     this.counter = (id - 1) * 5 + days; // 0 1 2 3 ...
@@ -45,6 +58,17 @@ export class CurriculumCreateComponent implements OnInit {
       this.newDialogData.push(result);
       this.counter = 0;
     });
+
+  }
+
+  openDialog4(input: string): void {
+    const dialogRef = this.dialog.open(DialogCreateComponent, {
+      width: '250px',
+      data: { input: input, curriculumId: this.curriculumId },
+      disableClose: true,
+    });
+
+    // dialogRef.afterClosed().subscribe();
 
   }
 
@@ -65,19 +89,46 @@ export class CurriculumCreateComponent implements OnInit {
 
   }
 
-  openDialog2(input: String): void {
+  openDialog2(input: String, weekObj: any[], id: number, days: number): void {
     const dialogRef = this.dialog.open(DialogCreateComponent, {
       width: '250px',
-      data: { input: input },
+      data: { input: input, curriculumId: this.curriculumId, weekObj: weekObj, counter: id, days: days },
       disableClose: true,
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      // this.something = result;
-      // this.newDialogData.push(result);
+      console.log(`result is ${JSON.stringify(result)}`);
+      for (let values of this.dayObj) {
+        if (values.dayId === result.weekId) {
+          values.selectedTech = result.selectedTech;
+          return;
+        }
+      }
+      this.dayObj.push(result);
     });
 
   }
+
+  openDialogWeek(input: String, id: number): void {
+    const dialogRef = this.dialog.open(DialogCreateComponent, {
+      width: '250px',
+      data: { input: input, curriculumId: this.curriculumId, counter: id },
+      disableClose: true,
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      for (let values of this.weekObj) {
+        if (values.weekId === result.weekId) {
+          values.selectedTech = result.selectedTech;
+          return;
+        }
+      }
+      this.weekObj.push(result); // 
+      console.log(`hello ${JSON.stringify(this.weekObj)}`);
+    });
+
+  }
+
 
   openDialog3(): void {
     const dialogRef = this.dialog.open(DialogCreateComponent, {
@@ -89,6 +140,8 @@ export class CurriculumCreateComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       // this.something = result;
       // this.newDialogData.push(result);
+      this.title = result.curriculumName;
+      this.curriculumId = result.curriculumId;
     });
 
   }
@@ -119,6 +172,9 @@ export class CurriculumCreateComponent implements OnInit {
   public errorToastr(message: string) {
     this.toastr.error(message, "Deleting Failed");
   }
+
+
+
 }
 
 

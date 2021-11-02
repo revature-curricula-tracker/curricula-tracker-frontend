@@ -13,7 +13,7 @@ import { DialogData } from 'src/app/model/dialog';
 export class PieChartComponent implements OnInit, OnChanges {
 
 
-  @Input() item = new DialogData("", 0, [], 0);
+  @Input() item = new DialogData("", 0, [], 0, 0, []);
 
 
   // Pie

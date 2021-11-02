@@ -11,36 +11,158 @@
             <input matInput class="user-input">
         </mat-form-field>
     </div> -->
-    <!-- MAKE A HEADER TO DISPLAY THE NAME SOMEHWERER HERE -->
-    <div class="create-for-week">
+
+
+
+
+
+
+
+
+    <div class="two-for-two fb50">
+        <h2>{{title}}</h2>
+        <button mat-raised-button (click)="openDialog4('create')">Pick one</button>
+    </div>
+    <table cdk-table id="data_table" [dataSource]="dataSource">
+        <caption>Create topics for the entire week or something</caption>
+
+        <ng-container cdkColumnDef="week">
+            <th id="tech" cdk-header-cell *cdkHeaderCellDef> Weeks </th>
+            <td cdk-cell *cdkCellDef="let week">
+                <ng-container *ngFor="let values of weekObj">
+                    <div *ngIf="values.weekId === week.id">
+                        <p>Primary Tech : {{ values.selectedTech }}</p>
+                    </div>
+                </ng-container>
+                <fa-icon class="icons" [icon]="icon" (click)="openDialogWeek('tech', week.id)"></fa-icon>
+            </td>
+        </ng-container>
+        <ng-container cdkColumnDef="day1">
+            <th id="day1" cdk-header-cell *cdkHeaderCellDef> Monday </th>
+            <td cdk-cell *cdkCellDef="let week">
+                <ng-container *ngFor="let values of dayObj">
+                    <ng-container *ngFor="let tech of values.selectedTech">
+                        <div *ngIf="values.weekId === (week.id - 1) * 5 + 1">
+                            <div *ngIf="tech.id">
+                                <p>{{ tech.name }}</p>
+                            </div>
+                        </div>
+                    </ng-container>
+                </ng-container>
+                <button mat-raised-button (click)="openDialog2('topic', weekObj, week.id, 1)">Pick one</button>
+            </td>
+        </ng-container>
+        <ng-container cdkColumnDef="day2">
+            <th id="day2" cdk-header-cell *cdkHeaderCellDef> Tuesday </th>
+            <td cdk-cell *cdkCellDef="let week">
+                <ng-container *ngFor="let values of dayObj">
+                    <ng-container *ngFor="let tech of values.selectedTech">
+                        <div *ngIf="values.weekId === (week.id - 1) * 5 + 2">
+                            <div *ngIf="tech.id">
+                                <p>{{ tech.name }}</p>
+                            </div>
+                        </div>
+                    </ng-container>
+                </ng-container>
+                <button mat-raised-button (click)="openDialog2('topic', weekObj, week.id, 2)">Pick one</button>
+            </td>
+        </ng-container>
+        <ng-container cdkColumnDef="day3">
+            <th id="day3" cdk-header-cell *cdkHeaderCellDef> Wednesday </th>
+            <td cdk-cell *cdkCellDef="let week">
+                <ng-container *ngFor="let values of dayObj">
+                    <ng-container *ngFor="let tech of values.selectedTech">
+                        <div *ngIf="values.weekId === (week.id - 1) * 5 + 3">
+                            <div *ngIf="tech.id">
+                                <p>{{ tech.name }}</p>
+                            </div>
+                        </div>
+                    </ng-container>
+                </ng-container>
+                <button mat-raised-button (click)="openDialog2('topic', weekObj, week.id, 3)">Pick one</button>
+            </td>
+        </ng-container>
+        <ng-container cdkColumnDef="day4">
+            <th id="day4" cdk-header-cell *cdkHeaderCellDef> Thursday </th>
+            <td cdk-cell *cdkCellDef="let week">
+                <ng-container *ngFor="let values of dayObj">
+                    <ng-container *ngFor="let tech of values.selectedTech">
+                        <div *ngIf="values.weekId === (week.id - 1) * 5 + 4">
+                            <div *ngIf="tech.id">
+                                <p>{{ tech.name }}</p>
+                            </div>
+                        </div>
+                    </ng-container>
+                </ng-container>
+                <button mat-raised-button (click)="openDialog2('topic', weekObj, week.id, 4)">Pick one</button>
+            </td>
+        </ng-container>
+        <ng-container cdkColumnDef="day5">
+            <th id="day5" cdk-header-cell *cdkHeaderCellDef> Friday </th>
+            <td cdk-cell *cdkCellDef="let week">
+                <ng-container *ngFor="let values of dayObj">
+                    <ng-container *ngFor="let tech of values.selectedTech">
+                        <div *ngIf="values.weekId === (week.id - 1) * 5 + 5">
+                            <div *ngIf="tech.id">
+                                <p>{{ tech.name }}</p>
+                            </div>
+                        </div>
+                    </ng-container>
+                </ng-container>
+                <button mat-raised-button (click)="openDialog2('topic', weekObj, week.id, 5)">Pick one</button>
+            </td>
+        </ng-container>
+        <tr cdk-header-row *cdkHeaderRowDef="displayedColumns"></tr>
+        <tr class="rowclass" cdk-row *cdkRowDef="let myRowData; columns: displayedColumns"></tr>
+    </table>
+    <button mat-raised-button (click)="createTable()">Create</button>
+    <button mat-raised-button (click)="removeTable()">Remove</button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- MAKE A HEADER TO DISPLAY THE NAME SOMEWHERE HERE -->
+
+    <!-- <div class="create-for-week">
         <div class="two-for-two fb50 monday">
-            <p>Primary Tech</p>
-            <fa-icon class="icons" [icon]="icon" (click)="openDialog2('tech')"></fa-icon>
+            
         </div>
         <div class="two-for-two fb50 monday">
             <p>Monday</p>
-            <button mat-raised-button (click)="openDialog2('topic')">Pick one</button>
+            
         </div>
         <div class="two-for-two fb50">
             <p>Tuesday</p>
-            <button mat-raised-button (click)="openDialog2('topic')">Pick one</button>
+            
         </div>
         <div class="two-for-two fb50">
             <p>Wednesday</p>
-            <button mat-raised-button (click)="openDialog2('topic')">Pick one</button>
+            
         </div>
         <div class="two-for-two fb50">
             <p>Thursday</p>
-            <button mat-raised-button (click)="openDialog2('topic')">Pick one</button>
+            
         </div>
         <div class="two-for-two fb50">
             <p>Friday</p>
-            <button mat-raised-button (click)="openDialog2('topic')">Pick one</button>
+            
         </div>
     </div>
-</div>
+</div> -->
 
-<!-- <div class="container-for-all">
+    <!-- <div class="container-for-all">
     <div class="create-for-two">
         <p>Curriculum WHY AM I DOING THIS ALONE?</p>
         <app-pie-chart [item]="currentItem"></app-pie-chart>

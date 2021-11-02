@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: 'home', component: HomepageComponent },
   { path: 'technologies', component: TechnologyOverviewComponent },
   { path: 'create', component: CurriculumCreateComponent },
-  { path: '**', canActivate: [RouteGuardGuard] }
+  { path: '**', canActivate: [RouteGuardGuard], redirectTo: "" }
 ];
 
 @NgModule({

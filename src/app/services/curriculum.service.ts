@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 import { backendUrl } from 'src/environments/environment';
 import { catchError } from "rxjs/operators";
 
-const url = backendUrl + "/curriculum";
+const url = backendUrl + "curriculum";
 
 @Injectable({
   providedIn: 'root'
@@ -18,9 +18,9 @@ export class CurriculumService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   }
 
-  public addCurriculum(curriculum: Curriculum): void {
+  public addCurriculum(curriculum: Curriculum): Observable<Curriculum> {
     console.log(curriculum)
-    this.http.post<Curriculum>(`${url}/add`, curriculum, this.httpOptions)
+    return this.http.post<Curriculum>(`${url}/add`, curriculum, this.httpOptions)
       .pipe(
         catchError(this.handleError)
       )

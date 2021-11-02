@@ -1,10 +1,12 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { url } from 'inspector';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Topic } from '../model/topic';
+import { backendUrl } from './../../environments/environment';
+
+const url = `${backendUrl}topics`;
 
 @Injectable({
   providedIn: 'root'

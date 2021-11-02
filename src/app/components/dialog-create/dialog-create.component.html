@@ -1,8 +1,8 @@
 <ng-container *ngIf="data.input == 'tech'">
     <mat-form-field>
         <mat-select multiple placeholder="Favorite food">
-            <mat-option (onSelectionChange)="changeWeek($event)" *ngFor="let food of techs" [value]="food.value">
-                {{ food.viewValue }}
+            <mat-option (onSelectionChange)="changeWeek($event)" *ngFor="let food of tech" [value]="food.techName">
+                {{ food.techName }}
             </mat-option>
             <button mat-button (click)="onNoClickWeek()">No Thanks</button>
             <button mat-button (click)="onYesClickWeek()">Ok</button>
@@ -10,22 +10,41 @@
     </mat-form-field>
 </ng-container>
 <ng-container *ngIf="data.input == 'topic'">
-    <mat-form-field>
-        <mat-select multiple placeholder="Favorite food">
-            <mat-option (onSelectionChange)="change($event, data.counter)" *ngFor="let food of foods"
-                [value]="food.value">
-                {{ food.viewValue }}
-            </mat-option>
-            <button mat-button (click)="onNoClick()">No Thanks</button>
-            <button mat-button (click)="onYesClick()">Ok</button>
-        </mat-select>
-    </mat-form-field>
+    <ng-container>
+        <mat-form-field>
+            <mat-select multiple placeholder="Favorite food">
+                <mat-option (onSelectionChange)="changeTopic($event)" *ngFor="let food of topicArray" [value]="food">
+                    {{ food.name }}
+                </mat-option>
+                <button mat-button (click)="onNoClickTopic()">No Thanks</button>
+                <button mat-button (click)="onYesClickTopic()">Ok</button>
+            </mat-select>
+        </mat-form-field>
+    </ng-container>
 </ng-container>
-<ng-container>
+<ng-container *ngIf="data.input == 'create'">
     <mat-form-field appearance="fill" class="bg-white input-style">
         <mat-label class="user-label">Name</mat-label>
-        <input matInput class="user-input">
+        <input matInput [(ngModel)]="topic.name" class="user-input">
     </mat-form-field>
-    <button mat-button (click)="onNoClick()">No Thanks</button>
-    <button mat-button (click)="onYesClick()">Ok</button>
+    <mat-form-field appearance="fill">
+        <mat-label>Choose an option</mat-label>
+        <mat-select [(ngModel)]="topic.technology" placeholder="Favorite food">
+            <!-- (onSelectionChange)="changeCreate($event)" -->
+            <mat-option *ngFor="let food of tech" [value]="food">
+                {{ food.techName }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <button mat-button (click)="onNoClickCreate()">No Thanks</button>
+    <button mat-button (click)="onYesClickCreate()">Ok</button>
+</ng-container>
+<!-- ======== when user first open our route =================== -->
+<ng-container *ngIf="!data.input">
+    <mat-form-field appearance="fill" class="bg-white input-style">
+        <mat-label class="user-label">Name</mat-label>
+        <input matInput [(ngModel)]="curriculum.curriculumName" class="user-input">
+    </mat-form-field>
+    <button mat-button (click)="onNoClickInput()">No Thanks</button>
+    <button mat-button (click)="onYesClickInput()">Ok</button>
 </ng-container>
