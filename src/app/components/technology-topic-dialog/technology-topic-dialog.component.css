@@ -1,5 +1,6 @@
 .dialog-content {
     margin: 15px;
+    position: relative;
 }
 .mat-expansion-panel-header-title {
     font-weight: 600;
@@ -14,4 +15,13 @@ p {
 }
 mat-form-field {
     width: 100%;
+}
+
+#closeBtn {
+    position: absolute;
+    right: 10px;
+    top: -20px;
+    cursor: pointer;
+    z-index: 10;
+    font-size: 1.3rem;
 }

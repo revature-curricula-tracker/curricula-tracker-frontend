@@ -3,7 +3,7 @@ import { TopicsService } from './../../services/topics.service';
 import { Component, Inject, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { faPencilAlt, faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
+import { faPencilAlt, faExclamationCircle, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { Topic } from '../../model/topic';
 
 export interface DialogData {
@@ -19,9 +19,11 @@ export class TechnologyTopicDialogComponent implements OnInit {
 
   topics: Topic[] = [];
   edit = {target: 0, state: false, btnOneState: 'Edit', btnTwoState: 'Remove'};
+  confirmDelete = {target: 0, state: false};
+
   faPencil = faPencilAlt;
   faWarning = faExclamationCircle;
-  confirmDelete = {target: 0, state: false};
+  faClose = faTimes;
 
   // Setting new form for topic edit
   editName = new FormControl('');
@@ -49,23 +51,28 @@ export class TechnologyTopicDialogComponent implements OnInit {
     }
 
     saveEditTopic(topic: Topic) {
+      let oldName = topic.name;
       topic.name = this.editName.value;
       topic.description = this.editDescription.value;
-      this.edit.state = false;
+      this.topicService.updateTopicByName(topic, oldName).subscribe(data => {
+        console.log(data);
+        this.edit.state = false;
+        this.edit.target = 0;
+      });
+      
     }
 
     deleteTopic(topic: Topic) {
-
-      console.log(`Removing - ${topic.name}`);
       let hasId = ((obj: Topic) => obj.id == topic.id);
       let indexToRemove = this.topics.findIndex(hasId);
-
-      this.confirmDelete.target = 0;
-      this.confirmDelete.state = false;
-      this.topics.splice(indexToRemove, 1);
-
-      /* this.topicService.deleteTopicByName(topic.name)
-        .subscribe(data => console.log(data)); */
+      
+      this.topicService.deleteTopicByName(topic.name)
+      .subscribe(data => {
+        console.log(data)
+        this.confirmDelete.target = 0;
+        this.confirmDelete.state = false;
+        this.topics.splice(indexToRemove, 1);
+      });
     }
 
     closeDialog() {

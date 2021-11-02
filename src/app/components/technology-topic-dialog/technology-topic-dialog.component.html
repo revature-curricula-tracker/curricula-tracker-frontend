@@ -2,6 +2,7 @@
     <div class="dialog-content">
 
         <h1 mat-dialog-title>Topics</h1>
+        <fa-icon class="icons" id="closeBtn" (click)="closeDialog()" [icon]="faClose"></fa-icon>
 
         <mat-accordion displayMode="default" [multi]="true" [hideToggle]="false" *ngIf="topics.length > 0">
             <mat-expansion-panel *ngFor="let topic of topics">
@@ -37,7 +38,7 @@
                     </ng-container>
 
                     <ng-container *ngIf="confirmDelete.target == topic.id && confirmDelete.state">
-                        <button mat-button color="warn" (click)="deleteTopic(topic)"> Yes </button>
+                        <button mat-button color="warn" (click)="deleteTopic(topic)"> Confirm delete </button>
                         <button mat-button color="primary" (click)="confirmDelete = {'target': 0, 'state': false}"> Cancel </button>
                     </ng-container>
 
@@ -52,7 +53,4 @@
         
   
     </div>
-</div>
-<div mat-dialog-actions align="end">
-    <button mat-button  (click)="closeDialog()">Close</button>
 </div>

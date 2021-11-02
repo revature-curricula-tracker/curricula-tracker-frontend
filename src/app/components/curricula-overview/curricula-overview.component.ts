@@ -1,8 +1,6 @@
 import { TopicsService } from './../../services/topics.service';
 import { ActivatedRoute } from '@angular/router';
-import { CurriculumTopicKey } from './../../model/CurriculumTopicKey';
 import { Week } from './../../model/week';
-import { TopicsForCurriculum } from './../../model/topicsForCurriculum';
 import { Technology } from './../../model/technology';
 import { Component, Input, OnInit } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';

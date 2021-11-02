@@ -35,12 +35,12 @@ export class TopicsService {
   }
   
   public updateTopic(top: Topic): Observable<Topic> {
-    return this.http.patch<Topic>(`${url}/${top.id}`, top)
+    return this.http.put<Topic>(`${url}/${top.id}`, top)
     .pipe(catchError(e => this.handleError('update a top', e)));
   }
 
-  public updateTopicByName(topic: Topic): Observable<ArrayBuffer> {
-    return this.http.patch<ArrayBuffer>(`${url}/byname/${topic.name}`, topic)
+  public updateTopicByName(topic: Topic, name: string): Observable<ArrayBuffer> {
+    return this.http.put<ArrayBuffer>(`${url}/byname/${name}`, {name: topic.name, description: topic.description})
       .pipe(catchError(e => this.handleError('update topic by name', e)));
   }
   
