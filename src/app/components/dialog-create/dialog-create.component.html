@@ -1,50 +1,56 @@
-<ng-container *ngIf="data.input == 'tech'">
-    <mat-form-field>
-        <mat-select multiple placeholder="Favorite food">
-            <mat-option (onSelectionChange)="changeWeek($event)" *ngFor="let food of tech" [value]="food.techName">
-                {{ food.techName }}
-            </mat-option>
-            <button mat-button (click)="onNoClickWeek()">No Thanks</button>
-            <button mat-button (click)="onYesClickWeek()">Ok</button>
-        </mat-select>
-    </mat-form-field>
-</ng-container>
-<ng-container *ngIf="data.input == 'topic'">
-    <ng-container>
+<div class="dialog-content">
+    <!-- Technology Dialog -->
+    <ng-container *ngIf="data.input == 'tech'">
         <mat-form-field>
-            <mat-select multiple placeholder="Favorite food">
-                <mat-option (onSelectionChange)="changeTopic($event)" *ngFor="let food of topicArray" [value]="food">
-                    {{ food.name }}
+            <mat-select multiple placeholder="Technologies">
+                <mat-option (onSelectionChange)="changeWeek($event)" *ngFor="let food of tech" [value]="food.techName">
+                    {{ food.techName }}
                 </mat-option>
-                <button mat-button (click)="onNoClickTopic()">No Thanks</button>
-                <button mat-button (click)="onYesClickTopic()">Ok</button>
+                <button mat-raised-button (click)="cancelDialog()">Cancel</button>
+                <button class="button-accent" mat-raised-button (click)="confirmWeek()">Confirm</button>
             </mat-select>
         </mat-form-field>
     </ng-container>
-</ng-container>
-<ng-container *ngIf="data.input == 'create'">
-    <mat-form-field appearance="fill" class="bg-white input-style">
-        <mat-label class="user-label">Name</mat-label>
-        <input matInput [(ngModel)]="topic.name" class="user-input">
-    </mat-form-field>
-    <mat-form-field appearance="fill">
-        <mat-label>Choose an option</mat-label>
-        <mat-select [(ngModel)]="topic.technology" placeholder="Favorite food">
-            <!-- (onSelectionChange)="changeCreate($event)" -->
-            <mat-option *ngFor="let food of tech" [value]="food">
-                {{ food.techName }}
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
-    <button mat-button (click)="onNoClickCreate()">No Thanks</button>
-    <button mat-button (click)="onYesClickCreate()">Ok</button>
-</ng-container>
-<!-- ======== when user first open our route =================== -->
-<ng-container *ngIf="!data.input">
-    <mat-form-field appearance="fill" class="bg-white input-style">
-        <mat-label class="user-label">Name</mat-label>
-        <input matInput [(ngModel)]="curriculum.curriculumName" class="user-input">
-    </mat-form-field>
-    <button mat-button (click)="onNoClickInput()">No Thanks</button>
-    <button mat-button (click)="onYesClickInput()">Ok</button>
-</ng-container>
+    <!-- Topic Dialog -->
+    <ng-container *ngIf="data.input == 'topic'">
+        <ng-container>
+            <mat-form-field>
+                <mat-select multiple placeholder="Topics">
+                    <mat-option (onSelectionChange)="changeTopic($event)" *ngFor="let food of topicArray"
+                        [value]="food">
+                        {{ food.name }}
+                    </mat-option>
+                    <button mat-raised-button (click)="cancelDialog()">Cancel</button>
+                    <button class="button-accent" mat-raised-button (click)="confirmTopic()">Confirm</button>
+                </mat-select>
+            </mat-form-field>
+        </ng-container>
+    </ng-container>
+    <!-- Create Dialog -->
+    <ng-container *ngIf="data.input == 'create'">
+        <mat-form-field appearance="fill" class="bg-white input-style">
+            <mat-label>Topic</mat-label>
+            <input matInput [(ngModel)]="topic.name">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Select Technology</mat-label>
+            <mat-select [(ngModel)]="topic.technology" placeholder="Technologies">
+                <!-- (onSelectionChange)="changeCreate($event)" -->
+                <mat-option *ngFor="let food of tech" [value]="food">
+                    {{ food.techName }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <button mat-raised-button (click)="cancelDialog()">Cancel</button>
+        <button class="button-accent" mat-raised-button (click)="confirmCreate()">Confirm</button>
+    </ng-container>
+    <!-- ======== when user first open our route =================== -->
+    <ng-container *ngIf="!data.input">
+        <mat-form-field appearance="fill" class="bg-white input-style">
+            <mat-label class="user-label">Name</mat-label>
+            <input matInput [(ngModel)]="curriculum.curriculumName" class="user-input">
+        </mat-form-field>
+        <button mat-button (click)="cancelInput()">Cancel</button>
+        <button class="button-accent" mat-raised-button (click)="confirmInput()">Continue</button>
+    </ng-container>
+</div>

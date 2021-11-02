@@ -67,9 +67,6 @@ export class CurriculumCreateComponent implements OnInit {
       data: { input: input, curriculumId: this.curriculumId },
       disableClose: true,
     });
-
-    // dialogRef.afterClosed().subscribe();
-
   }
 
   openDialogForWeek(input: string, id: number): void {
@@ -79,14 +76,12 @@ export class CurriculumCreateComponent implements OnInit {
       data: { input: input, counter: this.id },
       disableClose: true,
     });
-
     dialogRef.afterClosed().subscribe(result => {
       this.newDialogData2.push(result);
       this.currentItem = this.newDialogData2;
       // this.techArray.push(result);
       this.counter = 0;
     });
-
   }
 
   openDialog2(input: String, weekObj: any[], id: number, days: number): void {

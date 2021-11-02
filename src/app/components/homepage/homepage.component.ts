@@ -67,7 +67,7 @@ export class HomepageComponent implements AfterViewInit {
   }
   //Change to CreatePage...
   navigateTo() {
-    this.route.navigate(['/curriculum']);
+    this.route.navigate(['/create']);
   }
 }
 

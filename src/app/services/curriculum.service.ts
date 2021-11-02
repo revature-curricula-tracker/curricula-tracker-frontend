@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 import { backendUrl } from 'src/environments/environment';
 import { catchError } from "rxjs/operators";
 
-const url = backendUrl + "curriculum";
+const url = backendUrl + "/curriculum";
 
 @Injectable({
   providedIn: 'root'

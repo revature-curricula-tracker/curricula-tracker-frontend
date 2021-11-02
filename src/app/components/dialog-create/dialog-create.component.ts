@@ -17,17 +17,14 @@ import { TopicsService } from 'src/app/services/topics.service';
 export class DialogCreateComponent implements OnInit {
 
   something: DialogData = new DialogData("", 0, [], 0, 0, []);
-  something2: DialogData = new DialogData("", 0, [], 0, 0, []);
-
   curriculum: Curriculum = new Curriculum(0, "", 0, 0, []);
   technology: Technology = new Technology(0, "", "", []);
 
   topic: Topic = new Topic("not used", 0, "", this.technology, this.curriculum, 0);
 
-  toppingList: string[] = ['Java', 'JavaScript', 'Python', 'Docker', 'AWS', 'Spring'];
   tech: Technology[] = [];
   topicArray: Topic[] = [];
-  // selectedTech: Technology[] = [];
+
   weekObj: any = {
     selectedTech: [],
     weekId: 0
@@ -37,13 +34,9 @@ export class DialogCreateComponent implements OnInit {
     selectedTech: [],
     weekId: 0
   }];
-
-
-
-
   constructor(
-    public dialogRef: MatDialogRef<DialogCreateComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    public dialogRef: MatDialogRef<DialogCreateComponent>,
     public dialog: MatDialog,
     private router: Router,
     private curriculumService: CurriculumService,
@@ -51,75 +44,58 @@ export class DialogCreateComponent implements OnInit {
     private topicService: TopicsService) {
   }
 
-  foods = [
-    { value: 'steak-0', viewValue: 'Steak' },
-    { value: 'pizza-1', viewValue: 'Pizza' },
-    { value: 'tacos-2', viewValue: 'Tacos' },
-    { value: 'hotdog-3', viewValue: 'Hotdog' }
-  ];
-
-  techs = [
-    { value: 'steak-0', viewValue: 'Steak' },
-    { value: 'pizza-1', viewValue: 'Pizza' },
-    { value: 'tacos-2', viewValue: 'Tacos' },
-    { value: 'hotdog-3', viewValue: 'Hotdog' }
-  ];
-
   change(event: any, counter: number) {
+    console.log(`event is ${JSON.stringify(event.isUserInput)}`);
     if (event.isUserInput) {
       this.something.name.push(event.source.value)
       this.something.counter = counter;
     }
   }
-
-  // onNoClick() {
-  //   this.something.counter = 0;
-  //   this.dialogRef.close(this.something);
-  // }
-
-  // onYesClick() {
-  //   this.dialogRef.close(this.something);
-  // }
-
   changeWeek(event: any) {
+    //console.log(`event week is ${JSON.stringify(event.source)}`);
     if (event.isUserInput) {
-      // this.selectedTech.push(event.source.value);
-      this.weekObj.weekId = this.data.counter;
-      this.weekObj.selectedTech.push(event.source.value);
+      if (event.source.selected) {
+        this.weekObj.weekId = this.data.counter;
+        this.weekObj.selectedTech.push(event.source.value);
+      } else {
+        this.weekObj.selectedTech.forEach((element: any, index: number) => {
+          if (element == event.source.value) {
+            this.weekObj.selectedTech.splice(index, 1);
+          }
+        });
+      }
     }
   }
 
   changeTopic(event: any) {
+    // console.log(`event topic is ${JSON.stringify(event.source.selected)}`);
     if (event.isUserInput) {
-      // this.selectedTech.push(event.source.value);
-      this.weekObj.weekId = this.data.counter;
-      this.weekObj.selectedTech.push(event.source.value);
+      if (event.source.selected) {
+        this.weekObj.weekId = this.data.counter;
+        this.weekObj.selectedTech.push(event.source.value);
+      }
+      else {
+        this.weekObj.selectedTech.forEach((element: any, index: number) => {
+          if (element === event.source.value) {
+            this.weekObj.selectedTech.splice(index, 1);
+          }
+        });
+      }
     }
   }
 
-  // changeCreate(event: any) {
-  //   // if (event.isUserInput) {
-  //   //   event.source.value == technology assign
-  //   //   this.something2.name.push();
-  //   //   this.something2.counter = this.data.counter
-  //   // }
-  // }
-
-  onNoClickWeek() {
+  cancelDialog() {
     this.dialogRef.close();
   }
-
-  onYesClickWeek() {
+  confirmWeek() {
     this.dialogRef.close(this.weekObj);
   }
-
-  onNoClickInput() {
+  cancelInput() {
     this.dialogRef.close();
     this.router.navigate(['/home']);
-
   }
 
-  onYesClickInput() {
+  confirmInput() {
     if (this.curriculum.curriculumName === '') {
       // have a toast
     }
@@ -130,46 +106,32 @@ export class DialogCreateComponent implements OnInit {
     }
 
   }
-
-
-  onNoClickCreate() {
-    this.dialogRef.close();
-  }
-
-  onYesClickCreate() {
+  confirmCreate() {
     if (!this.topic.name || !this.topic.technology) {
       // have a toast
     }
     else {
-      // console.log(`something ${JSON.stringify(this.topic.technology)}`);
-      // this.curriculumService.addCurriculum(this.curriculum).subscribe(res => {
-      //   this.dialogRef.close(res);
-      // });
       console.log(`topic is ${JSON.stringify(this.topic)}`);
       this.topicService.addTopic(this.topic).subscribe(res => {
       });
       this.dialogRef.close();
     }
   }
-
-  onNoClickTopic() {
-    this.dialogRef.close();
-  }
-
-  onYesClickTopic() {
+  confirmTopic() {
     for (let i = 0; i < this.weekObj.selectedTech.length; i++) {
       this.topic = this.weekObj.selectedTech[i];
       this.topic.curriculum = this.curriculum;
       this.topic.topicDay = (this.data.counter - 1) * 5 + this.data.days;
+      // this.weekObj.selectedTech.push(this.topic);y = (this.data.counter - 1) * 5 + this.data.days;
       this.topic.id = 0;
       this.topicService.addTopic(this.topic).subscribe(res => {
         this.weekObj.selectedTech.push(res);
       });
     }
     this.weekObj.weekId = (this.data.counter - 1) * 5 + this.data.days;
+    console.log(`week obj ${JSON.stringify(this.weekObj)}`);
     this.dialogRef.close(this.weekObj);
   }
-
   ngOnInit() {
     this.techService.getAllTechnologies().subscribe(res => {
       this.tech = res;

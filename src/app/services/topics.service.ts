@@ -5,16 +5,13 @@ import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Topic } from '../model/topic';
-import { backendUrl } from './../../environments/environment';
 
 const url = `${backendUrl}topics`;
-
-const url = `${backendUrl}/topics`;
 @Injectable({
   providedIn: 'root'
 })
 export class TopicsService {
-  
+
   constructor(private http: HttpClient, private router: Router) { }
   public findAll(): Observable<Topic[]> {
     return this.http.get<Topic[]>(`${url}`)
