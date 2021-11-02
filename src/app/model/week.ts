@@ -5,6 +5,7 @@ export class Week {
   name: string="";
   week : string="";
   days:Topic[][]=[[],[],[],[],[]];
+  techs:string[]=[];
 
   constructor( 
     id: number,
