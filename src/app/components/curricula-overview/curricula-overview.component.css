@@ -35,6 +35,7 @@
     margin-top: 20px;
     margin-bottom: 5px;
     padding-bottom: 10px;
+    
 }
 .curriculum-heading
 {
@@ -50,18 +51,6 @@
 .curriculum-calendar{
     margin-top: 10px;
 }
-
-tr>td:hover {
-    /* border-color: blue;
-    border-style:solid; */
-    background-color: rgb(115, 165, 194) !important;
-}
-.topic-button {
-    white-space: break-spaces;
-    line-height: 1.5;
-    margin-top: 5px;
-}
-
 #edit-button {
     margin-left: 10px;
     border-radius: 25px;
@@ -78,39 +67,71 @@ tr>td:hover {
 ::ng-deep .mat-slide-toggle-bar {
     background-color: rgb(204, 204, 204);
 }
-
-.tech-button{
-    margin-left: 10px;
-    border-radius: 50px;
-}
-
-li {
-    list-style: none;
-}
 th{
     width: 16%;
+    font-weight: normal;
+    text-align: center;
+    padding-top: 15px !important;
+    padding-bottom: 15px !important;
+    color: darkgray;
+    border-bottom: rgb(156, 156, 156) solid 1px !important;
+    background-color: white;
+}
+.cdk-row{
+    border-bottom: rgb(207, 207, 207) solid 1px !important;
 }
 .cdk-row .cdk-cell
 {
-    border-width: 1;
-    border-style: solid;
-    border-color: grey;
     height: 200px !important;
 }
-  
+
 .cdk-row:nth-child(even) .cdk-cell:nth-child(odd), 
 .cdk-row:nth-child(odd) .cdk-cell:nth-child(even)
 {
-    background-color:silver;
+    /* background-color:silver; */
 }
-
+.cdk-row:nth-child(even) 
+{
+    background-color:rgb(243, 243, 243);
+}
 #data_table{
-    border-collapse: collapse;
-    border-width: 1;
-    border-color: darkgrey;
     /* table-layout: auto; */
     width: 100%;
-} 
+}
+.week-title{
+    text-align: center;
+    margin-top: 20px;
+    font-weight: bold;
+}
+.week-cell{
+    align-items: center;
+    vertical-align: top;
+    border-right: rgb(211, 211, 211) solid 1px !important;
+}
+.day-cell{
+    vertical-align: top;
+}
+.day-cell:hover{
+    background-color: rgb(234, 247, 255) !important;
+}
+.day-dragbox{
+    height: 100%;
+}
+.topic-button {
+    white-space: break-spaces;
+    line-height: 1.5;
+    width: 95%;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+    text-align: left;
+    padding-left: 4% !important;
+}
+.topic-color{
+    stroke: rgb(168, 168, 168);
+    stroke-width: 10px;
+}
 .legend-labels
 {
     padding-left :5%;
@@ -120,5 +141,14 @@ th{
     margin-top: 10px;
     margin-bottom: 20px;
     padding-left: 5%;
-    color: darkgray;
+    color: rgb(128, 128, 128);
+}
+.legend-button{
+    margin-left: 10px;
+    border-radius: 50px;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+}
+.legend-text{
+    text-shadow: 1px 1px 4px rgb(53, 53, 53);
 }

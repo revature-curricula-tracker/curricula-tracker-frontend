@@ -7,7 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Topic } from 'src/app/model/topic';
 import { CurriculumService } from 'src/app/services/curriculum.service';
-import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
+import { faPencilAlt, faSquare } from '@fortawesome/free-solid-svg-icons';
 
 export interface TopicElement {
 }
@@ -28,6 +28,7 @@ export class CurriculaOverviewComponent implements OnInit {
   testTopic: Topic = new Topic("Disc", 100, "Test", this.testTech, this.testCurr, 5);
 
   faEdit = faPencilAlt;
+  faSquare=faSquare;
 
   ////piechart variables
   public pieChartLabels: string[] = [];
@@ -80,7 +81,15 @@ export class CurriculaOverviewComponent implements OnInit {
   }
 
   public getTopicData(): any {
-    this.fillout(this.curriculum.numWeeks);
+    this.curriculum.topics.push(this.testTopic);
+    this.curriculum.topics.push(this.testTopic);
+    this.curriculum.topics.push(this.testTopic);
+    this.curriculum.topics.push(this.testTopic);
+    this.curriculum.topics.push(this.testTopic);
+    this.curriculum.topics.push(this.testTopic);
+    this.curriculum.topics.push(this.testTopic);
+    console.log(this.curriculum);
+    this.fillout(1);
     this.curriculum.topics.forEach(t => {
       this.getTopic(t.id);
     });
