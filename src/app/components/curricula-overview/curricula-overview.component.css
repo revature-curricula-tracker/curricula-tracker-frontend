@@ -1,4 +1,4 @@
-.title-content{
+.title-content {
     position: relative;
     padding: 8px;
     width: 100%;
@@ -6,12 +6,14 @@
     color: #fff;
     box-shadow: 0px 2px 8px 1px rgba(0, 0, 0, 0.4);
 }
-#title{
+
+#title {
     position: relative;
     left: 9%;
-    width:fit-content;
+    width: fit-content;
     white-space: nowrap;
 }
+
 .general-content {
     width: 100%;
     height: 100%;
@@ -20,38 +22,40 @@
     align-items: center;
     background-color: whitesmoke;
 }
-.curricula-background {
+.curriculum-background {
     width: 90%;
     background-color: #ffffff;
     border: solid .5px rgb(207, 207, 207);
     box-shadow: 0px 0px 10px 0.2px rgba(0, 0, 0, 0.25);
     margin-top: 0rem;
 }
-.curricula-content{
-    margin-left: 0px;
-    margin-right: 0px;
-    margin-top: 0px;
+.curriculum-content{
+    margin-left: 50px;
+    margin-right: 50px; 
+    margin-top: 20px;
     margin-bottom: 5px;
     padding-bottom: 10px;
 }
-h1 {
-    color: #F26925;
+.curriculum-heading
+{
+    display: flex;
+}
+.curriculum-title{ 
+    display: flex;
+    align-items: center;
+}
+.pie-chart-content{
+    margin-right: 5% !important;
+}
+.curriculum-calendar{
+    margin-top: 10px;
 }
 
-h4 {
-    padding-left: 5%;
-}
-tr>td:hover{
+tr>td:hover {
     /* border-color: blue;
     border-style:solid; */
     background-color: rgb(115, 165, 194) !important;
 }
-
-tr>td {
-    padding: 20px;
-    align-content: center;
-}
-
 .topic-button {
     white-space: break-spaces;
     line-height: 1.5;
@@ -62,103 +66,59 @@ tr>td {
     margin-left: 10px;
     border-radius: 25px;
 }
-.mat-slide-toggle{
-    padding-left: 2%;
-}
 ::ng-deep .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
-    background-color: #ffcc5f 
+    background-color: #ff9900 
+}
+::ng-deep .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+    background-color: rgb(255, 207, 153); 
+}
+::ng-deep .mat-slide-toggle-thumb {
+    background-color: rgb(255, 255, 255);
+} 
+::ng-deep .mat-slide-toggle-bar {
+    background-color: rgb(204, 204, 204);
 }
 
-::ng-deep .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
-    background-color: rgb(170, 170, 170); 
-}
 .tech-button{
     margin-left: 10px;
     border-radius: 50px;
 }
 
-#java {
-    background-color: red;
-}
-
-#angular {
-    background-color: orange;
-}
-
-#javascript {
-    background-color: yellow;
-}
-
 li {
     list-style: none;
 }
-
-th {
-    text-align: center;
+th{
+    width: 16%;
 }
-
-  .cdk-row .cdk-cell
-  {
-      background-color: rgb(212, 211, 211);
-      border-width: 1;
-      border-style: solid;
-      border-color: grey;
-      min-width: 16% !important;
-      
-  }
-  
-  .cdk-row:nth-child(even) .cdk-cell:nth-child(odd), 
-  .cdk-row:nth-child(odd) .cdk-cell:nth-child(even)
-  {
-      background-color:silver;
-  }
-
-  .weeks{
-      display: flex;
-      flex-direction: column;
-      width: 85%;
-      /* height:85%; */
-      padding: 2%;
-      margin-left: 50px;
-      margin-right: 0px; 
-      margin-bottom: 0;
-      margin-top: 10px;
-      /* background-color: lightgray; */
-      border-radius: 5px;
-      /* box-shadow: 2px 2px 2px  rgba(0, 0, 0, 0.521); */
-  }
-
-  .curriculum_title{
-      display: flex;
-      align-items: center;
-  }
-   #data_table{
-    border-radius:  5px;
-    border-collapse: collaspe;
+.cdk-row .cdk-cell
+{
     border-width: 1;
     border-style: solid;
+    border-color: grey;
+    height: 200px !important;
+}
+  
+.cdk-row:nth-child(even) .cdk-cell:nth-child(odd), 
+.cdk-row:nth-child(odd) .cdk-cell:nth-child(even)
+{
+    background-color:silver;
+}
+
+#data_table{
+    border-collapse: collapse;
+    border-width: 1;
     border-color: darkgrey;
-    margin-left: auto;
-    margin-right: auto;
-    table-layout: auto;
-    background-color: grey;
-  } 
-  #data_table tr:last-child td:first-child{
-
-    border-radius: 0 0 0 5px !important;
-  }
-  #data_table tr:last-child td:last-child{
-
-    border-radius: 0 0 5px 0 !important;
-  }
-  .example-button-row
-  {
-   padding-left :5%;
-   display: ruby;
-  }
-#pie-chart{
-    float:right;
-    /* display: inline-block; */
-    /* margin-left: auto !important; */
-    margin-right: 5% !important;
+    /* table-layout: auto; */
+    width: 100%;
+} 
+.legend-labels
+{
+    padding-left :5%;
+    display: ruby;
+}
+#legend-title{
+    margin-top: 10px;
+    margin-bottom: 20px;
+    padding-left: 5%;
+    color: darkgray;
 }
