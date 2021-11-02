@@ -1,3 +1,4 @@
+import { Technology } from './technology';
 import { Topic } from "./topic";
 
 export class Week {
@@ -5,6 +6,7 @@ export class Week {
   name: string="";
   week : string="";
   days:Topic[][]=[[],[],[],[],[]];
+  techs:string[]=[];
 
   constructor( 
     id: number,

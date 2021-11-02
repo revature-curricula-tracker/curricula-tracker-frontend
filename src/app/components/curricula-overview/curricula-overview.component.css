@@ -81,6 +81,7 @@ th{
 .cdk-row .cdk-cell
 {
     height: 200px !important;
+    
 }
 
 .cdk-row:nth-child(even) .cdk-cell:nth-child(odd), 
@@ -105,9 +106,11 @@ th{
     align-items: center;
     vertical-align: top;
     border-right: rgb(211, 211, 211) solid 1px !important;
+    border: rgb(211, 211, 211)  solid 1px  ;
 }
 .day-cell{
     vertical-align: top;
+    border: rgb(211, 211, 211)  solid 1px;
 }
 .day-cell:hover{
     background-color: rgb(234, 247, 255) !important;
