@@ -52,7 +52,9 @@ export class CurriculaOverviewComponent implements OnInit{
 
   ngOnInit(): void {
     this.getTopicData();
+    
   }
+  
   fillout(n: number) {
     for (let i = 1; i <= this.curriculum.numWeeks; i++) {
       //console.log(this.weekArray.length);
@@ -66,7 +68,6 @@ export class CurriculaOverviewComponent implements OnInit{
   }
   startEdit() {
     if(!this.pieloaded){
-      this.finalChart();
       this.pieloaded=true}
     if (this.editing) {
       this.editing = false;
@@ -87,8 +88,8 @@ export class CurriculaOverviewComponent implements OnInit{
     this.fillout(1);
     this.curriculum.topics.forEach(t => {
       this.getTopic(t.id);
+      
     });
-    
   }
   getCurriculum(routeParm: string) {
     this.curService.findById(Number.parseInt(routeParm)).subscribe(data => {
@@ -103,27 +104,22 @@ export class CurriculaOverviewComponent implements OnInit{
       this.weekArray[Math.floor((top.topicDay) / 5.1)].days[((top.topicDay - 1) % 5)].push(top);
       if (!this.tech.includes(top.technology))this.tech.push(top.technology);
       if (!this.topics.includes(top)) this.topics.push(top);
-      this.getChartdata(top);
-    })
-  }
-
-  getChartdata(t:Topic) {
-      let name = t.technology.techName;
-      if (!this.pieChartLabels.includes(name)) {
-        this.techCounter.set(name, 1);
-        this.pieChartLabels.push(name);
-        this.pieChartColors[0].backgroundColor.push(this.stringToColor(name));
+      //piechartstuff
+      if (!this.pieChartLabels.includes(top.technology.techName)) {
+        this.techCounter.set(top.technology.techName, 1);
+        this.pieChartLabels.push(top.technology.techName);
+        this.pieChartColors[0].backgroundColor.push(this.stringToColor(top.technology.techName));
       }
       else {
-        this.techCounter.set(t.technology.techName, (this.techCounter.get(name)||0)+1);
+        this.techCounter.set(top.technology.techName, (this.techCounter.get(top.technology.techName)||0)+1);
+      }  
+      this.pieChartData = [];
+      for (let i of this.techCounter) {
+        this.pieChartData.push(i[1]);
       }
+    })
   }
-
-  finalChart(){
-     for (let i of this.techCounter) {
-      this.pieChartData.push(i[1]);
-    }
-  }
+  
   // piechart events
   public chartClicked(e: any): void {
 

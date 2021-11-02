@@ -51,21 +51,6 @@
 .curriculum-calendar{
     margin-top: 10px;
 }
-<<<<<<< HEAD
-
-tr>td:hover {
-    /* border-color: blue;
-    border-style:solid; */
-    background-color: rgb(115, 165, 194) !important;
-}
-.topic-button {
-    white-space: break-spaces;
-    line-height: 1.5;
-    margin-top: 5px;
-}
-
-=======
->>>>>>> 260618c24d8339b519f52ca9e8a4104364c1d962
 #edit-button {
     margin-left: 10px;
     border-radius: 25px;
