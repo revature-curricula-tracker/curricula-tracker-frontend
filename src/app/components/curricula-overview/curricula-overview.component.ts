@@ -62,6 +62,7 @@ export class CurriculaOverviewComponent implements OnInit {
   // dataSource: Week[] = [];
   weekCounter = 0;
   dataSource = new MatTableDataSource(this.weekArray); // this.weekArray;
+
   constructor(private curService: CurriculumService,
     private topicServ: TopicsService,
     private route: ActivatedRoute,
@@ -191,7 +192,7 @@ export class CurriculaOverviewComponent implements OnInit {
   removeWeek() {
     console.log(`counter is ${this.weekCounter}`)
     if (this.weekCounter <= 1) {
-      this.errorToastr("Cannot delete the first table")
+      this.errorToastr("Cannot remove first week")
     }
     else {
       this.weekCounter--;

@@ -53,14 +53,14 @@
     margin-left: 10px;
     border-radius: 25px;
 }
-.btn-icon{
-    color: white;
-    font-size: 10px;
-}
-.btn-edit
+.btn-edit-table
 {
-    width: 20px;
-    background-color: rgb(235, 125, 70);
+    bottom: 10%;
+    position: absolute;
+    margin-left: 10px;
+}
+.btn-edit{
+    background-color: lightgrey;
 }
 th{
     width: 16%;
@@ -88,7 +88,9 @@ th{
     width: 100%;
 }
 #table-footer{
-    margin-top: 10px;
+    margin-top: 20px;
+    margin-left: 100px;
+    padding-bottom: 20px;
 }
 .week-title{
     text-align: center;

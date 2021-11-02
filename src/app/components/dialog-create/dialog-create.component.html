@@ -6,8 +6,12 @@
                 <mat-option (onSelectionChange)="changeWeek($event)" *ngFor="let food of tech" [value]="food.techName">
                     {{ food.techName }}
                 </mat-option>
-                <button mat-raised-button (click)="cancelDialog()">Cancel</button>
-                <button class="button-accent" mat-raised-button (click)="confirmWeek()">Confirm</button>
+                <br>
+                <div>
+                    <button mat-raised-button (click)="cancelDialog()">Cancel</button>
+                    <button class="button-accent" mat-raised-button (click)="confirmWeek()">Confirm</button>
+                </div>
+                <br>
             </mat-select>
         </mat-form-field>
     </ng-container>
@@ -20,8 +24,12 @@
                         [value]="food">
                         {{ food.name }}
                     </mat-option>
-                    <button mat-raised-button (click)="cancelDialog()">Cancel</button>
-                    <button class="button-accent" mat-raised-button (click)="confirmTopic()">Confirm</button>
+                    <br>
+                    <div>
+                        <button mat-raised-button (click)="cancelDialog()">Cancel</button>
+                        <button class="button-accent" mat-raised-button (click)="confirmTopic()">Confirm</button>
+                    </div>
+                    <br>
                 </mat-select>
             </mat-form-field>
         </ng-container>
@@ -41,8 +49,10 @@
                 </mat-option>
             </mat-select>
         </mat-form-field>
-        <button mat-raised-button (click)="cancelDialog()">Cancel</button>
-        <button class="button-accent" mat-raised-button (click)="confirmCreate()">Confirm</button>
+        <div>
+            <button mat-raised-button (click)="cancelDialog()">Cancel</button>
+            <button class="button-accent" mat-raised-button (click)="confirmCreate()">Confirm</button>
+        </div>
     </ng-container>
     <!-- ======== when user first open our route =================== -->
     <ng-container *ngIf="!data.input">
@@ -50,7 +60,9 @@
             <mat-label class="user-label">Name</mat-label>
             <input matInput [(ngModel)]="curriculum.curriculumName" class="user-input">
         </mat-form-field>
-        <button mat-button (click)="cancelInput()">Cancel</button>
-        <button class="button-accent" mat-raised-button (click)="confirmInput()">Continue</button>
+        <div>
+            <button mat-button (click)="cancelInput()">Cancel</button>
+            <button class="button-accent" mat-raised-button (click)="confirmInput()">Continue</button>
+        </div>
     </ng-container>
 </div>
