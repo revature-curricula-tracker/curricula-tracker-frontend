@@ -20,6 +20,8 @@
           <div class="pie-chart-legend">
             <h5 id="legend-title">Technologies</h5>
             <div class="legend-labels">
+            </div>
+            <div class="example-button-row">
               <div *ngFor="let item of pieChartLabels;index as i;" class="button-row">
                 <button mat-raised-button id="" class="legend-button"
                   [style.background-color]=stringToColor(pieChartLabels[i])>
@@ -136,11 +138,8 @@
                   </div>
                   <ng-template #elseBlock>
                     <div *ngFor="let item of week.days[4];index as i;" cdkDrag [cdkDragDisabled]="!this.editing">
-                      <button mat-raised-button class="topic-button">    
-                        <fa-icon class="topic-color" [style.color]=stringToColor(item.technology.techName) [icon]="faSquare" style="font-size: 22px;"></fa-icon>
-                        &nbsp;
-                        {{item.name}}
-                      </button>
+                      <button mat-raised-button class="topic-button"
+                        [style.background-color]=stringToColor(item.technology.techName)>{{item.name}}</button>
                     </div>
                   </ng-template>
                 </div>
