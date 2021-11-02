@@ -84,13 +84,24 @@ export class TechnologyOverviewComponent implements AfterViewInit {
     });
   }
 
-  openDialogTopic(topics: Topic[]): void {
+  openDialogTopic(tech: Technology): void {
     const dialogRef = this.dialog.open(TechnologyTopicDialogComponent, {
       width: '500px',
       height: '400px',
+      disableClose: true,
       data: {
-        topics
+        topics: tech.topics
       }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+
+      console.log(result)
+
+      let hasId = ((obj: Technology) => obj.techId == tech.techId);
+      let index = this.technologies.findIndex(hasId);
+
+      this.technologies[index].topics = result;
     })
   }
 

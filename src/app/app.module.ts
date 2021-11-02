@@ -43,7 +43,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS } from '@angular-material-components/color-picker';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatSortModule } from '@angular/material/sort';
-
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -91,6 +91,7 @@ import { MatSortModule } from '@angular/material/sort';
     ChartsModule,
     MatBadgeModule,
     MatSortModule,
+    MatExpansionModule,
     ToastrModule.forRoot({
       timeOut: 5000,
       progressBar: true,
