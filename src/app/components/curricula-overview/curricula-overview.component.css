@@ -49,10 +49,6 @@
 .curriculum-calendar{
     margin-top: 10px;
 }
-#edit-button {
-    margin-left: 10px;
-    border-radius: 25px;
-}
 .btn-edit-table
 {
     margin-left: 10px;
@@ -61,7 +57,7 @@
     right: 5px;
 }
 .btn-edit{
-    background-color: rgba(211, 211, 211, 0.404);
+    background-color: rgba(211, 211, 211, 0.226);
 }
 th{
     width: 16%;
