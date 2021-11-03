@@ -57,6 +57,7 @@
     right: 5px;
 }
 .btn-edit{
+    color: #9c9c9c;
     background-color: rgba(211, 211, 211, 0.226);
 }
 th{
@@ -73,7 +74,7 @@ td{
     position:relative;
 }
 .cdk-row{
-    border-bottom: rgb(207, 207, 207) solid 1px !important;
+    /* border-bottom: rgb(207, 207, 207) solid 1px !important; */
 }
 .cdk-row .cdk-cell
 {
@@ -101,12 +102,12 @@ td{
 .week-cell{
     align-items: center;
     vertical-align: top;
-    border-right: rgb(211, 211, 211) solid 1px !important;
-    border: rgb(211, 211, 211)  solid 1px  ;
+    border-right: rgb(156, 156, 156) solid 1px !important;
+    /* border: rgb(211, 211, 211)  solid 1px  ; */
 }
 .day-cell{
     vertical-align: top;
-    border: rgb(211, 211, 211)  solid 1px;
+    border-right: rgb(255, 243, 231) dotted 1px;
 }
 .day-cell:hover{
     background-color: rgb(234, 247, 255) !important;
