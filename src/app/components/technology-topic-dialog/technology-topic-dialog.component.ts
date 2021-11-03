@@ -1,13 +1,14 @@
-import { TechnologyService } from 'src/app/services/technology.service';
 import { TopicsService } from './../../services/topics.service';
-import { Component, Inject, OnInit, Output } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { faPencilAlt, faExclamationCircle, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { Topic } from '../../model/topic';
+import { Technology } from 'src/app/model/technology';
+import { ToastrService } from 'ngx-toastr';
 
 export interface DialogData {
-  topics: Topic[];
+  tech: Technology;
 }
 
 @Component({
@@ -20,6 +21,7 @@ export class TechnologyTopicDialogComponent implements OnInit {
   topics: Topic[] = [];
   edit = {target: 0, state: false, btnOneState: 'Edit', btnTwoState: 'Remove'};
   confirmDelete = {target: 0, state: false};
+  createOpen = false;
 
   faPencil = faPencilAlt;
   faWarning = faExclamationCircle;
@@ -28,14 +30,22 @@ export class TechnologyTopicDialogComponent implements OnInit {
   // Setting new form for topic edit
   editName = new FormControl('');
   editDescription = new FormControl('');
+  // Setting new form for topic edit
+
+  createTopicForm = new FormGroup({
+    createName: new FormControl(''),
+    createDescription: new FormControl('')
+  })
+
 
   constructor(
     public dialogRef: MatDialogRef<TechnologyTopicDialogComponent>,
     private topicService: TopicsService,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    private toastr: ToastrService) {}
     
     ngOnInit(): void {
-      this.topics = [...this.data.topics];
+      this.topics = [...this.data.tech.topics];
     }
 
     editTopic(topic: Topic) {
@@ -50,12 +60,25 @@ export class TechnologyTopicDialogComponent implements OnInit {
       this.edit.state = false;
     }
 
+    createTopic() {
+      if (this.createTopicForm.valid) {
+        let form = this.createTopicForm.value;
+        let newTopic = new Topic(form.createDescription, 0, form.createName, this.data.tech);
+
+        this.topicService.addTopic(newTopic).subscribe(data => {
+          this.topics.push(data);
+          this.createTopicForm.reset({createName: '', createDescription: ''});
+          this.toastr.success(`Successfully created ${data.name}`, "Create Successful");
+        });
+      }
+    }
+
     saveEditTopic(topic: Topic) {
       let oldName = topic.name;
-      topic.name = this.editName.value;
-      topic.description = this.editDescription.value;
-      this.topicService.updateTopicByName(topic, oldName).subscribe(data => {
-        console.log(data);
+      this.topicService.updateTopicByName(topic, oldName).subscribe(_data => {
+        topic.name = this.editName.value;
+        topic.description = this.editDescription.value;
+        this.toastr.success(`Edited successful: ${oldName} to ${topic.name}`, "Edit Successful");
         this.edit.state = false;
         this.edit.target = 0;
       });
@@ -67,8 +90,7 @@ export class TechnologyTopicDialogComponent implements OnInit {
       let indexToRemove = this.topics.findIndex(hasId);
       
       this.topicService.deleteTopicByName(topic.name)
-      .subscribe(data => {
-        console.log(data)
+      .subscribe(_data => {
         this.confirmDelete.target = 0;
         this.confirmDelete.state = false;
         this.topics.splice(indexToRemove, 1);
