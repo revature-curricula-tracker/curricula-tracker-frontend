@@ -1,14 +1,16 @@
 <div class="dialog-contenido">
+    <fa-icon class="icons" id="closeBtn" (click)="closeDialog()" [icon]="faClose"></fa-icon>
     <div mat-dialog-content>
         
         <button mat-fab id="create-topic-btn" aria-label="Create Topic" *ngIf="!createOpen" (click)="createOpen = !createOpen">
             <mat-icon>add</mat-icon>
         </button>
-    
+        
+        <h1 mat-dialog-title>Topics</h1>
+        
+        
         <div class="dialog-content" *ngIf="!createOpen; else create">
     
-            <h1 mat-dialog-title>Topics</h1>
-            <fa-icon class="icons" id="closeBtn" (click)="closeDialog()" [icon]="faClose"></fa-icon>
     
             <mat-accordion displayMode="default" [multi]="false" [hideToggle]="false" *ngIf="topics.length > 0">
                 <mat-expansion-panel *ngFor="let topic of topics">

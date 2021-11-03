@@ -27,8 +27,8 @@ mat-form-field {
 #create-topic-btn {
     background-color: #F26925;
     position: absolute;
-    bottom: 5px;
-    right: 5px;
+    bottom: -17px;
+    right: 15px;
     z-index: 1;
 }
 #create-btn {
@@ -43,7 +43,7 @@ mat-form-field {
 }
 .mat-dialog-content {
     margin-bottom: 15px;
-    height: 106%;
+    height: 88%;
 }
 .mat-dialog-container {
     overflow: hidden;
