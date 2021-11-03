@@ -80,6 +80,7 @@ export class CurriculaOverviewComponent implements OnInit {
     this.curService.findById(Number.parseInt(routeParm)).subscribe(data => {
       this.curriculum = data;
       this.title = this.curriculum.curriculumName;
+      this.curriculumId = this.curriculum.curriculumId;
       this.weekCounter = this.curriculum.numWeeks;
       for (let i = 1; i <= this.weekCounter; i++) {
         this.weekArray.push(new Week(i));
@@ -126,11 +127,13 @@ export class CurriculaOverviewComponent implements OnInit {
   }
 
   addWeek() {
-    console.log("Creating table")
+    this.curriculum.numWeeks++
+    this.curService.updateCurriculum(this.curriculum).subscribe(res => {
+      this.curriculum = res;
+    })
     this.weekCounter++;
     this.weekArray.push(new Week(this.weekCounter));
     this.dataSource.data = this.weekArray; // this will show but the data won't persist
-    console.log(`table week ${this.curriculum.numWeeks}`);
   }
 
   removeWeek() {
@@ -139,6 +142,10 @@ export class CurriculaOverviewComponent implements OnInit {
       this.errorToastr("Cannot remove first week")
     }
     else {
+      this.curriculum.numWeeks--;
+      this.curService.updateCurriculum(this.curriculum).subscribe(res => {
+        this.curriculum = res;
+      })
       this.weekCounter--;
       this.weekArray.pop();
       this.dataSource.data = this.weekArray;
@@ -156,32 +163,41 @@ export class CurriculaOverviewComponent implements OnInit {
       disableClose: true,
     });
     dialogRef.afterClosed().subscribe(result => {
-      for (let values of this.weekObj) {
-        if (values.weekId === result.weekId) {
-          values.selectedTech = result.selectedTech;
-          return;
+      for(let technology of result.selectedTech){
+        if(!this.weekArray[result.weekId - 1].techs.includes(technology)){
+          this.weekArray[result.weekId - 1].techs.push(technology);
         }
       }
-      this.weekObj.push(result);
-      console.log(`hello ${JSON.stringify(this.weekObj)}`);
-    });
+    })
   }
-  openDialogTopic(input: String, id: number, days: number): void {
+
+  openDialogTopic(input: String, id: number, days: number, techs: any[]): void {
     const dialogRef = this.dialog.open(DialogCreateComponent, {
       width: '250px',
-      data: { input: input, curriculumId: this.curriculumId, counter: id, days: days },
+      data: { input: input, curriculumId: this.curriculumId, counter: id, days: days, weekObj: techs },
       disableClose: true,
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`result is ${JSON.stringify(result)}`);
-      for (let values of this.dayObj) {
-        if (values.dayId === result.weekId) {
-          values.selectedTech = result.selectedTech;
-          return;
-        }
-      }
-      this.dayObj.push(result);
-      console.log(`dayObj is ${JSON.stringify(this.dayObj)}`);
+      this.weekArray = [];
+      this.getCurriculum(this.route.snapshot.params['id']);
+      // for(let topic of result.selectedTech)
+      //   result.selectedTech.forEach((topic: any, index: number) =>{
+      //   if (!this.weekArray[result.weekId - 1].days[result.dayId].includes(topic)) {
+      //     this.weekArray[result.weekId - 1].days[result.dayId].push(topic);
+      //     console.log("Probably shouldn't add")
+      //   } else {
+      //     this.weekArray[result.weekId -1].days[result.dayId].splice(index, 1);
+      //     console.log("duplicate");
+      //   }
+      // })
+      // for (let values of this.dayObj) {
+      //   if (values.dayId === result.weekId) {
+      //     values.selectedTech = result.selectedTech;
+      //     return;
+      //   }
+      // }
+      // this.dayObj.push(result);
+      // console.log(`dayObj is ${JSON.stringify(this.dayObj)}`);
     });
   }
 
@@ -221,4 +237,3 @@ export class CurriculaOverviewComponent implements OnInit {
     // }
   }
 }
-

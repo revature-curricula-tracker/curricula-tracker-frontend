@@ -32,12 +32,14 @@ export class TopicsService {
     let newTopic = {
       "name": top.name,
       "description": top.description,
-      "technology": top.technology
+      "technology": top.technology,
+      "curriculum": top.curriculum,
+      "topicDay": top.topicDay
     }
     return this.http.post<Topic>(`${url}/add`, newTopic)
     .pipe(catchError(e => this.handleError('add a topic', e)));
   }
-  
+
   public updateTopic(top: Topic): Observable<Topic> {
     return this.http.put<Topic>(`${url}/${top.id}`, top)
     .pipe(catchError(e => this.handleError('update a top', e)));
@@ -47,12 +49,12 @@ export class TopicsService {
     return this.http.put<ArrayBuffer>(`${url}/byname/${name}`, {name: topic.name, description: topic.description})
       .pipe(catchError(e => this.handleError('update topic by name', e)));
   }
-  
+
   public deleteTopic(top: Topic): Observable<boolean> {
     return this.http.delete<boolean>(`${url}/${top.id}`)
     .pipe(catchError(e => this.handleError('delete a topic', e)));
   }
-  
+
   public deleteTopicByName(name: string): Observable<void> {
     return this.http.delete<void>(`${url}/byname/${name}`)
       .pipe(catchError(e => this.handleError('Delete by name', e)));
