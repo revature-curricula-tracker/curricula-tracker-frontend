@@ -16,7 +16,6 @@ p {
 mat-form-field {
     width: 100%;
 }
-
 #closeBtn {
     position: absolute;
     right: 0;
@@ -24,4 +23,32 @@ mat-form-field {
     cursor: pointer;
     z-index: 10;
     font-size: 1.3rem;
+}
+#create-topic-btn {
+    background-color: #F26925;
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    z-index: 1;
+}
+#create-btn {
+    background-color: #F26925;
+    color: white;
+    font-weight: 600;
+}
+.actions-create {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+}
+.mat-dialog-content {
+    margin-bottom: 15px;
+    height: 106%;
+}
+.mat-dialog-container {
+    overflow: hidden;
+}
+.dialog-contenido {
+    height: 100%;
+    position: relative;
 }

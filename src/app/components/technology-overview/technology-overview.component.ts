@@ -90,7 +90,7 @@ export class TechnologyOverviewComponent implements AfterViewInit {
       height: '400px',
       disableClose: true,
       data: {
-        topics: tech.topics
+        tech
       }
     });
 
