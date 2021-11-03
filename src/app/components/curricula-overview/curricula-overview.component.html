@@ -205,14 +205,15 @@
     </div>
     <div>
       <div id="table-footer">
-        <button mat-icon-button class="btn-edit" (click)="addWeek()" style="color: white;
+        <button mat-icon-button matTooltip="Add Row" class="btn-edit" (click)="addWeek()" style="color: white;
         background-color: rgb(235, 125, 70);">
           <fa-icon class="btn-icon" [icon]="faPlus"></fa-icon>
         </button>
         &nbsp;
-        <button mat-icon-button class="btn-edit" (click)="removeWeek()" style="color: white;
+        <button mat-icon-button matTooltip="Remove Row" class="btn-edit" (click)="removeWeek()" style="color: white;
         background-color: rgb(235, 125, 70);">
           <fa-icon class="btn-icon" [icon]="faMinus"></fa-icon>
         </button>
       </div>
+      <hr>
     </div>

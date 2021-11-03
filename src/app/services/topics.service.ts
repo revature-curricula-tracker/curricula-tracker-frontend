@@ -29,7 +29,12 @@ export class TopicsService {
   }
 
   public addTopic(top: Topic): Observable<Topic> {
-    return this.http.post<Topic>(`${url}/add`, top)
+    let newTopic = {
+      "name": top.name,
+      "description": top.description,
+      "technology": top.technology
+    }
+    return this.http.post<Topic>(`${url}/add`, newTopic)
     .pipe(catchError(e => this.handleError('add a topic', e)));
   }
   

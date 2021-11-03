@@ -4,6 +4,21 @@
     font-weight: bold;
 }
 .dialog-content{
-    margin: 10px;
     text-align: center;
+    margin: 15px;
+    position: relative;
+}
+#closeBtn {
+    position: absolute;
+    right: -20px;
+    top: -30px;
+    cursor: pointer;
+    z-index: 10;
+    font-size: 1.2rem;
+    color: rgb(185, 82, 82);
+}
+.footer{
+    display: flex;
+    padding-bottom: 10px;
+    justify-content: space-evenly;
 }

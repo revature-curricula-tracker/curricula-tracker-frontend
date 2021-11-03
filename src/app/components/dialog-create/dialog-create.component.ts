@@ -8,6 +8,7 @@ import { Topic } from 'src/app/model/topic';
 import { CurriculumService } from 'src/app/services/curriculum.service';
 import { TechnologyService } from 'src/app/services/technology.service';
 import { TopicsService } from 'src/app/services/topics.service';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-dialog-create',
@@ -15,6 +16,8 @@ import { TopicsService } from 'src/app/services/topics.service';
   styleUrls: ['./dialog-create.component.css']
 })
 export class DialogCreateComponent implements OnInit {
+
+  faClose = faTimes;
 
   something: DialogData = new DialogData("", 0, [], 0, 0, []);
   curriculum: Curriculum = new Curriculum(0, "", 1, 0, []);
@@ -47,14 +50,12 @@ export class DialogCreateComponent implements OnInit {
   }
 
   change(event: any, counter: number) {
-    console.log(`event is ${JSON.stringify(event.isUserInput)}`);
     if (event.isUserInput) {
       this.something.name.push(event.source.value)
       this.something.counter = counter;
     }
   }
   changeWeek(event: any) {
-    //console.log(`event week is ${JSON.stringify(event.source)}`);
     if (event.isUserInput) {
       if (event.source.selected) {
         this.weekObj.weekId = this.data.counter;
@@ -70,7 +71,6 @@ export class DialogCreateComponent implements OnInit {
   }
 
   changeTopic(event: any) {
-    // console.log(`event topic is ${JSON.stringify(event.source.selected)}`);
     if (event.isUserInput) {
       if (event.source.selected) {
         this.dayObj.weekId = this.data.counter;

@@ -4,17 +4,17 @@ export class Topic {
   description: string;
   id: number;
   name: string;
-  technology: Technology;
-  curriculum: Curriculum;
-  topicDay: number;
+  technology?: Technology;
+  curriculum?: Curriculum;
+  topicDay?: number;
 
   constructor(
     description: string,
     id: number,
     name: string,
-    technology: Technology,
-    curriculum: Curriculum,
-    topicDay: number
+    technology?: Technology,
+    curriculum?: Curriculum,
+    topicDay?: number
   ) {
     this.id = id;
     this.name = name;

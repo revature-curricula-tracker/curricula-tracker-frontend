@@ -96,28 +96,28 @@ export class CurriculaOverviewComponent implements OnInit {
     this.topicServ.findById(id).subscribe(top => {
 
       this.topics.push(top);
-      let week = Math.floor((top.topicDay) / 5.1);
-      let dayofWeek = ((top.topicDay - 1) % 5);
+      let week = Math.floor((top.topicDay!) / 5.1);
+      let dayofWeek = ((top.topicDay! - 1) % 5);
 
-      if (!this.weekArray[week].techs.includes(top.technology.techName))
-        this.weekArray[week].techs.push(top.technology.techName);
+      if (!this.weekArray[week].techs.includes(top.technology!.techName))
+        this.weekArray[week].techs.push(top.technology!.techName);
 
       this.weekArray[week].days[dayofWeek].push(top);
 
-      if (!this.tech.includes(top.technology))
-        this.tech.push(top.technology);
+      if (!this.tech.includes(top.technology!))
+        this.tech.push(top.technology!);
 
       if (!this.topics.includes(top))
         this.topics.push(top);
 
       //piechartstuff
-      if (!this.pieChartLabels.includes(top.technology.techName)) {
-        this.techCounter.set(top.technology.techName, 1);
-        this.pieChartLabels.push(top.technology.techName);
-        this.pieChartColors[0].backgroundColor.push(this.stringToColor(top.technology.techName));
+      if (!this.pieChartLabels.includes(top.technology!.techName)) {
+        this.techCounter.set(top.technology!.techName, 1);
+        this.pieChartLabels.push(top.technology!.techName);
+        this.pieChartColors[0].backgroundColor.push(this.stringToColor(top.technology!.techName));
       }
       else {
-        this.techCounter.set(top.technology.techName, (this.techCounter.get(top.technology.techName) || 0) + 1);
+        this.techCounter.set(top.technology!.techName, (this.techCounter.get(top.technology!.techName) || 0) + 1);
       }
       this.pieChartData = [];
       for (let i of this.techCounter) {
