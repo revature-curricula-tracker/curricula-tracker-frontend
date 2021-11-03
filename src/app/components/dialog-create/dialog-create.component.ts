@@ -28,7 +28,6 @@ export class DialogCreateComponent implements OnInit {
   tech: Technology[] = [];
   topicArray: Topic[] = [];
   topicNameArray: any[] = [];
-  tstArray: any[] = [];
   weekObj: any = {
     selectedTech: [],
     weekId: 0
@@ -145,16 +144,6 @@ export class DialogCreateComponent implements OnInit {
             this.topicArray.push(res.topics[j]);
           }
         }
-        console.log(this.topicArray)
-        console.log(this.topicNameArray)
-
-        // this.topicArray.forEach(topic => {
-        //   console.log(topic);
-        //   if (!this.topicNameArray.includes(topic.name)) {
-        //     this.tstArray.push(topic);
-        //   }
-        // })
-        // console.log(this.tstArray);
       })
       }
 
