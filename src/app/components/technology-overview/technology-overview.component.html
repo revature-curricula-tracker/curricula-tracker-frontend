@@ -60,7 +60,7 @@
                   <ng-container matColumnDef="actions">
                     <th id="actions-column" mat-header-cell *matHeaderCellDef style="text-align: center;"> Actions </th>
                     <td mat-cell *matCellDef="let row" style="text-align: center;">
-                      <button mat-button mat-icon-button color="basic" (click)="openDialogTopic(row.topics)"
+                      <button mat-button mat-icon-button color="basic" (click)="openDialogTopic(row)"
                         class="action_btns" matTooltip="Edit Topics" style="background-color: rgb(235, 125, 70)
                         !important; color:rgb(255, 255, 255)">
                         <fa-icon class="icons" [icon]="faList"></fa-icon>

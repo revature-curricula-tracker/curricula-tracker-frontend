@@ -14,33 +14,36 @@
                     <mat-label>Search</mat-label>
                     <input matInput (keyup)="applyFilter($event)" placeholder="" #input>
                 </mat-form-field>
-                <button class="button-accent" mat-raised-button (click)="navigateTo()">
+                <button class="button-accent" mat-raised-button (click)="createDialog()">
                     <fa-icon class="icons" [icon]="faPlus" style="font-size: 22px;"></fa-icon>
                     &nbsp;
                     Create
-                  </button>
+                </button>
             </div>
             <div class="list-content">
                 <mat-grid-list cols="12" gutterSize="15px" rowHeight="50px">
                     <mat-grid-tile [colspan]="12" [rowspan]="6" style="flex-direction: column;">
                         <div class="table-tile">
                             <div class="mat-elevation-z0">
-                                <table id="curricula-table" mat-table #table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)" aria-label="table" >
+                                <table id="curricula-table" mat-table #table [dataSource]="dataSource" matSort
+                                    (matSortChange)="sortData($event)" aria-label="table">
                                     <ng-container matColumnDef="name">
-                                        <th id="name-column" mat-header-cell *matHeaderCellDef mat-sort-header="name"> Name
+                                        <th id="name-column" mat-header-cell *matHeaderCellDef mat-sort-header="name">
+                                            Name
                                         </th>
                                         <td mat-cell *matCellDef="let row">{{row.curriculumName}}</td>
                                     </ng-container>
-    
+
                                     <ng-container matColumnDef="weeks">
-                                        <th id="weeks-column" mat-header-cell *matHeaderCellDef mat-sort-header="weeks"> Weeks
+                                        <th id="weeks-column" mat-header-cell *matHeaderCellDef mat-sort-header="weeks">
+                                            Weeks
                                         </th>
                                         <td mat-cell *matCellDef="let row"> {{row.numWeeks}}</td>
                                     </ng-container>
-    
+
                                     <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-                                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    
+                                    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="viewCurriculum(row.curriculumId)" style="cursor: pointer;"></tr>
+
                                     <!-- Row shown when there is no matching data. -->
                                     <tr class="mat-row" *matNoDataRow>
                                         <td class="mat-cell" colspan="4">No Data Matching

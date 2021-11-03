@@ -1,0 +1,27 @@
+.dialog-content {
+    margin: 15px;
+    position: relative;
+}
+.mat-expansion-panel-header-title {
+    font-weight: 600;
+}
+p {
+    margin: 16px 0px 0px 0px;
+}
+.form-content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+mat-form-field {
+    width: 100%;
+}
+
+#closeBtn {
+    position: absolute;
+    right: 10px;
+    top: -20px;
+    cursor: pointer;
+    z-index: 10;
+    font-size: 1.3rem;
+}

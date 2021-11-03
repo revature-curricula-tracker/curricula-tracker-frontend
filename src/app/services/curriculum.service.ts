@@ -18,9 +18,9 @@ export class CurriculumService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   }
 
-  public addCurriculum(curriculum: Curriculum): void {
+  public addCurriculum(curriculum: Curriculum): Observable<Curriculum> {
     console.log(curriculum)
-    this.http.post<Curriculum>(`${url}/add`, curriculum, this.httpOptions)
+    return this.http.post<Curriculum>(`${url}/add`, curriculum, this.httpOptions)
       .pipe(
         catchError(this.handleError)
       )
@@ -65,7 +65,7 @@ export class CurriculumService {
   // error handler logger helper
   private handleError(httpError: HttpErrorResponse) {
     if (httpError instanceof ErrorEvent) {
-      console.log('And error occurred: ', httpError);
+      console.log('An error occurred: ', httpError);
     }
     else {
       console.error(`
@@ -73,6 +73,6 @@ export class CurriculumService {
         body was: ${httpError.error}
       `)
     }
-    return throwError('Something bad happened; please try again later');
+    return throwError('Something went wrong; please try again later');
   }
 }

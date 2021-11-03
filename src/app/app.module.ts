@@ -33,12 +33,17 @@ import { MatListModule } from '@angular/material/list';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatTableModule } from '@angular/material/table';
+import { CurriculumCreateComponent } from './components/curriculum-create/curriculum-create.component';
+import { DialogCreateComponent } from './components/dialog-create/dialog-create.component';
+import { MatSelectModule } from '@angular/material/select';
 import { ChartsModule } from 'ng2-charts';
+import { PieChartComponent } from './components/pie-chart/pie-chart.component';
+
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MAT_COLOR_FORMATS, NgxMatColorPickerModule, NGX_MAT_COLOR_FORMATS } from '@angular-material-components/color-picker';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatSortModule } from '@angular/material/sort';
-
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -49,6 +54,9 @@ import { MatSortModule } from '@angular/material/sort';
     TechnologyOverviewComponent,
     TechnologyDialogComponent,
     HomepageComponent,
+    CurriculumCreateComponent,
+    DialogCreateComponent,
+    PieChartComponent,
     TechnologyTopicDialogComponent
   ],
   imports: [
@@ -79,9 +87,11 @@ import { MatSortModule } from '@angular/material/sort';
     MatTableModule,
     MatTooltipModule,
     CdkTableModule,
+    MatSelectModule,
     ChartsModule,
     MatBadgeModule,
     MatSortModule,
+    MatExpansionModule,
     ToastrModule.forRoot({
       timeOut: 5000,
       progressBar: true,

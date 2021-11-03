@@ -6,6 +6,9 @@ import { Curriculum } from 'src/app/model/curriculum';
 import { faPlusSquare } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 import { CurriculumService } from 'src/app/services/curriculum.service';
+import { DialogCreateComponent } from '../dialog-create/dialog-create.component';
+import { MatDialog } from '@angular/material/dialog';
+
 
 @Component({
   selector: 'app-homepage',
@@ -20,6 +23,9 @@ export class HomepageComponent implements AfterViewInit {
   curriculumName: string = '';
   numWeeks: number = 0;
   curricula: Curriculum[] = [];
+  input !: string;
+  title !: string;
+  curriculumId !: number;
 
   displayedColumns: string[] = ['name', 'weeks'];
   dataSource = new MatTableDataSource<Curriculum>();
@@ -27,7 +33,7 @@ export class HomepageComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private curriculumService: CurriculumService, private route: Router) {
+  constructor(private curriculumService: CurriculumService, private route: Router, private dialog:MatDialog) {
 
   }
   ngAfterViewInit() {
@@ -67,7 +73,22 @@ export class HomepageComponent implements AfterViewInit {
   }
   //Change to CreatePage...
   navigateTo() {
-    this.route.navigate(['/curriculum']);
+    this.route.navigate(['/create']);
+  }
+  viewCurriculum(id: number) {
+    this.route.navigateByUrl(`curriculum/${id}`);
+  }
+  createDialog(): void {
+    const dialogRef = this.dialog.open(DialogCreateComponent, {
+      width: '250px',
+      data: { input: this.input },
+      disableClose: true,
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.curriculumId = result.curriculumId;
+      this.viewCurriculum(this.curriculumId)
+    });
+
   }
 }
 

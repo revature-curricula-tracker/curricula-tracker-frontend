@@ -7,7 +7,11 @@ import { Component, Input, OnInit } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Topic } from 'src/app/model/topic';
 import { CurriculumService } from 'src/app/services/curriculum.service';
-import { faPencilAlt, faSquare } from '@fortawesome/free-solid-svg-icons';
+import { faPencilAlt, faSquare, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
+import { ToastrService } from 'ngx-toastr';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogCreateComponent } from '../dialog-create/dialog-create.component';
+import { DialogData } from 'src/app/model/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 
 export interface TopicElement {
@@ -20,20 +24,39 @@ export interface TopicElement {
 })
 export class CurriculaOverviewComponent implements OnInit {
   @Input() curriculum !: Curriculum;
-  editing: boolean = false;//if editing
   tech: Technology[] = [];//array of tech for tech buttons
   topics: Topic[] = [];
 
   testCurr: Curriculum = new Curriculum(1, "C", 10, 50, this.topics);
   testTech: Technology = new Technology(1, "Tech", "#000F", this.topics);
-  testTopic: Topic = new Topic("Disc", 100, "Test", this.testTech, this.testCurr, 5);
-  techCounter = new Map<string, number>();
+  testTopic: Topic = new Topic("Disc", 1, "Name", this.testTech, this.testCurr, 1);
+  // testTopic: Topic = new Topic("Disc", 100, "Test", this.testTech, this.testCurr, 5);
+
   faEdit = faPencilAlt;
   faSquare = faSquare;
-  pieloaded = false;
-  weekCounter=0;
+  faPlus = faPlus;
+  faMinus = faMinus;
 
-  ////piechart variables
+  techCounter = new Map<string, number>();
+  weekCounter = 0;
+
+  weekObj: any[] = [{
+    selectedTech: [],
+    weekId: 0
+  }];
+  dayObj: any[] = [];
+
+  title = this.curriculum?.curriculumName || "New Curriculum";
+  id: number = 0;
+  curriculumId !: number;
+  newDialogData: DialogData[] = [];
+  newDialogData2: DialogData[] = [];
+  weekArray: Week[] = [];
+
+  displayedColumns: string[] = ['week', 'day1', 'day2', 'day3', 'day4', 'day5'];
+  dataSource = new MatTableDataSource(this.weekArray);
+
+  //piechart variables
   public pieChartLabels: string[] = [];
   public pieChartData: number[] = [];
   public pieChartType: string = 'pie';
@@ -41,102 +64,125 @@ export class CurriculaOverviewComponent implements OnInit {
     backgroundColor: [],
     borderColor: []
   }];
-  weekArray: Week[] = [];
-  title = this.curriculum?.curriculumName || "Unselected"; //name to be replaced by which curriculum it is
-  btnStyle = 'edit-btn-default';
-  displayedColumns: string[] = ['week', 'day1', 'day2', 'day3', 'day4', 'day5'];
-  dataSource = new MatTableDataSource(this.weekArray);
-  constructor(private curService: CurriculumService, private topicServ: TopicsService, private route: ActivatedRoute) {
-    //this.curriculum = this.curriculum || new Curriculum(0, "No Curriculum Found", 10, 5 * 5, this.topics);
-  }
 
+  constructor(
+    private curService: CurriculumService,
+    private topicServ: TopicsService,
+    private route: ActivatedRoute,
+    private toastr: ToastrService,
+    public dialog: MatDialog) {
+  }
   ngOnInit(): void {
     this.getCurriculum(this.route.snapshot.params['id']);
   }
-  fillout() {
-    for (let i = 1; i <= this.weekCounter; i++) {
-      this.weekArray.push(new Week(i));
-    }console.log(this.weekArray.length);
-    this.dataSource.data=this.weekArray;
-  }
 
-  setWeeks() {
-    for (let t of this.topics) {
-      this.weekArray[Math.floor((t.topicDay) / 5.1)].days[((t.topicDay - 1) % 5)].push(t);
-    }
-  }
-  startEdit() {
-    if (!this.pieloaded) {
-      this.finalChart();
-      this.pieloaded = true
-    }
-    if (this.editing) {
-      this.editing = false;
-      this.btnStyle = 'edit-btn-default';
-    }
-    else {
-      this.editing = true;
-      this.btnStyle = 'edit-btn-change';
-    }
-  }
-
-  counter(i: number): Array<number> {//create an array of n numbers
-    return new Array(i);
-  }
-
-  public getTopicData(): any {
-    console.log(this.curriculum);
-    this.curriculum.topics.forEach(t => {
-      this.getTopic(t.id);
-    });
-
-  }
   getCurriculum(routeParm: string) {
     this.curService.findById(Number.parseInt(routeParm)).subscribe(data => {
       this.curriculum = data;
       this.title = this.curriculum.curriculumName;
-      this.weekCounter=this.curriculum.numWeeks;
-      this.fillout();
-      this.getTopicData();
+      this.weekCounter = this.curriculum.numWeeks;
+      for (let i = 1; i <= this.weekCounter; i++) {
+        this.weekArray.push(new Week(i));
+      }
+      this.dataSource.data = this.weekArray;
+      this.curriculum.topics.forEach(t => {
+        this.getTopic(t.id);
+      });
     })
   }
+
   getTopic(id: number) {
     this.topicServ.findById(id).subscribe(top => {
+
       this.topics.push(top);
       let week = Math.floor((top.topicDay) / 5.1);
       let dayofWeek = ((top.topicDay - 1) % 5);
-      if (!this.weekArray[week].techs.includes(top.technology.techName))this.weekArray[week].techs.push(top.technology.techName);
+
+      if (!this.weekArray[week].techs.includes(top.technology.techName))
+        this.weekArray[week].techs.push(top.technology.techName);
+
       this.weekArray[week].days[dayofWeek].push(top);
-      if (!this.tech.includes(top.technology)) this.tech.push(top.technology);
-      if (!this.topics.includes(top)) this.topics.push(top);
-      this.getChartdata(top);
+
+      if (!this.tech.includes(top.technology))
+        this.tech.push(top.technology);
+
+      if (!this.topics.includes(top))
+        this.topics.push(top);
+
+      //piechartstuff
+      if (!this.pieChartLabels.includes(top.technology.techName)) {
+        this.techCounter.set(top.technology.techName, 1);
+        this.pieChartLabels.push(top.technology.techName);
+        this.pieChartColors[0].backgroundColor.push(this.stringToColor(top.technology.techName));
+      }
+      else {
+        this.techCounter.set(top.technology.techName, (this.techCounter.get(top.technology.techName) || 0) + 1);
+      }
+      this.pieChartData = [];
+      for (let i of this.techCounter) {
+        this.pieChartData.push(i[1]);
+      }
     })
   }
 
-  getChartdata(t: Topic) {
-    let name = t.technology.techName;
-    if (!this.pieChartLabels.includes(name)) {
-      this.techCounter.set(name, 1);
-      this.pieChartLabels.push(name);
-      this.pieChartColors[0].backgroundColor.push(this.stringToColor(name));
+  addWeek() {
+    console.log("Creating table")
+    this.weekCounter++;
+    this.weekArray.push(new Week(this.weekCounter));
+    this.dataSource.data = this.weekArray; // this will show but the data won't persist
+    console.log(`table week ${this.curriculum.numWeeks}`);
+  }
+
+  removeWeek() {
+    console.log(`counter is ${this.weekCounter}`)
+    if (this.weekCounter <= 1) {
+      this.errorToastr("Cannot remove first week")
     }
     else {
-      this.techCounter.set(t.technology.techName, (this.techCounter.get(name) || 0) + 1);
+      this.weekCounter--;
+      this.weekArray.pop();
+      this.dataSource.data = this.weekArray;
     }
   }
 
-  finalChart() {
-    for (let i of this.techCounter) {
-      this.pieChartData.push(i[1]);
-    }
+  public errorToastr(message: string) {
+    this.toastr.error(message, "Deleting Failed");
   }
-  // piechart events
-  public chartClicked(e: any): void {
-
+  openDialogWeek(input: String, id: number): void {
+    console.log(`are you being clicked?`)
+    const dialogRef = this.dialog.open(DialogCreateComponent, {
+      width: '250px',
+      data: { input: input, curriculumId: this.curriculumId, counter: id },
+      disableClose: true,
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      for (let values of this.weekObj) {
+        if (values.weekId === result.weekId) {
+          values.selectedTech = result.selectedTech;
+          return;
+        }
+      }
+      this.weekObj.push(result);
+      console.log(`hello ${JSON.stringify(this.weekObj)}`);
+    });
   }
-
-  public chartHovered(e: any): void {
-
+  openDialogTopic(input: String, id: number, days: number): void {
+    const dialogRef = this.dialog.open(DialogCreateComponent, {
+      width: '250px',
+      data: { input: input, curriculumId: this.curriculumId, counter: id, days: days },
+      disableClose: true,
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`result is ${JSON.stringify(result)}`);
+      for (let values of this.dayObj) {
+        if (values.dayId === result.weekId) {
+          values.selectedTech = result.selectedTech;
+          return;
+        }
+      }
+      this.dayObj.push(result);
+      console.log(`dayObj is ${JSON.stringify(this.dayObj)}`);
+    });
   }
 
   stringToColor(str: string) {
@@ -152,26 +198,27 @@ export class CurriculaOverviewComponent implements OnInit {
     return color;
   }
   drop(event: CdkDragDrop<Topic[]>) {
-    if (this.editing) {
-      if (event.previousContainer === event.container) {
-        moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-      } else {
-        transferArrayItem(event.previousContainer.data,
-          event.container.data,
-          event.previousIndex,
-          event.currentIndex);
-        let oldDropId = 0, newDropId = 0;//get where it was and where it is now
-        oldDropId = parseInt(event.previousContainer.element.nativeElement.id.substr(14));
-        newDropId = parseInt(event.container.element.nativeElement.id.substr(14));
-        event.container.data.forEach(v => {
-          if (v.topicDay != newDropId + 1) {
-            console.log(`Updated ${oldDropId + 1} to ${newDropId + 1}`)
-            v.topicDay = newDropId + 1;
-            this.topicServ.updateTopic(v).subscribe(output => console.log(`Updated ${v} to ${output}`))
-          }
-        })
-      }
+    // if (this.editing) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex);
+      //get where it was and where it is now
+      let oldDropId = 0, newDropId = 0;
+      oldDropId = parseInt(event.previousContainer.element.nativeElement.id.substr(14));
+      newDropId = parseInt(event.container.element.nativeElement.id.substr(14));
+      event.container.data.forEach(v => {
+        if (v.topicDay != newDropId + 1) {
+          console.log(`Updated ${oldDropId + 1} to ${newDropId + 1}`)
+          v.topicDay = newDropId + 1;
+          this.topicServ.updateTopic(v).subscribe(output => console.log(`Updated ${v} to ${output}`))
+        }
+      })
     }
+    // }
   }
 }
 

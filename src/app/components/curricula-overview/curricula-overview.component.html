@@ -12,10 +12,6 @@
         <div style="width: 80%;">
           <div class="curriculum-title">
             <h1 style="color: #F26925">{{title}}</h1>
-            <mat-slide-toggle (change)=startEdit() style="padding-left: 2%;"></mat-slide-toggle>
-            &nbsp;
-            &nbsp;
-            <fa-icon class="icons" [icon]="faEdit" style="font-size: 22px; color: rgb(92, 92, 92);"></fa-icon>
           </div>
           <div class="pie-chart-legend">
             <h5 id="legend-title">Technologies</h5>
@@ -35,27 +31,32 @@
         </div>
       </div>
       <div class="curriculum-calendar">
-        <!--tech list-->
-        <table cdk-table frame="void" id="data_table" [dataSource]="dataSource">
-          <caption>Table of topics every day of the curriculum</caption>
+        <!--Week List-->
+        <table cdk-table frame="void" id="data_table" [dataSource]="dataSource" aria-label="Table of topics every day of the curriculum">
           <ng-container cdkColumnDef="week">
             <th id="tech" cdk-header-cell *cdkHeaderCellDef> </th>
             <td cdk-cell *cdkCellDef="let week" class="week-cell">
               <div class="week-title">
-                Week {{week.id}} {{week.name}}
-                <div *ngFor="let item of week.techs;index as i;">
-                  <button mat-raised-button class="topic-button">
-                    <fa-icon class="topic-color" [style.color]=stringToColor(item) [icon]="faSquare"
-                      style="font-size: 22px;"></fa-icon>
-                    &nbsp;
-                    {{item}}
-                  </button>
-                </div>
+                Week {{week.id}}
+              </div>
+              <div *ngFor="let item of week.techs;index as i;">
+                <button mat-raised-button class="topic-button">
+                  <fa-icon class="topic-color" [style.color]=stringToColor(item) [icon]="faSquare"
+                    style="font-size: 22px;"></fa-icon>
+                  &nbsp;
+                  {{item}}
+                </button>
+              </div>
+              <div class="btn-edit-table">
+                <button mat-icon-button class="btn-edit">
+                  <fa-icon class="btn-icon" [icon]="faEdit" (click)="openDialogWeek('tech', week.id)"></fa-icon>
+                </button>
               </div>
             </td>
           </ng-container>
 
           <div cdkDropListGroup>
+            <!--Monday-->
             <ng-container cdkColumnDef="day1">
               <th id="day1" cdk-header-cell *cdkHeaderCellDef> Monday </th>
               <td cdk-cell *cdkCellDef="let week" class="day-cell">
@@ -65,7 +66,7 @@
                     &nbsp;
                   </div>
                   <ng-template #elseBlock>
-                    <div *ngFor="let item of week.days[0];index as i;" cdkDrag [cdkDragDisabled]="!this.editing">
+                    <div *ngFor="let item of week.days[0];index as i;" cdkDrag>
                       <button mat-raised-button class="topic-button">
                         <fa-icon class="topic-color" [style.color]=stringToColor(item.technology.techName)
                           [icon]="faSquare" style="font-size: 22px;"></fa-icon>
@@ -74,10 +75,16 @@
                       </button>
                     </div>
                   </ng-template>
+                  <div class="btn-edit-table">
+                    <button mat-icon-button class="btn-edit">
+                      <fa-icon class="btn-icon" [icon]="faEdit" (click)="openDialogTopic('topic', week.id, 1)">
+                      </fa-icon>
+                    </button>
+                  </div>
                 </div>
               </td>
             </ng-container>
-
+            <!--Tuesday-->
             <ng-container cdkColumnDef="day2">
               <th id="day2" cdk-header-cell *cdkHeaderCellDef> Tuesday </th>
               <td cdk-cell *cdkCellDef="let week" class="day-cell">
@@ -87,7 +94,7 @@
                     &nbsp;
                   </div>
                   <ng-template #elseBlock>
-                    <div *ngFor="let item of week.days[1];index as i;" cdkDrag [cdkDragDisabled]="!this.editing">
+                    <div *ngFor="let item of week.days[1];index as i;" cdkDrag>
                       <button mat-raised-button class="topic-button">
                         <fa-icon class="topic-color" [style.color]=stringToColor(item.technology.techName)
                           [icon]="faSquare" style="font-size: 22px;"></fa-icon>
@@ -96,10 +103,16 @@
                       </button>
                     </div>
                   </ng-template>
+                  <div class="btn-edit-table">
+                    <button mat-icon-button class="btn-edit">
+                      <fa-icon class="btn-icon" [icon]="faEdit" (click)="openDialogTopic('topic', week.id, 1)">
+                      </fa-icon>
+                    </button>
+                  </div>
                 </div>
               </td>
             </ng-container>
-
+            <!--Wednesday-->
             <ng-container cdkColumnDef="day3">
               <th id="day3" cdk-header-cell *cdkHeaderCellDef> Wednesday </th>
               <td cdk-cell *cdkCellDef="let week" class="day-cell">
@@ -109,7 +122,7 @@
                     &nbsp;
                   </div>
                   <ng-template #elseBlock>
-                    <div *ngFor="let item of week.days[2];index as i;" cdkDrag [cdkDragDisabled]="!this.editing">
+                    <div *ngFor="let item of week.days[2];index as i;" cdkDrag>
                       <button mat-raised-button class="topic-button">
                         <fa-icon class="topic-color" [style.color]=stringToColor(item.technology.techName)
                           [icon]="faSquare" style="font-size: 22px;"></fa-icon>
@@ -118,10 +131,16 @@
                       </button>
                     </div>
                   </ng-template>
+                  <div class="btn-edit-table">
+                    <button mat-icon-button class="btn-edit">
+                      <fa-icon class="btn-icon" [icon]="faEdit" (click)="openDialogTopic('topic', week.id, 1)">
+                      </fa-icon>
+                    </button>
+                  </div>
                 </div>
               </td>
             </ng-container>
-
+            <!--Thursday-->
             <ng-container cdkColumnDef="day4">
               <th id="day4" cdk-header-cell *cdkHeaderCellDef> Thursday </th>
               <td cdk-cell *cdkCellDef="let week" class="day-cell">
@@ -131,7 +150,7 @@
                     &nbsp;
                   </div>
                   <ng-template #elseBlock>
-                    <div *ngFor="let item of week.days[3];index as i;" cdkDrag [cdkDragDisabled]="!this.editing">
+                    <div *ngFor="let item of week.days[3];index as i;" cdkDrag>
                       <button mat-raised-button class="topic-button">
                         <fa-icon class="topic-color" [style.color]=stringToColor(item.technology.techName)
                           [icon]="faSquare" style="font-size: 22px;"></fa-icon>
@@ -140,10 +159,16 @@
                       </button>
                     </div>
                   </ng-template>
+                  <div class="btn-edit-table">
+                    <button mat-icon-button class="btn-edit">
+                      <fa-icon class="btn-icon" [icon]="faEdit" (click)="openDialogTopic('topic', week.id, 1)">
+                      </fa-icon>
+                    </button>
+                  </div>
                 </div>
               </td>
             </ng-container>
-
+            <!--Friday-->
             <ng-container cdkColumnDef="day5">
               <th id="day5" cdk-header-cell *cdkHeaderCellDef> Friday </th>
               <td cdk-cell *cdkCellDef="let week" class="day-cell">
@@ -153,7 +178,7 @@
                     &nbsp;
                   </div>
                   <ng-template #elseBlock>
-                    <div *ngFor="let item of week.days[4];index as i;" cdkDrag [cdkDragDisabled]="!this.editing">
+                    <div *ngFor="let item of week.days[4];index as i;" cdkDrag>
                       <button mat-raised-button class="topic-button">
                         <fa-icon class="topic-color" [style.color]=stringToColor(item.technology.techName)
                           [icon]="faSquare" style="font-size: 22px;"></fa-icon>
@@ -162,15 +187,32 @@
                       </button>
                     </div>
                   </ng-template>
+                  <div class="btn-edit-table">
+                    <button mat-icon-button class="btn-edit">
+                      <fa-icon class="btn-icon" [icon]="faEdit" (click)="openDialogTopic('topic', week.id, 1)">
+                      </fa-icon>
+                    </button>
+                  </div>
                 </div>
               </td>
-
             </ng-container>
+
             <tr cdk-header-row *cdkHeaderRowDef="displayedColumns; sticky: true"></tr>
             <tr class="rowclass" cdk-row *cdkRowDef="let myRowData; columns: displayedColumns"></tr>
           </div>
         </table>
       </div>
     </div>
-  </div>
-</div>
+    <div>
+      <div id="table-footer">
+        <button mat-icon-button class="btn-edit" (click)="addWeek()" style="color: white;
+        background-color: rgb(235, 125, 70);">
+          <fa-icon class="btn-icon" [icon]="faPlus"></fa-icon>
+        </button>
+        &nbsp;
+        <button mat-icon-button class="btn-edit" (click)="removeWeek()" style="color: white;
+        background-color: rgb(235, 125, 70);">
+          <fa-icon class="btn-icon" [icon]="faMinus"></fa-icon>
+        </button>
+      </div>
+    </div>

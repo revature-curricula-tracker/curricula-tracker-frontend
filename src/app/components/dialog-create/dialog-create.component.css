@@ -1,0 +1,9 @@
+.button-accent {
+    background-color: #F26925;
+    color: white;
+    font-weight: bold;
+}
+.dialog-content{
+    margin: 10px;
+    text-align: center;
+}

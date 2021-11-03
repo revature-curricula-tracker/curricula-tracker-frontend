@@ -20,12 +20,12 @@ export class LoginComponent {
 
   public loginUser(): void {
     if (this.user.password === '' || this.user.email === '') {
-      this.errorToastr();
+      this.errorToastr("Input cannot be empty");
     } else if (this.user.email === 'admin@revature.net' && this.user.password === 'password') {
       this.successToastr();
       this.router.navigate(['/home']);
     } else {
-      this.errorToastr();
+      this.errorToastr("Incorrect username or password");
     }
   }
 
@@ -33,8 +33,8 @@ export class LoginComponent {
     this.toastr.success("Succesfully Logged In", "Login Successful!");
   }
 
-  public errorToastr() {
-    this.toastr.error("Try again later", "Login Failed");
+  public errorToastr(message: string) {
+    this.toastr.error(message, "Login Failed");
   }
 
   getErrorMessage() {
