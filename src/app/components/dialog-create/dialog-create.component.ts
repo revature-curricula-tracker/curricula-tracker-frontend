@@ -27,7 +27,8 @@ export class DialogCreateComponent implements OnInit {
 
   tech: Technology[] = [];
   topicArray: Topic[] = [];
-
+  topicNameArray: any[] = [];
+  tstArray: any[] = [];
   weekObj: any = {
     selectedTech: [],
     weekId: 0
@@ -114,7 +115,6 @@ export class DialogCreateComponent implements OnInit {
       // have a toast
     }
     else {
-      console.log(`topic is ${JSON.stringify(this.topic)}`);
       this.topicService.addTopic(this.topic).subscribe(res => {
       });
       this.dialogRef.close();
@@ -126,26 +126,40 @@ export class DialogCreateComponent implements OnInit {
       this.topic.curriculum = this.curriculum;
       this.topic.topicDay = (this.data.counter - 1) * 5 + (this.data.days + 1);
       this.topic.id = 0;
-      console.log("topic object" + JSON.stringify(this.topic))
       this.topicService.addTopic(this.topic).subscribe(res => {
         this.dayObj.selectedTech.push(res);
       })
     }
-    // this.weekObj.weekId = (this.data.counter - 1) * 5 + this.data.days;
+    this.weekObj.weekId = (this.data.counter - 1) * 5 + this.data.days;
     this.dialogRef.close(this.dayObj);
   }
+
   ngOnInit() {
     if(this.data.weekObj){
       for (let i = 0; i < this.data.weekObj[this.data.counter - 1].techs.length; i++){
         this.techService.getTechnologyByName(this.data.weekObj[this.data.counter - 1].techs[i]).subscribe(res => {
         for(let j = 0; j < res.topics.length; j++){
-          console.log(JSON.stringify(res.topics))
           res.topics[j]['technology'] = new Technology(res.techId, res.techName, res.color, []);
-          this.topicArray.push(res.topics[j]);
-          console.log(this.topicArray)
+          if(!this.topicNameArray.includes(res.topics[j].name)){
+            this.topicNameArray.push(res.topics[j].name);
+            this.topicArray.push(res.topics[j]);
+          }
         }
+        console.log(this.topicArray)
+        console.log(this.topicNameArray)
+
+        // this.topicArray.forEach(topic => {
+        //   console.log(topic);
+        //   if (!this.topicNameArray.includes(topic.name)) {
+        //     this.tstArray.push(topic);
+        //   }
+        // })
+        // console.log(this.tstArray);
       })
       }
+
+
+
   }
   this.techService.getAllTechnologies().subscribe(res => {
     this.tech = res;

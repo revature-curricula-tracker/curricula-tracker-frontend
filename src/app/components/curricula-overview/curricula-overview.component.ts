@@ -127,11 +127,13 @@ export class CurriculaOverviewComponent implements OnInit {
   }
 
   addWeek() {
-    console.log("Creating table")
+    this.curriculum.numWeeks++
+    this.curService.updateCurriculum(this.curriculum).subscribe(res => {
+      this.curriculum = res;
+    })
     this.weekCounter++;
     this.weekArray.push(new Week(this.weekCounter));
     this.dataSource.data = this.weekArray; // this will show but the data won't persist
-    console.log(`table week ${this.curriculum.numWeeks}`);
   }
 
   removeWeek() {
@@ -140,6 +142,10 @@ export class CurriculaOverviewComponent implements OnInit {
       this.errorToastr("Cannot remove first week")
     }
     else {
+      this.curriculum.numWeeks--;
+      this.curService.updateCurriculum(this.curriculum).subscribe(res => {
+        this.curriculum = res;
+      })
       this.weekCounter--;
       this.weekArray.pop();
       this.dataSource.data = this.weekArray;
@@ -172,12 +178,18 @@ export class CurriculaOverviewComponent implements OnInit {
       disableClose: true,
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`result is ${JSON.stringify(result)}`);
-      for(let topic of result.selectedTech) {
-        if (!this.weekArray[result.weekId - 1].days[result.dayId].includes(topic)) {
-          this.weekArray[result.weekId - 1].days[result.dayId].push(topic);
-        }
-      }
+      this.weekArray = [];
+      this.getCurriculum(this.route.snapshot.params['id']);
+      // for(let topic of result.selectedTech)
+      //   result.selectedTech.forEach((topic: any, index: number) =>{
+      //   if (!this.weekArray[result.weekId - 1].days[result.dayId].includes(topic)) {
+      //     this.weekArray[result.weekId - 1].days[result.dayId].push(topic);
+      //     console.log("Probably shouldn't add")
+      //   } else {
+      //     this.weekArray[result.weekId -1].days[result.dayId].splice(index, 1);
+      //     console.log("duplicate");
+      //   }
+      // })
       // for (let values of this.dayObj) {
       //   if (values.dayId === result.weekId) {
       //     values.selectedTech = result.selectedTech;

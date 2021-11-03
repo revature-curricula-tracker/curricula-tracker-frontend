@@ -21,6 +21,7 @@
             <mat-form-field>
                 <mat-select multiple placeholder="Topics">
                     <mat-option (onSelectionChange)="changeTopic($event)" *ngFor="let t of topicArray" [value]="t">
+
                         {{ t.name }}
                     </mat-option>
                     <hr>

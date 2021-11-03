@@ -29,17 +29,17 @@
 }
 .curriculum-content{
     margin-left: 50px;
-    margin-right: 50px; 
+    margin-right: 50px;
     margin-top: 20px;
     margin-bottom: 5px;
     padding-bottom: 10px;
-    
+
 }
 .curriculum-heading
 {
     display: flex;
 }
-.curriculum-title{ 
+.curriculum-title{
     display: flex;
     align-items: center;
 }
@@ -79,9 +79,9 @@ td{
 .cdk-row .cdk-cell
 {
     height: 200px !important;
-    
+
 }
-.cdk-row:nth-child(even) 
+.cdk-row:nth-child(even)
 {
     background-color:rgb(243, 243, 243);
 }
@@ -132,8 +132,7 @@ td{
 }
 .legend-labels
 {
-    padding-left :5%;
-    display: ruby;
+    display: flex;
 }
 #legend-title{
     margin-top: 10px;
