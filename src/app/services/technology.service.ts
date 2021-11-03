@@ -37,7 +37,7 @@ export class TechnologyService {
   }
 
   public updateTechnology(tech: Technology): Observable<Technology> {
-    return this.http.patch<Technology>(`${url}/${tech.techId}`, tech)
+    return this.http.put<Technology>(`${url}/${tech.techId}`, tech)
       .pipe(catchError(e => this.handleError('update a technology', e)));
   }
 
