@@ -1,56 +1,91 @@
-<div mat-dialog-content>
-    <div class="dialog-content">
-
-        <h1 mat-dialog-title>Topics</h1>
-        <fa-icon class="icons" id="closeBtn" (click)="closeDialog()" [icon]="faClose"></fa-icon>
-
-        <mat-accordion displayMode="default" [multi]="true" [hideToggle]="false" *ngIf="topics.length > 0">
-            <mat-expansion-panel *ngFor="let topic of topics">
-                <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        {{topic.name}}
-                        &nbsp;
-                        <fa-icon class="icons" [icon]="faPencil" *ngIf="edit.target == topic.id && edit.state"></fa-icon>
-                        <fa-icon class="icons" [icon]="faWarning" *ngIf="confirmDelete && topic.id == confirmDelete.target" style="color: red"></fa-icon>
-                    </mat-panel-title>
-                </mat-expansion-panel-header>
-                    <ng-container *ngIf="edit.target != topic.id">
-                        <p> {{topic.description}} </p>
-                    </ng-container>
-                    
-                    <ng-container *ngIf="edit.target == topic.id && edit.state">
-                        <div class="form-content">
-                            <mat-form-field appearance="fill">
-                                <mat-label>Name</mat-label>
-                                <input matInput [formControl]="editName">
-                            </mat-form-field>
-                            <mat-form-field appearance="fill">
-                                <mat-label>Description</mat-label>
-                                <textarea matInput [formControl]="editDescription"></textarea>
-                            </mat-form-field>
-                        </div>
-                    </ng-container>
-                <mat-action-row>
-
-                    <ng-container *ngIf="edit.target == topic.id && edit.state">
-                        <button mat-button color="primary" (click)="cancelEdit()"> Cancel </button>
-                        <button mat-button color="primary" (click)="saveEditTopic(topic)"> Save </button>
-                    </ng-container>
-
-                    <ng-container *ngIf="confirmDelete.target == topic.id && confirmDelete.state">
-                        <button mat-button color="warn" (click)="deleteTopic(topic)"> Confirm delete </button>
-                        <button mat-button color="primary" (click)="confirmDelete = {'target': 0, 'state': false}"> Cancel </button>
-                    </ng-container>
-
-                    <ng-container *ngIf="edit.target != topic.id && confirmDelete.target != topic.id">
-                        <button mat-button color="primary" (click)="editTopic(topic)"> Edit </button>
-                        <button mat-button color="primary" (click)="confirmDelete = {'target': topic.id, state: true}"> Remove </button>
-                    </ng-container>
-                    
-                </mat-action-row>
-            </mat-expansion-panel>
-        </mat-accordion>
+<div class="dialog-contenido">
+    <fa-icon class="icons" id="closeBtn" (click)="closeDialog()" [icon]="faClose"></fa-icon>
+    <div mat-dialog-content>
         
-  
+        <button mat-fab id="create-topic-btn" aria-label="Create Topic" *ngIf="!createOpen" (click)="createOpen = !createOpen">
+            <mat-icon>add</mat-icon>
+        </button>
+        
+        <h1 mat-dialog-title>Topics</h1>
+        
+        
+        <div class="dialog-content" *ngIf="!createOpen; else create">
+    
+    
+            <mat-accordion displayMode="default" [multi]="false" [hideToggle]="false" *ngIf="topics.length > 0">
+                <mat-expansion-panel *ngFor="let topic of topics">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            {{topic.name}}
+                            &nbsp;
+                            <fa-icon class="icons" [icon]="faPencil" *ngIf="edit.target == topic.id && edit.state"></fa-icon>
+                            <fa-icon class="icons" [icon]="faWarning" *ngIf="confirmDelete && topic.id == confirmDelete.target" style="color: red"></fa-icon>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                        <ng-container *ngIf="edit.target != topic.id">
+                            <p> {{topic.description}} </p>
+                        </ng-container>
+                        
+                        <ng-container *ngIf="edit.target == topic.id && edit.state">
+                            <div class="form-content">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Name</mat-label>
+                                    <input matInput [formControl]="editName">
+                                </mat-form-field>
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Description</mat-label>
+                                    <textarea matInput [formControl]="editDescription"></textarea>
+                                </mat-form-field>
+                            </div>
+                        </ng-container>
+                    <mat-action-row>
+    
+                        <ng-container *ngIf="edit.target == topic.id && edit.state">
+                            <button mat-button color="primary" (click)="cancelEdit()"> Cancel </button>
+                            <button mat-button color="primary" (click)="saveEditTopic(topic)"> Save </button>
+                        </ng-container>
+    
+                        <ng-container *ngIf="confirmDelete.target == topic.id && confirmDelete.state">
+                            <button mat-button color="warn" (click)="deleteTopic(topic)"> Confirm delete </button>
+                            <button mat-button color="primary" (click)="confirmDelete = {'target': 0, 'state': false}"> Cancel </button>
+                        </ng-container>
+    
+                        <ng-container *ngIf="edit.target != topic.id && confirmDelete.target != topic.id">
+                            <button mat-button color="primary" (click)="editTopic(topic)"> Edit </button>
+                            <button mat-button color="primary" (click)="confirmDelete = {'target': topic.id, state: true}"> Remove </button>
+                        </ng-container>
+                        
+                    </mat-action-row>
+                </mat-expansion-panel>
+            </mat-accordion>
+            
+      
+        </div>
+    
+        <ng-template #create>
+            <div class="dialog-content">
+                <h1 mat-dialog-title>Create Topic</h1>
+                <fa-icon class="icons" id="closeBtn" (click)="closeDialog()" [icon]="faClose"></fa-icon>
+    
+                <form [formGroup]="createTopicForm" (ngSubmit)="createTopic()">
+                    <div class="form-content">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Name</mat-label>
+                            <input matInput type="text" formControlName="createName" required>
+                        </mat-form-field>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Description</mat-label>
+                            <textarea matInput type="text" formControlName="createDescription" required></textarea>
+                        </mat-form-field>
+                    </div>
+    
+                    <div class="actions-create">
+                        <button mat-button type="button" (click)="createOpen = !createOpen">Cancel</button>
+                        <button type="submit" mat-raised-button class="button-accent" mat-button id="create-btn">Create</button>
+                    </div>
+                </form>
+            </div>
+        </ng-template>
+        
     </div>
 </div>

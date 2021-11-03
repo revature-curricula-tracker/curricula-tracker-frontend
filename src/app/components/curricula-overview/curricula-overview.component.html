@@ -77,7 +77,7 @@
                   </ng-template>
                   <div class="btn-edit-table">
                     <button mat-icon-button class="btn-edit">
-                      <fa-icon class="btn-icon" [icon]="faEdit" (click)="openDialogTopic('topic', week.id, 1)">
+                      <fa-icon class="btn-icon" [icon]="faEdit" (click)="openDialogTopic('topic', week.id, 0, weekArray)">
                       </fa-icon>
                     </button>
                   </div>
@@ -105,7 +105,7 @@
                   </ng-template>
                   <div class="btn-edit-table">
                     <button mat-icon-button class="btn-edit">
-                      <fa-icon class="btn-icon" [icon]="faEdit" (click)="openDialogTopic('topic', week.id, 1)">
+                      <fa-icon class="btn-icon" [icon]="faEdit" (click)="openDialogTopic('topic', week.id, 1, weekArray)">
                       </fa-icon>
                     </button>
                   </div>
@@ -133,7 +133,7 @@
                   </ng-template>
                   <div class="btn-edit-table">
                     <button mat-icon-button class="btn-edit">
-                      <fa-icon class="btn-icon" [icon]="faEdit" (click)="openDialogTopic('topic', week.id, 1)">
+                      <fa-icon class="btn-icon" [icon]="faEdit" (click)="openDialogTopic('topic', week.id, 2, weekArray)">
                       </fa-icon>
                     </button>
                   </div>
@@ -161,7 +161,7 @@
                   </ng-template>
                   <div class="btn-edit-table">
                     <button mat-icon-button class="btn-edit">
-                      <fa-icon class="btn-icon" [icon]="faEdit" (click)="openDialogTopic('topic', week.id, 1)">
+                      <fa-icon class="btn-icon" [icon]="faEdit" (click)="openDialogTopic('topic', week.id, 3, weekArray)">
                       </fa-icon>
                     </button>
                   </div>
@@ -189,7 +189,7 @@
                   </ng-template>
                   <div class="btn-edit-table">
                     <button mat-icon-button class="btn-edit">
-                      <fa-icon class="btn-icon" [icon]="faEdit" (click)="openDialogTopic('topic', week.id, 1)">
+                      <fa-icon class="btn-icon" [icon]="faEdit" (click)="openDialogTopic('topic', week.id, 4, weekArray)">
                       </fa-icon>
                     </button>
                   </div>
@@ -205,14 +205,15 @@
     </div>
     <div>
       <div id="table-footer">
-        <button mat-icon-button class="btn-edit" (click)="addWeek()" style="color: white;
+        <button mat-icon-button matTooltip="Add Row" class="btn-edit" (click)="addWeek()" style="color: white;
         background-color: rgb(235, 125, 70);">
           <fa-icon class="btn-icon" [icon]="faPlus"></fa-icon>
         </button>
         &nbsp;
-        <button mat-icon-button class="btn-edit" (click)="removeWeek()" style="color: white;
+        <button mat-icon-button matTooltip="Remove Row" class="btn-edit" (click)="removeWeek()" style="color: white;
         background-color: rgb(235, 125, 70);">
           <fa-icon class="btn-icon" [icon]="faMinus"></fa-icon>
         </button>
       </div>
+      <hr>
     </div>

@@ -36,22 +36,46 @@ export class TechnologyOverviewComponent implements AfterViewInit {
   techName: string = '';
   technologies: Technology[] = [];
   displayedColumns: string[] = ['techName', 'topics', 'actions'];
+  topicsArray: any[] = [];
+  topicsNameArray: any[] = [];
 
   dataSource = new MatTableDataSource<Technology>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  
+
   constructor(public dialog: MatDialog, private techService: TechnologyService) { }
 
   ngAfterViewInit() {
-    this.techService.getAllTechnologies().subscribe(data => {
-      this.technologies = [...data];
+    this.techService.getAllTechnologies().subscribe(async data => {
+
+      //await this.fixTopic(data);
+
+      this.technologies = await this.fixTopic(data);
       this.dataSource.data = [...this.technologies];
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
       console.log(this.technologies);
     });
+  }
+
+  fixTopic(data: any[]): Promise<any> {
+    return new Promise((res, rej) => {
+      data.forEach((tech: Technology) => {
+        this.topicsNameArray = [];
+        this.topicsArray = [];
+        tech.topics.forEach((topic: Topic) => {
+          if (!this.topicsNameArray.includes(topic.name)) {
+            this.topicsNameArray.push(topic.name);
+            this.topicsArray.push(topic);
+          }
+        });
+
+        tech.topics = this.topicsArray;
+      });
+
+      res(data);
+    })
   }
 
   openDialog(type: string, row?: Technology): void {
@@ -64,8 +88,8 @@ export class TechnologyOverviewComponent implements AfterViewInit {
     const dialogRef = this.dialog.open(TechnologyDialogComponent, {
       width: dialogWidth,
       height: dialogHeight,
-      data: { 
-        techName: this.techName, 
+      data: {
+        techName: this.techName,
         type,
         row
       }
@@ -90,7 +114,7 @@ export class TechnologyOverviewComponent implements AfterViewInit {
       height: '400px',
       disableClose: true,
       data: {
-        topics: tech.topics
+        tech
       }
     });
 
@@ -132,7 +156,7 @@ export class TechnologyOverviewComponent implements AfterViewInit {
       this.dataSource.data = data;
       return;
     }
-    
+
     this.dataSource.data = data.sort((a, b) => {
       let isAsc = sort.direction == 'asc';
       switch (sort.active) {

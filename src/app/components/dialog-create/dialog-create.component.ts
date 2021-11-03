@@ -8,6 +8,7 @@ import { Topic } from 'src/app/model/topic';
 import { CurriculumService } from 'src/app/services/curriculum.service';
 import { TechnologyService } from 'src/app/services/technology.service';
 import { TopicsService } from 'src/app/services/topics.service';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-dialog-create',
@@ -15,6 +16,8 @@ import { TopicsService } from 'src/app/services/topics.service';
   styleUrls: ['./dialog-create.component.css']
 })
 export class DialogCreateComponent implements OnInit {
+
+  faClose = faTimes;
 
   something: DialogData = new DialogData("", 0, [], 0, 0, []);
   curriculum: Curriculum = new Curriculum(0, "", 1, 0, []);
@@ -24,16 +27,19 @@ export class DialogCreateComponent implements OnInit {
 
   tech: Technology[] = [];
   topicArray: Topic[] = [];
-
+  topicNameArray: any[] = [];
+  tstArray: any[] = [];
   weekObj: any = {
     selectedTech: [],
     weekId: 0
   };
 
-  weekObj2: any[] = [{
+  dayObj: any = {
     selectedTech: [],
-    weekId: 0
-  }];
+    weekId: 0,
+    dayId: 0
+  };
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
     public dialogRef: MatDialogRef<DialogCreateComponent>,
@@ -45,14 +51,12 @@ export class DialogCreateComponent implements OnInit {
   }
 
   change(event: any, counter: number) {
-    console.log(`event is ${JSON.stringify(event.isUserInput)}`);
     if (event.isUserInput) {
       this.something.name.push(event.source.value)
       this.something.counter = counter;
     }
   }
   changeWeek(event: any) {
-    //console.log(`event week is ${JSON.stringify(event.source)}`);
     if (event.isUserInput) {
       if (event.source.selected) {
         this.weekObj.weekId = this.data.counter;
@@ -68,16 +72,16 @@ export class DialogCreateComponent implements OnInit {
   }
 
   changeTopic(event: any) {
-    // console.log(`event topic is ${JSON.stringify(event.source.selected)}`);
     if (event.isUserInput) {
       if (event.source.selected) {
-        this.weekObj.weekId = this.data.counter;
-        this.weekObj.selectedTech.push(event.source.value);
+        this.dayObj.weekId = this.data.counter;
+        this.dayObj.dayId = this.data.days;
+        this.dayObj.selectedTech.push(event.source.value);
       }
       else {
-        this.weekObj.selectedTech.forEach((element: any, index: number) => {
+        this.dayObj.selectedTech.forEach((element: any, index: number) => {
           if (element === event.source.value) {
-            this.weekObj.selectedTech.splice(index, 1);
+            this.dayObj.selectedTech.splice(index, 1);
           }
         });
       }
@@ -111,57 +115,60 @@ export class DialogCreateComponent implements OnInit {
       // have a toast
     }
     else {
-      console.log(`topic is ${JSON.stringify(this.topic)}`);
       this.topicService.addTopic(this.topic).subscribe(res => {
       });
       this.dialogRef.close();
     }
   }
   confirmTopic() {
-    for (let i = 0; i < this.weekObj.selectedTech.length; i++) {
-      this.topic = this.weekObj.selectedTech[i];
+    for (let i = 0; i < this.dayObj.selectedTech.length; i++) {
+      this.topic = this.dayObj.selectedTech[i];
       this.topic.curriculum = this.curriculum;
-      this.topic.topicDay = (this.data.counter - 1) * 5 + this.data.days;
-      // this.weekObj.selectedTech.push(this.topic);y = (this.data.counter - 1) * 5 + this.data.days;
+      this.topic.topicDay = (this.data.counter - 1) * 5 + (this.data.days + 1);
       this.topic.id = 0;
       this.topicService.addTopic(this.topic).subscribe(res => {
-        this.weekObj.selectedTech.push(res);
-      });
+        this.dayObj.selectedTech.push(res);
+      })
     }
     this.weekObj.weekId = (this.data.counter - 1) * 5 + this.data.days;
-    console.log(`week obj ${JSON.stringify(this.weekObj)}`);
-    this.dialogRef.close(this.weekObj);
+    this.dialogRef.close(this.dayObj);
   }
+
   ngOnInit() {
-    this.techService.getAllTechnologies().subscribe(res => {
-      this.tech = res;
-      if (this.data.weekObj) {
-        // this.weekObj2 = this.data.weekObj;
-        for (let values of this.data.weekObj) {
-          // they are the same week
-          if (values.weekId === this.data.counter) {
-            // go through
-            for (let i = 0; i < values.selectedTech.length; i++) {
-              this.tech.forEach(x => {
-                // filter
-                if (x.techName === values.selectedTech[i]) {
-                  for (let j = 0; j < x.topics.length; j++) {
-                    // push it to array
-                    this.topicArray.push(x.topics[j]);
-                    // WE DO NOT CHECK FOR DUPLICATES
-                  }
-                }
-              })
-            }
+    if(this.data.weekObj){
+      for (let i = 0; i < this.data.weekObj[this.data.counter - 1].techs.length; i++){
+        this.techService.getTechnologyByName(this.data.weekObj[this.data.counter - 1].techs[i]).subscribe(res => {
+        for(let j = 0; j < res.topics.length; j++){
+          res.topics[j]['technology'] = new Technology(res.techId, res.techName, res.color, []);
+          if(!this.topicNameArray.includes(res.topics[j].name)){
+            this.topicNameArray.push(res.topics[j].name);
+            this.topicArray.push(res.topics[j]);
           }
         }
+        console.log(this.topicArray)
+        console.log(this.topicNameArray)
+
+        // this.topicArray.forEach(topic => {
+        //   console.log(topic);
+        //   if (!this.topicNameArray.includes(topic.name)) {
+        //     this.tstArray.push(topic);
+        //   }
+        // })
+        // console.log(this.tstArray);
+      })
       }
-    });
-    if (this.data.curriculumId) {
-      this.curriculumService.findById(this.data.curriculumId).subscribe(res => {
-        this.topic.curriculum = res;
-        this.curriculum = res;
-      });
-    }
+
+
+
   }
+  this.techService.getAllTechnologies().subscribe(res => {
+    this.tech = res;
+  })
+  if (this.data.curriculumId) {
+    this.curriculumService.findById(this.data.curriculumId).subscribe(res => {
+      this.topic.curriculum = res;
+      this.curriculum = res;
+    });
+  }
+ }
 }

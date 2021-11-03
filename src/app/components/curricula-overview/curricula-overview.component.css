@@ -29,17 +29,17 @@
 }
 .curriculum-content{
     margin-left: 50px;
-    margin-right: 50px; 
+    margin-right: 50px;
     margin-top: 20px;
     margin-bottom: 5px;
     padding-bottom: 10px;
-    
+
 }
 .curriculum-heading
 {
     display: flex;
 }
-.curriculum-title{ 
+.curriculum-title{
     display: flex;
     align-items: center;
 }
@@ -49,10 +49,6 @@
 .curriculum-calendar{
     margin-top: 10px;
 }
-#edit-button {
-    margin-left: 10px;
-    border-radius: 25px;
-}
 .btn-edit-table
 {
     margin-left: 10px;
@@ -61,7 +57,8 @@
     right: 5px;
 }
 .btn-edit{
-    background-color: rgba(211, 211, 211, 0.404);
+    color: #9c9c9c;
+    background-color: rgba(211, 211, 211, 0.226);
 }
 th{
     width: 16%;
@@ -77,14 +74,14 @@ td{
     position:relative;
 }
 .cdk-row{
-    border-bottom: rgb(207, 207, 207) solid 1px !important;
+    /* border-bottom: rgb(207, 207, 207) solid 1px !important; */
 }
 .cdk-row .cdk-cell
 {
     height: 200px !important;
-    
+
 }
-.cdk-row:nth-child(even) 
+.cdk-row:nth-child(even)
 {
     background-color:rgb(243, 243, 243);
 }
@@ -105,12 +102,12 @@ td{
 .week-cell{
     align-items: center;
     vertical-align: top;
-    border-right: rgb(211, 211, 211) solid 1px !important;
-    border: rgb(211, 211, 211)  solid 1px  ;
+    border-right: rgb(156, 156, 156) solid 1px !important;
+    /* border: rgb(211, 211, 211)  solid 1px  ; */
 }
 .day-cell{
     vertical-align: top;
-    border: rgb(211, 211, 211)  solid 1px;
+    border-right: rgb(214, 214, 214) dashed 1px;
 }
 .day-cell:hover{
     background-color: rgb(234, 247, 255) !important;
@@ -135,8 +132,7 @@ td{
 }
 .legend-labels
 {
-    padding-left :5%;
-    display: ruby;
+    display: flex;
 }
 #legend-title{
     margin-top: 10px;
