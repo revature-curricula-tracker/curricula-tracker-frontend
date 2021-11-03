@@ -23,14 +23,14 @@ export class CurriculumCreateComponent implements OnInit {
   currentItem: any;
   counter: number = 0;
   input !: string;
+  title !: string;
+  curriculumId !: number;
   name !: string;
   id: number = 0;
   // something: DialogData = new DialogData("", 0, [], 0);
   // techArray: DialogData = new DialogData("", 0, [], 0);
   newDialogData: DialogData[] = [];
   newDialogData2: DialogData[] = [];
-  title !: string;
-  curriculumId !: number;
   icon = faPlusSquare;
   // tech: Technology[] = [];
   weekObj: any[] = [{

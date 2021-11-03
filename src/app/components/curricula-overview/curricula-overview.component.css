@@ -55,12 +55,13 @@
 }
 .btn-edit-table
 {
-    bottom: 10%;
-    position: absolute;
     margin-left: 10px;
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
 }
 .btn-edit{
-    background-color: lightgrey;
+    background-color: rgba(211, 211, 211, 0.404);
 }
 th{
     width: 16%;
@@ -71,6 +72,9 @@ th{
     color: darkgray;
     border-bottom: rgb(156, 156, 156) solid 1px !important;
     background-color: white;
+}
+td{
+    position:relative;
 }
 .cdk-row{
     border-bottom: rgb(207, 207, 207) solid 1px !important;

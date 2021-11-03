@@ -6,7 +6,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Topic } from '../model/topic';
 
-const url = `${backendUrl}topics`;
+const url = `${backendUrl}/topics`;
 @Injectable({
   providedIn: 'root'
 })
@@ -28,7 +28,6 @@ export class TopicsService {
       .pipe(catchError(e => this.handleError('Find by name', e)));
   }
 
-  
   public addTopic(top: Topic): Observable<Topic> {
     return this.http.post<Topic>(`${url}/add`, top)
     .pipe(catchError(e => this.handleError('add a topic', e)));

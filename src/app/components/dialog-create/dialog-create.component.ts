@@ -17,7 +17,7 @@ import { TopicsService } from 'src/app/services/topics.service';
 export class DialogCreateComponent implements OnInit {
 
   something: DialogData = new DialogData("", 0, [], 0, 0, []);
-  curriculum: Curriculum = new Curriculum(0, "", 0, 0, []);
+  curriculum: Curriculum = new Curriculum(0, "", 1, 0, []);
   technology: Technology = new Technology(0, "", "", []);
 
   topic: Topic = new Topic("not used", 0, "", this.technology, this.curriculum, 0);

@@ -14,7 +14,7 @@
                     <mat-label>Search</mat-label>
                     <input matInput (keyup)="applyFilter($event)" placeholder="" #input>
                 </mat-form-field>
-                <button class="button-accent" mat-raised-button (click)="navigateTo()">
+                <button class="button-accent" mat-raised-button (click)="createDialog()">
                     <fa-icon class="icons" [icon]="faPlus" style="font-size: 22px;"></fa-icon>
                     &nbsp;
                     Create
@@ -42,7 +42,7 @@
                                     </ng-container>
 
                                     <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-                                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                                    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="viewCurriculum(row.curriculumId)" style="cursor: pointer;"></tr>
 
                                     <!-- Row shown when there is no matching data. -->
                                     <tr class="mat-row" *matNoDataRow>
