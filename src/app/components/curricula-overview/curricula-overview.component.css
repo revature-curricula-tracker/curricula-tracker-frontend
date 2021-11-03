@@ -107,7 +107,7 @@ td{
 }
 .day-cell{
     vertical-align: top;
-    border-right: rgb(255, 243, 231) dotted 1px;
+    border-right: rgb(214, 214, 214) dashed 1px;
 }
 .day-cell:hover{
     background-color: rgb(234, 247, 255) !important;
