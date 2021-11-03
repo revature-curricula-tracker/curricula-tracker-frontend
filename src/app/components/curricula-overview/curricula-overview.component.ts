@@ -156,7 +156,6 @@ export class CurriculaOverviewComponent implements OnInit {
     this.toastr.error(message, "Deleting Failed");
   }
   openDialogWeek(input: String, id: number): void {
-    console.log(`are you being clicked?`)
     const dialogRef = this.dialog.open(DialogCreateComponent, {
       width: '250px',
       data: { input: input, curriculumId: this.curriculumId, counter: id },
@@ -180,24 +179,6 @@ export class CurriculaOverviewComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       this.weekArray = [];
       this.getCurriculum(this.route.snapshot.params['id']);
-      // for(let topic of result.selectedTech)
-      //   result.selectedTech.forEach((topic: any, index: number) =>{
-      //   if (!this.weekArray[result.weekId - 1].days[result.dayId].includes(topic)) {
-      //     this.weekArray[result.weekId - 1].days[result.dayId].push(topic);
-      //     console.log("Probably shouldn't add")
-      //   } else {
-      //     this.weekArray[result.weekId -1].days[result.dayId].splice(index, 1);
-      //     console.log("duplicate");
-      //   }
-      // })
-      // for (let values of this.dayObj) {
-      //   if (values.dayId === result.weekId) {
-      //     values.selectedTech = result.selectedTech;
-      //     return;
-      //   }
-      // }
-      // this.dayObj.push(result);
-      // console.log(`dayObj is ${JSON.stringify(this.dayObj)}`);
     });
   }
 
